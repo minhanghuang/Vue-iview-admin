@@ -19,7 +19,6 @@ export default new Router({
                 {
                     path: "/form",
                     component: () => import("@/components/markdown")
-                    // component: () => import("@/views/home/content/content2")
                 }
             ]
         }
