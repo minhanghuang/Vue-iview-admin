@@ -54,7 +54,8 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "node-sass": "^4.9.4",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "marked": "^0.3.6"
   },
   "engines": {
     "node": ">= 6.0.0",

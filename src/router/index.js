@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/home/Home'
+import Markdown from '@/components/index'
 
 Vue.use(Router);
 
@@ -18,7 +19,8 @@ export default new Router({
                 },
                 {
                     path: "/form",
-                    component: () => import("@/views/home/content/content2")
+                    component: () => import("@/components/index")
+                    // component: () => import("@/views/home/content/content2")
                 }
             ]
         }
