@@ -1,7 +1,7 @@
 <template>
-    <div class="indexContainer">
-        <div @click="datasubmit()">提交</div>
-        <div class="editorContainer">
+    <div class="indexContainer" style="height: 100%;width: 100%">
+<!--        <div @click="datasubmit()">提交</div>-->
+        <div class="editorContainer" style="height: 100%;width: 100%">
             <markdown
             :mdValuesP="msg.mdValue"
             :fullPageStatusP="false"
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import markdown from '@/components/markdown'
+    import markdown from '@/components/markdown/markdown'
     export default {
         name: 'index',
         data() {

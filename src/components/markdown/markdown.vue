@@ -38,8 +38,8 @@
 
 <script>
     import marked from 'marked'
-    import hljs from '../../static/js/highlight.min.js'
-    import range from '../../static/js/rangeFn.js'
+    import hljs from 'static/js/highlight.min.js'
+    import range from 'static/js/rangeFn.js'
 
     marked.setOptions({
         renderer: new marked.Renderer(),
@@ -277,15 +277,15 @@
 <style lang="scss">
     /*引入reset文件*/
 
-    @import "../../static/css/reset";
+    @import "../../../static/css/reset";
 
     /*引入github的markdown样式文件*/
 
-    @import "../../static/css/github-markdown.css";
+    @import "../../../static/css/github-markdown.css";
 
     /*引入atom的代码高亮样式文件*/
 
-    @import "../../static/css/atom-one-dark.min.css";
+    @import "../../../static/css/atom-one-dark.min.css";
     .mdContainer {
         width: 100%;
         height: 100%;
