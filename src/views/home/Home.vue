@@ -58,13 +58,13 @@
 						<Submenu name="1">
 							<template slot="title">
 								<Icon type="ios-navigate"></Icon>
-								Item 1
+								文章
 							</template>
-							<MenuItem name="table">
-								Table
+							<MenuItem name="listblog">
+								列表
 							</MenuItem>
-							<MenuItem name="form">
-								Form
+							<MenuItem name="createblog">
+								创建
 							</MenuItem>
 						</Submenu>
 						<Submenu name="2">
@@ -91,7 +91,7 @@
 						<BreadcrumbItem>Components</BreadcrumbItem>
 						<BreadcrumbItem>Layout</BreadcrumbItem>
 					</Breadcrumb>
-					<Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+					<Content :style="{padding: '24px', Height: 'auto', background: '#fff'}">
 						<router-view></router-view>
 					</Content>
 				</Layout>

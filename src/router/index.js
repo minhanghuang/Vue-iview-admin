@@ -10,14 +10,14 @@ export default new Router({
             path: '/',
             name: 'Home',
             component: Home,
-            redirect:"/table",
+            redirect:"/listblog",
             children:[
                 {
-                    path: "/table",
-                    component: () => import("@/views/home/content/content1")
+                    path: "/listblog",
+                    component: () => import("@/components/blog_list/bloglist")
                 },
                 {
-                    path: "/form",
+                    path: "/createblog",
                     component: () => import("@/components/markdown")
                 }
             ]
