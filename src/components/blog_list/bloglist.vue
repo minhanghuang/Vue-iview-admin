@@ -31,7 +31,7 @@
                         align: 'center'
                     },
                     {
-                        title: 'Name',
+                        title: '名字',
                         key: 'name'
                     },
                     {
@@ -40,103 +40,103 @@
                         sortable: true
                     },
                     {
-                        title: 'Address',
+                        title: '地址',
                         key: 'address'
                     }
                 ],
                 data1: [
                     {
-                        name: 'John Brown',
+                        name: '曼切斯特',
                         age: 18,
                         address: 'New York No. 1 Lake Park',
                         date: '2016-10-03'
                     },
                     {
-                        name: 'Jim Green',
+                        name: '切尔西',
                         age: 24,
                         address: 'London No. 1 Lake Park',
                         date: '2016-10-01'
                     },
                     {
-                        name: 'Joe Black',
+                        name: '巴黎',
                         age: 30,
                         address: 'Sydney No. 1 Lake Park',
                         date: '2016-10-02'
                     },
                     {
-                        name: 'Jon Snow',
+                        name: '慕尼黑',
                         age: 26,
                         address: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
                     },
                     {
-                        name: 'John Brown',
+                        name: '曼切斯特',
                         age: 18,
                         address: 'New York No. 1 Lake Park',
                         date: '2016-10-03'
                     },
                     {
-                        name: 'Jim Green',
+                        name: '切尔西',
                         age: 24,
                         address: 'London No. 1 Lake Park',
                         date: '2016-10-01'
                     },
                     {
-                        name: 'Joe Black',
+                        name: '巴黎',
                         age: 30,
                         address: 'Sydney No. 1 Lake Park',
                         date: '2016-10-02'
                     },
                     {
-                        name: 'Jon Snow',
+                        name: '慕尼黑',
                         age: 26,
                         address: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
                     },
                     {
-                        name: 'John Brown',
+                        name: '曼切斯特',
                         age: 18,
                         address: 'New York No. 1 Lake Park',
                         date: '2016-10-03'
                     },
                     {
-                        name: 'Jim Green',
+                        name: '切尔西',
                         age: 24,
                         address: 'London No. 1 Lake Park',
                         date: '2016-10-01'
                     },
                     {
-                        name: 'Joe Black',
+                        name: '巴黎',
                         age: 30,
                         address: 'Sydney No. 1 Lake Park',
                         date: '2016-10-02'
                     },
                     {
-                        name: 'Jon Snow',
+                        name: '慕尼黑',
                         age: 26,
                         address: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
                     },
                     {
-                        name: 'John Brown',
+                        name: '曼切斯特',
                         age: 18,
                         address: 'New York No. 1 Lake Park',
                         date: '2016-10-03'
                     },
                     {
-                        name: 'Jim Green',
+                        name: '切尔西',
                         age: 24,
                         address: 'London No. 1 Lake Park',
                         date: '2016-10-01'
                     },
                     {
-                        name: 'Joe Black',
+                        name: '巴黎',
                         age: 30,
                         address: 'Sydney No. 1 Lake Park',
                         date: '2016-10-02'
                     },
                     {
-                        name: 'Jon Snow',
+                        name: '慕尼黑',
                         age: 26,
                         address: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
