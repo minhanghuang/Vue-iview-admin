@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import LoginForm from '@/components/login-form' // 驼峰命名法 
+import LoginForm from '@/components/login-form' // 驼峰命名法
 	// import { mapActions } from 'vuex'
 	export default {
 		components: {
