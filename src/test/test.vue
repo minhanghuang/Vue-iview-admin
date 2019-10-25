@@ -4,7 +4,11 @@
 
 <template>
 	<div>
-		Test
+		<input value="text" v-model="input_value">
+		<p>{{input_value}}</p>
+		<button @click="buttonCilck">
+			点我
+		</button>
 	</div>
 </template>
 
@@ -13,8 +17,18 @@
         name: "test",
         components: {},
         data() {
-            return {}
+            return {
+                input_value:"aaa"
+            }
         },
+	    methods:{
+            buttonCilck(){
+                console.log("pppp");
+                console.log(this.$store.state.bankInf.name)
+	            this.$store.commit("update","kkk")
+                console.log(this.$store.state.bankInf.name)
+            }
+	    }
     }
 </script>
 
