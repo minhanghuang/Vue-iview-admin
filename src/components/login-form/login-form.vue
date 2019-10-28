@@ -1,7 +1,7 @@
 <template>
-	<Form ref="loginForm" :model="form" :rules="rules" @keydown.enter.native="handleSubmit">
-		<FormItem prop="userName">
-			<Input v-model="form.userName" placeholder="请输入用户名">
+	<Form ref="loginForm" :model="form" :rules="ruleslogin" @keydown.enter.native="handleSubmit">
+		<FormItem prop="username">
+			<Input v-model="form.username" placeholder="请输入用户名">
 				<span slot="prepend">
 				<Icon :size="16" type="ios-person"></Icon>
 				</span>
@@ -23,47 +23,31 @@
 <script>
 export default {
 	name: 'LoginForm',
-	props: {
-		userNameRules: {
-			type: Array,
-			default: () => {
-				return [
-					{ required: true, message: '账号不能为空', trigger: 'blur' }
-				]
-			}
-		},
-		passwordRules: {
-			type: Array,
-			default: () => {
-				return [
-					{ required: true, message: '密码不能为空', trigger: 'blur' }
-				]
-			}
-		}
-	},
 	data () {
 		return {
 			form: {
-				userName: 'admin',
+                username: 'admin',
 				password: ''
-			}
-		}
-	},
-	computed: {
-		rules () {
-			return {
-				userName: this.userNameRules,
-				password: this.passwordRules
-			}
+			},
+            ruleslogin:{
+                username: [
+                    { required: true, message: '用户名不能为空', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '密码不能为空', trigger: 'blur' },
+                    { type: 'string', min: 6, message: '6位数密码', trigger: 'blur' }
+                ]
+            }
 		}
 	},
 	methods: {
 		handleSubmit () {
 			this.$refs.loginForm.validate((valid) => {
+			    console.log(valid)
 				if (valid) {
 					this.$emit('on-success-valid', {
-					userName: this.form.userName,
-					password: this.form.password
+                        username: this.form.username,
+						password: this.form.password
 					})
 				}
 			})

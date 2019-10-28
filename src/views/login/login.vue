@@ -16,27 +16,11 @@
 </template>
 
 <script>
-import LoginForm from '@/components/login-form' // 驼峰命名法
-	// import { mapActions } from 'vuex'
+	import LoginForm from '@/components/login-form' // 驼峰命名法
 	export default {
 		components: {
 			LoginForm
 	    },
-		// methods: {
-		// 	...mapActions([
-		// 		'handleLogin',
-		// 		'getUserInfo'
-		// 	]),
-		// 	handleSubmit ({ userName, password }) {
-		// 		this.handleLogin({ userName, password }).then(res => {
-		// 			this.getUserInfo().then(res => {
-		// 				this.$router.push({
-		// 					name: this.$config.homeName
-		// 				})
-		// 			})
-		// 		})
-		// 	}
-		// }
 	}
 </script>
 
