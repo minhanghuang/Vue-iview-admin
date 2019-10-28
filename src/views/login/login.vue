@@ -30,6 +30,7 @@
             handleSubmit({username, password}){
 				console.log("username:",username);
 				console.log("password:",password);
+                this.$router.push("/") // 跳转到首页
             }
 		}
 	}
