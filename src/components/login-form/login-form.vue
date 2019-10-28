@@ -29,11 +29,11 @@ export default {
                 username: 'admin',
 				password: ''
 			},
-            ruleslogin:{
-                username: [
+            ruleslogin:{ // 校验表单规则
+                username: [ // FormItem标签中的 prop 属性预期值
                     { required: true, message: '用户名不能为空', trigger: 'blur' }
                 ],
-                password: [
+                password: [ // FormItem标签中的 prop 属性预期值
                     { required: true, message: '密码不能为空', trigger: 'blur' },
                     { type: 'string', min: 6, message: '6位数密码', trigger: 'blur' }
                 ]
@@ -43,11 +43,11 @@ export default {
 	methods: {
 		handleSubmit () {
 			this.$refs.loginForm.validate((valid) => {
-			    console.log(valid)
+			    // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
 				if (valid) {
 					this.$emit('on-success-valid', {
-                        username: this.form.username,
-						password: this.form.password
+                        username: this.form.username, // 将this.form.username和this.form.password传给父组件的on-success-valid参数
+						password: this.form.password // 并使用 username 和 password 接受
 					})
 				}
 			})

@@ -18,9 +18,20 @@
 <script>
 	import LoginForm from '@/components/login-form' // 驼峰命名法
 	export default {
+	    data(){
+	      return{
+
+	      }
+	    },
 		components: {
 			LoginForm
 	    },
+		methods:{
+            handleSubmit({username, password}){
+				console.log("username:",username);
+				console.log("password:",password);
+            }
+		}
 	}
 </script>
 
