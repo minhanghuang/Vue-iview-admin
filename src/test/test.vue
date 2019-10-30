@@ -99,64 +99,126 @@
 <!--    }-->
 <!--</script>-->
 
-<style lang="scss" scoped>
+<!--<style lang="scss" scoped>-->
 
-</style>
+<!--</style>-->
+
+<!--<template>-->
+<!--	<div>-->
+<!--		<Form ref="formlogin" :model="form" :rules="rulelogin" inline>-->
+<!--			<FormItem prop="user">-->
+<!--				<Input type="text" v-model="form.username" placeholder="Username">-->
+<!--					<Icon type="ios-person-outline" slot="prepend"></Icon>-->
+<!--				</Input>-->
+<!--			</FormItem>-->
+<!--			<FormItem prop="password">-->
+<!--				<Input type="password" v-model="form.password" placeholder="Password">-->
+<!--					<Icon type="ios-lock-outline" slot="prepend"></Icon>-->
+<!--				</Input>-->
+<!--			</FormItem>-->
+<!--			<FormItem>-->
+<!--				<Button type="primary" @click="submitForm">登录</Button>-->
+<!--			</FormItem>-->
+<!--		</Form>-->
+<!--	</div>-->
+<!--</template>-->
+
+<!--<script>-->
+
+<!--    export default {-->
+<!--        name: "test",-->
+<!--        data() {-->
+<!--            return {-->
+<!--                form:{-->
+<!--                    username:"admin",-->
+<!--                    password:"123456",-->
+<!--                },-->
+<!--                rulelogin: {-->
+<!--                    username: [-->
+<!--                        { required: true, message: '用户名不能为空', trigger: 'blur' }-->
+<!--                    ],-->
+<!--                    password: [-->
+<!--                        { required: true, message: '密码不能为空', trigger: 'blur' },-->
+<!--                        { type: 'string', min: 6, message: '密码至少需要6位', trigger: 'blur' }-->
+<!--                    ]-->
+<!--                }-->
+<!--            }-->
+<!--        },-->
+<!--        methods:{-->
+<!--            submitForm(){-->
+<!--                this.$refs['formlogin'].validate((valid) => {-->
+<!--                    if (valid) {-->
+<!--                        var formdata = JSON.stringify(this.form)-->
+<!--                        console.log(formdata)-->
+<!--                        // this.$Message.success('Success!');-->
+<!--                    } else {-->
+<!--                        // this.$Message.error('Fail!');-->
+<!--                        console.log("error")-->
+<!--                    }-->
+<!--                })-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
 
 <template>
 	<div>
-		<Form ref="formlogin" :model="form" :rules="rulelogin" inline>
-			<FormItem prop="user">
-				<Input type="text" v-model="form.username" placeholder="Username">
-					<Icon type="ios-person-outline" slot="prepend"></Icon>
-				</Input>
-			</FormItem>
-			<FormItem prop="password">
-				<Input type="password" v-model="form.password" placeholder="Password">
-					<Icon type="ios-lock-outline" slot="prepend"></Icon>
-				</Input>
-			</FormItem>
-			<FormItem>
-				<Button type="primary" @click="submitForm">登录</Button>
-			</FormItem>
-		</Form>
+		<div @click="btnClick()">点击</div>
+		<div @click="btnClick2()">POST点击</div>
+		<div @click="btnClick3()">GET点击</div>
+		<div @click="btnClick4()">POST点击</div>
 	</div>
 </template>
 
 <script>
-
     export default {
-        name: "test",
-        data() {
-            return {
-                form:{
-                    username:"admin",
-                    password:"123456",
-                },
-                rulelogin: {
-                    username: [
-                        { required: true, message: '用户名不能为空', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '密码不能为空', trigger: 'blur' },
-                        { type: 'string', min: 6, message: '密码至少需要6位', trigger: 'blur' }
-                    ]
-                }
-            }
+        name: 'HelloWorld',
+        data () {
+            return {}
         },
         methods:{
-            submitForm(){
-                this.$refs['formlogin'].validate((valid) => {
-                    if (valid) {
-                        var formdata = JSON.stringify(this.form)
-                        console.log(formdata)
-                        // this.$Message.success('Success!');
-                    } else {
-                        // this.$Message.error('Fail!');
-                        console.log("error")
-                    }
+            // btnClick:function(){
+            //     this.axios.get('/api/user/list-user/').then((response)=>{
+            //         console.log(response.data)
+            //     }).catch((error)=>{
+            //         console.log(error)
+            //     })
+            // },
+            // btnClick2:function(){
+            //     this.axios.post(
+            //         '/api/user/create-user/',
+            //         {
+            //             "username" : "cox2",
+            //             "password" : "cox123456",
+            //         }
+            //     ).then((response)=>{
+            //         console.log(response.data)
+            //     }).catch((error)=>{
+            //         console.log(error.response.status)
+            //     })
+            // },
+            btnClick3:function(){
+                this.$api.api_all.get_test_list().then((response)=>{
+                    console.log(response.data)
+                }).catch((error)=>{
+                    console.log(error.response.status)
                 })
-            }
-        }
+            },
+            btnClick4:function(){
+                this.$api.api_all.create_test(
+                    "小肥柴"
+                ).then((response)=>{
+                    console.log(response.data)
+                }).catch((error)=>{
+                    console.log(error.response.status)
+                })
+            },
+        },
     }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>
+
