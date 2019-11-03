@@ -28,9 +28,15 @@
 	    },
 		methods:{
             handleSubmit({username, password}){
-				console.log("username:",username);
-				console.log("password:",password);
-                this.$router.push("/") // 跳转到首页
+                this.$api.api_all.post_user_login_api(
+                    username,password
+                ).then((response)=>{
+                    this.$Message.success(response.data.msg);
+                    localStorage.setItem('TOKEN', JSON.stringify(response.data.results.TOKEN)); // 设置TOKEN
+                    this.$router.push("/") // 跳转到首页
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
             }
 		}
 	}

@@ -27,7 +27,7 @@ export default {
 		return {
 			form: {
                 username: 'admin',
-				password: ''
+				password: 'cox123456'
 			},
             ruleslogin:{ // 校验表单规则
                 username: [ // FormItem标签中的 prop 属性预期值

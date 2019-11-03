@@ -7,7 +7,7 @@
 		<Col span="24" style="height: 100%;width: 100%">
 			<Row>
 				<Col span="24">
-					<Table stripe border ref="selection" :columns="columns1" :data="data1"></Table>
+					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table"></Table>
 				</Col>
 			</Row>
 			<Row style="margin-top: 30px" type="flex" justify="center">
@@ -24,124 +24,59 @@
         name: "bloglist",
         data () {
             return {
-                columns1: [
+                columns_table: [
                     {
+	                    // 多选标签
                         type: 'selection',
                         width: 60,
                         align: 'center'
                     },
                     {
-                        title: '名字',
-                        key: 'name'
+                        title: 'id',
+                        key: 'id',
+                        width:70, // 列宽
+                        sortable: true // 排序
                     },
                     {
-                        title: 'Age',
-                        key: 'age',
-                        sortable: true
+                        title: '标题',
+                        key: 'title',
+                        width:300,
                     },
                     {
-                        title: '地址',
-                        key: 'address'
+                        title: '内容',
+                        key: 'content',
+                        ellipsis: true,
+                    },
+                    {
+                        title: '更新时间',
+                        key: 'updatedate'
                     }
                 ],
-                data1: [
+                data_table: [
                     {
-                        name: '曼切斯特',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: '切尔西',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: '巴黎',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: '慕尼黑',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    },
-                    {
-                        name: '曼切斯特',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: '切尔西',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: '巴黎',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: '慕尼黑',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    },
-                    {
-                        name: '曼切斯特',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: '切尔西',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: '巴黎',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: '慕尼黑',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    },
-                    {
-                        name: '曼切斯特',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        name: '切尔西',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        name: '巴黎',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        name: '慕尼黑',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
+                        id: '0',
+                        title: "title",
+                        content: 'New York No. 1 Lake Park',
+                        updatedate: '2016-10-03'
                     }
-                ]
+                ],
+	            table_prop:{
+                    loading : true, // 默认加载中 loading
+	            }
+            }
+        },
+        created() {
+            this.$api.api_all.get_article_list().then((response)=>{
+	            this.data_table = response.data.results;
+	            this.table_prop.loading = false; // 表格是否加载中
+            }).catch((error)=>{
+                this.$Message.error(error.response.data.msg);
+            })
+        },
+        computed: {
+            table_loading: function () {
+                // 表格是否加载中
+                return this.table_prop.loading
             }
         }
     }
