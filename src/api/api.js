@@ -12,19 +12,11 @@ const api_all = {
             }
         })
     },
-    get_article_list() {
+    get_article_list(params) {
         return axios({
             url: '/api/article/list-article/',
             method: 'GET',
-        })
-    },
-    create_test(dog) {
-        return axios({
-            url: '/api/test/create/',
-            method: 'POST',
-            data: {
-                dog: dog
-            },
+            params: params,
         })
     },
 };

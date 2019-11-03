@@ -12,7 +12,7 @@
 			</Row>
 			<Row style="margin-top: 30px" type="flex" justify="center">
 				<Col span="20">
-					<Page :total="100" show-sizer show-elevator show-total ></Page>
+					<Page :total="page_total" @on-change="on_change_page" show-elevator show-total ></Page>
 				</Col>
 			</Row>
 		</Col>
@@ -60,25 +60,44 @@
                         updatedate: '2016-10-03'
                     }
                 ],
-	            table_prop:{
+	            table_prop:{ // 表格
                     loading : true, // 默认加载中 loading
-	            }
+	            },
+                page_prop:{ // 分页
+                    total : 0, // 总页数
+                }
             }
         },
         created() {
             this.$api.api_all.get_article_list().then((response)=>{
-	            this.data_table = response.data.results;
+	            this.data_table = response.data.results; // 后端接口博文列表
+                this.page_prop.total = response.data.count; // 总页数
 	            this.table_prop.loading = false; // 表格是否加载中
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
             })
         },
         computed: {
-            table_loading: function () {
-                // 表格是否加载中
+            table_loading: function () { // 表格是否加载中
                 return this.table_prop.loading
+            },
+            page_total: function () { // 分页总页数
+                return this.page_prop.total
             }
-        }
+        },
+	    methods:{
+            on_change_page:function (callback_page) { // 点击页码, 回调参数
+                this.$api.api_all.get_article_list(
+	                {"page":callback_page} // get请求url携带参数
+                ).then((response)=>{
+                    this.data_table = response.data.results; // 后端接口博文列表
+                    this.page_prop.total = response.data.count; // 总页数
+                    this.table_prop.loading = false; // 表格是否加载中
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
+            }
+	    }
     }
 </script>
 
