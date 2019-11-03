@@ -49,7 +49,12 @@
                     },
                     {
                         title: '更新时间',
-                        key: 'updatedate'
+                        key: 'updatedate',
+                        sortable: true // 排序
+                    },
+                    {
+                        title: '操作',
+                        key: 'operating'
                     }
                 ],
                 data_table: [
@@ -57,7 +62,8 @@
                         id: '0',
                         title: "title",
                         content: 'New York No. 1 Lake Park',
-                        updatedate: '2016-10-03'
+                        updatedate: '2016-10-03',
+                        operating: '2016-10-03',
                     }
                 ],
 	            table_prop:{ // 表格
