@@ -92,6 +92,10 @@
                 },
                 modal:{
                     modalinfo:false, // 查看消息按钮弹框
+                },
+                modal_data:{
+                    id:"",
+                    title:"",
                 }
             }
         },
@@ -147,11 +151,11 @@
                     this.$Message.error(error.response.data.msg);
                 })
             },
-            okInfo:function () {
+            okInfo:function () { // 查看-ok
                 let id = this.$store.getters.get_blog_modalinfo;
 	            console.log(this.data_table[id].content)
             },
-            cancelInfo:function () {
+            cancelInfo:function () { // 查看-cancel 
                 let id = this.$store.getters.get_blog_modalinfo;
                 console.log(id)
             }
