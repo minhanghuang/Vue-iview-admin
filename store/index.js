@@ -9,15 +9,18 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         // 放置初始状态 app启动的时候的全局的初始值
-        bankInf: {
-            "name":"我是vuex的第一个数据",
-            "id":100,
-            "bankName":"中国银行"
+        bloglist:{
+            modalinfo:-1, // bloglist.vue 中 modalinfo数据, 默认给-1
         }
     },
     mutations:{
-        update(state,name){
-            state.bankInf.name = name;
+        update_blog_modalinfo: (state, value) => {
+            state.bloglist.modalinfo = value
+        }
+    },
+    getters: {
+        get_blog_modalinfo: state => {
+            return state.bloglist.modalinfo
         }
     }
 });

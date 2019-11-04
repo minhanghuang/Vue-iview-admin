@@ -9,10 +9,20 @@
 				<Col span="24">
 					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table">
 						<template slot-scope="{ row, index }" slot="action">
-							<ButtonGroup>
-								<Button type="info" @click="handleEdit(row, index)">操作</Button>
-								<Button type="success" @click="handleEdit(row, index)">操作</Button>
-								<Button type="error" @click="handleEdit(row, index)">操作</Button>
+							<ButtonGroup size="small">
+								<Button type="info" @click="handleInfo(row, index)">查看</Button>
+								<Button type="success" @click="handleEdit(row, index)">编辑</Button>
+								<Button type="error" @click="handleDelete(row, index)">删除</Button>
+								<Modal
+									v-model="modal.modalinfo"
+									title="Common Modal dialog box title"
+									@on-ok="okInfo()"
+									@on-cancel="cancelInfo()"
+								>
+									<p>Content of dialog</p>
+									<p>Content of dialog</p>
+									<p>Content of dialog</p>
+								</Modal>
 							</ButtonGroup>
 						</template>
 					</Table>
@@ -79,11 +89,14 @@
 	            },
                 page_prop:{ // 分页
                     total : 0, // 总页数
+                },
+                modal:{
+                    modalinfo:false, // 查看消息按钮弹框
                 }
             }
         },
         created() {
-            this.$api.api_all.get_article_list().then((response)=>{
+            this.$api.api_all.get_article_list_api().then((response)=>{
 	            this.data_table = response.data.results; // 后端接口博文列表
                 this.page_prop.total = response.data.count; // 总页数
 	            this.table_prop.loading = false; // 表格是否加载中
@@ -101,7 +114,7 @@
         },
 	    methods:{
             on_change_page:function (callback_page) { // 点击页码, 回调参数
-                this.$api.api_all.get_article_list(
+                this.$api.api_all.get_article_list_api(
 	                {"page":callback_page} // get请求url携带参数
                 ).then((response)=>{
                     this.data_table = response.data.results; // 后端接口博文列表
@@ -110,6 +123,37 @@
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })
+            },
+            handleInfo:function (row, index) {
+                this.modal.modalinfo = true; // 查看消息按钮弹框, 设置为true, 则弹框
+                this.$store.commit("update_blog_modalinfo",row.id) // 设置当前的id到vuex
+            },
+            handleEdit:function (row, index) {
+                console.log(row)
+            },
+            handleDelete:function (row, index) {
+                this.$api.api_all.delete_article_list_api(
+                    row.id
+                ).then((response)=>{
+                    this.$Message.success(response.data.msg);
+                    this.$api.api_all.get_article_list_api().then((response)=>{ // 删除成功后再次请求列表数据
+                        this.data_table = response.data.results; // 后端接口博文列表
+                        this.page_prop.total = response.data.count; // 总页数
+                        this.table_prop.loading = false; // 表格是否加载中
+                    }).catch((error)=>{
+                        this.$Message.error(error.response.data.msg);
+                    })
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
+            },
+            okInfo:function () {
+                let id = this.$store.getters.get_blog_modalinfo;
+	            console.log(this.data_table[id].content)
+            },
+            cancelInfo:function () {
+                let id = this.$store.getters.get_blog_modalinfo;
+                console.log(id)
             }
 	    }
     }
