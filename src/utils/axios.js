@@ -1,5 +1,9 @@
 import axios from 'axios' // 导入node_modules里的axios
 import qs from 'qs'
+import router from '../router/index'
+
+
+
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/"; // 后端接口 ip:port
 
@@ -19,30 +23,16 @@ axios.interceptors.request.use((request) => {
     return Promise.reject(error);
 });
 
-/* 响应拦截器 */
-
+// 响应拦截器
 axios.interceptors.response.use(function (response) {
-
-    // if (response.data.code === 10010 || response.data.code === 10011) {
-    //
-    //     Storage.localRemove('token') // 删除已经失效或过期的token（不删除也可以，因为登录后覆盖）
-    //
-    //     router.replace({
-    //
-    //         path: '/login' // 到登录页重新获取token
-    //
-    //     })
-    //
-    // } else if (response.data.token) { // 判断token是否存在，如果存在说明需要更新token
-    //
-    //     Storage.localSet('token', response.data.token) // 覆盖原来的token(默认一天刷新一次)
-    //
-    // }
-
     return response
-
 }, function (error) {
-
+    if (error.response.status == 401) {
+        localStorage.clear()
+        router.replace({
+            path: '/login',
+        })
+    }
     return Promise.reject(error)
 });
 
