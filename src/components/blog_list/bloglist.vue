@@ -7,7 +7,15 @@
 		<Col span="24" style="height: 100%;width: 100%">
 			<Row>
 				<Col span="24">
-					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table"></Table>
+					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table">
+						<template slot-scope="{ row, index }" slot="action">
+							<ButtonGroup>
+								<Button type="info" @click="handleEdit(row, index)">操作</Button>
+								<Button type="success" @click="handleEdit(row, index)">操作</Button>
+								<Button type="error" @click="handleEdit(row, index)">操作</Button>
+							</ButtonGroup>
+						</template>
+					</Table>
 				</Col>
 			</Row>
 			<Row style="margin-top: 30px" type="flex" justify="center">
@@ -54,7 +62,7 @@
                     },
                     {
                         title: '操作',
-                        key: 'operating'
+                        slot: 'action'
                     }
                 ],
                 data_table: [
