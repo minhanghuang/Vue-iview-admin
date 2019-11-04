@@ -155,7 +155,7 @@
                 let id = this.$store.getters.get_blog_modalinfo;
 	            console.log(this.data_table[id].content)
             },
-            cancelInfo:function () { // 查看-cancel 
+            cancelInfo:function () { // 查看-cancel
                 let id = this.$store.getters.get_blog_modalinfo;
                 console.log(id)
             }
