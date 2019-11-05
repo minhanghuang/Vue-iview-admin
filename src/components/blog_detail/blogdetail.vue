@@ -5,7 +5,7 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24">
-			<span>{{data}}</span>
+			<span>{{data.content}}</span>
 		</Col>
 	</Row>
 </template>

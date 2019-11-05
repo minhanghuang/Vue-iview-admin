@@ -15,7 +15,8 @@
 								<Button type="error" @click="handleDelete(row, index)">删除</Button>
 								<Modal
 									v-model="modal.modalinfo"
-									title="Common Modal dialog box title"
+									:title="modal_title"
+									width="1000"
 									@on-ok="okInfo()"
 									@on-cancel="cancelInfo()"
 								>
@@ -101,14 +102,11 @@
                 },
                 modal:{
                     modalinfo:false, // 查看消息按钮弹框
-                },
-                modal_data:{
-                    id:"",
-                    title:"",
+	                title:"title", // 弹框标题
                 },
 	            child_blog_detail:{ // 子组件数据
                     data:{ // 内容
-						"a":"A"
+
                     }
 	            },
             }
@@ -138,6 +136,9 @@
             },
             blog_detail_data:function () {
 	            return this.child_blog_detail.data
+            },
+            modal_title:function () {
+	            return this.modal.title // 弹框标题
             }
         },
 	    methods:{
@@ -157,6 +158,7 @@
                 this.modal.modalinfo = true; // 查看消息按钮弹框, 设置为true, 则弹框
                 this.$store.commit("update_blog_modalinfo",row.id); // 设置当前的id到vuex
                 this.child_blog_detail.data = row; // 将对应行的博文信息传给子组件(博文详细信息)
+                this.modal.title = row.title; // 弹框标题
             },
             handleEdit:function (row, index) {
                 console.log(row)
