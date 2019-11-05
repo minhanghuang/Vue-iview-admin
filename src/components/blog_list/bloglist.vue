@@ -30,7 +30,12 @@
 			</Row>
 			<Row style="margin-top: 30px" type="flex" justify="center">
 				<Col span="20">
-					<Page :total="page_total" @on-change="on_change_page" show-elevator show-total ></Page>
+					<Page
+						:total="page_total"
+						:page-size="page_size"
+						@on-change="on_change_page"
+						show-elevator show-total
+					></Page>
 				</Col>
 			</Row>
 		</Col>
@@ -50,10 +55,10 @@
                         align: 'center'
                     },
                     {
-                        title: 'id',
-                        key: 'id',
-                        width:70, // 列宽
-                        sortable: true // 排序
+                        type: 'index',
+                        width: 70,
+                        align: 'center',
+	                    sortable: true // 排序
                     },
                     {
                         title: '标题',
@@ -75,9 +80,8 @@
                         slot: 'action'
                     }
                 ],
-                data_table: [
+                data_table: [ // 获取博文列表之后, 不止以下几个字段,会被整个博文列表返回值给替代
                     {
-                        id: '0',
                         title: "title",
                         content: 'New York No. 1 Lake Park',
                         updatedate: '2016-10-03',
@@ -89,6 +93,7 @@
 	            },
                 page_prop:{ // 分页
                     total : 0, // 总页数
+                    size : 0, // 单页条数
                 },
                 modal:{
                     modalinfo:false, // 查看消息按钮弹框
@@ -103,7 +108,8 @@
             this.$api.api_all.get_article_list_api().then((response)=>{
 	            this.data_table = response.data.results; // 后端接口博文列表
                 this.page_prop.total = response.data.count; // 总页数
-	            this.table_prop.loading = false; // 表格是否加载中
+                this.page_prop.size = response.data.size; // 单页条数
+                this.table_prop.loading = false; // 表格是否加载中
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
             })
@@ -114,6 +120,9 @@
             },
             page_total: function () { // 分页总页数
                 return this.page_prop.total
+            },
+            page_size: function () { // 单页条数
+                return this.page_prop.size
             }
         },
 	    methods:{
@@ -123,6 +132,7 @@
                 ).then((response)=>{
                     this.data_table = response.data.results; // 后端接口博文列表
                     this.page_prop.total = response.data.count; // 总页数
+                    this.page_prop.size = response.data.size; // 单页条数
                     this.table_prop.loading = false; // 表格是否加载中
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
@@ -139,10 +149,11 @@
                 this.$api.api_all.delete_article_list_api(
                     row.id
                 ).then((response)=>{
-                    this.$Message.success(response.data.msg);
+	                    this.$Message.success(response.data.msg);
                     this.$api.api_all.get_article_list_api().then((response)=>{ // 删除成功后再次请求列表数据
                         this.data_table = response.data.results; // 后端接口博文列表
                         this.page_prop.total = response.data.count; // 总页数
+                        this.page_prop.size = response.data.size; // 单页条数
                         this.table_prop.loading = false; // 表格是否加载中
                     }).catch((error)=>{
                         this.$Message.error(error.response.data.msg);
