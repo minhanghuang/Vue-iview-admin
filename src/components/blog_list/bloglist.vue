@@ -19,9 +19,11 @@
 									@on-ok="okInfo()"
 									@on-cancel="cancelInfo()"
 								>
-									<p>Content of dialog</p>
-									<p>Content of dialog</p>
-									<p>Content of dialog</p>
+									<blogdetail
+										:data = "blog_detail_data"
+									>
+
+									</blogdetail>
 								</Modal>
 							</ButtonGroup>
 						</template>
@@ -43,6 +45,8 @@
 </template>
 
 <script>
+    import blogdetail from '@/components/blog_detail/blogdetail'
+
     export default {
         name: "bloglist",
         data () {
@@ -101,8 +105,16 @@
                 modal_data:{
                     id:"",
                     title:"",
-                }
+                },
+	            child_blog_detail:{ // 子组件数据
+                    data:{ // 内容
+						"a":"A"
+                    }
+	            },
             }
+        },
+        components: {
+            blogdetail, // 子组件 - 博文详细信息
         },
         created() {
             this.$api.api_all.get_article_list_api().then((response)=>{
@@ -123,6 +135,9 @@
             },
             page_size: function () { // 单页条数
                 return this.page_prop.size
+            },
+            blog_detail_data:function () {
+	            return this.child_blog_detail.data
             }
         },
 	    methods:{
@@ -140,7 +155,8 @@
             },
             handleInfo:function (row, index) {
                 this.modal.modalinfo = true; // 查看消息按钮弹框, 设置为true, 则弹框
-                this.$store.commit("update_blog_modalinfo",row.id) // 设置当前的id到vuex
+                this.$store.commit("update_blog_modalinfo",row.id); // 设置当前的id到vuex
+                this.child_blog_detail.data = row; // 将对应行的博文信息传给子组件(博文详细信息)
             },
             handleEdit:function (row, index) {
                 console.log(row)

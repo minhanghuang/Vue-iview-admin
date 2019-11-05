@@ -335,3 +335,24 @@
 <!--    }-->
 <!--</script>-->
 
+<style lang="scss" scoped>
+
+</style>
+
+<template>
+	<Row style="height: 100%;width: 100%;">
+		<Col span="12">col-12</Col>
+		<Col span="12">col-12</Col>
+	</Row>
+</template>
+
+<script>
+    export default {
+        name: "blogdetail",
+        components: {},
+        data() {
+            return {}
+        },
+    }
+</script>
+
