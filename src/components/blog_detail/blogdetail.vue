@@ -5,28 +5,27 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24">
-			<Row>
-				<Col span="6">
-					<Icon type="ios-contact"></Icon>
+			<Row style="padding-bottom: 16px">
+
+				<Col span="3" offset="8">
+					<Icon type="ios-contact" size="18" />
+					<span>{{data.username}}</span>
 				</Col>
-				<Col span="6">
-					<Icon type="ios-contact"></Icon>
+				<Col span="5">
+					<Icon type="ios-time" size="18" />
+					<span>{{data.createdate}}</span>
 				</Col>
-				<Col span="6">
-					<Icon type="ios-contact"></Icon>
-				</Col>
-				<Col span="6">
-					<Icon type="ios-contact"></Icon>
-				</Col>
+
 			</Row>
 			<Row>
 				<Col span="24">
 					<mavon-editor
-							:value="data.content"
+							v-model="data.content"
 							:editable="false"
 							:toolbarsFlag="false"
 							:subfield="false"
 							:boxShadow="false"
+							:defaultOpen="edit"
 					>
 					</mavon-editor>
 				</Col>
@@ -41,8 +40,12 @@
 	    props:["data",],
         components: {},
         data() {
-            return {}
+            return {
+            }
         },
+	    // computed:{
+        //
+	    // }
     }
 </script>
 

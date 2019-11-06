@@ -343,9 +343,7 @@
 	<div id="main">
 		<mavon-editor
 			v-model="value"
-			:editable="false"
 			:toolbarsFlag="true"
-			:subfield="false"
 		>
 		</mavon-editor>
 	</div>
@@ -357,7 +355,7 @@
         components: {},
         data() {
             return {
-                value:"# app",
+                value:"> app",
             }
         },
     }
