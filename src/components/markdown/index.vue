@@ -1,49 +1,31 @@
 <template>
-    <div class="indexContainer" style="height: 100%;width: 100%">
-        <div class="editorContainer" style="height: 100%;width: 100%">
-            <markdown
-            :mdValuesP="msg.mdValue"
-            :fullPageStatusP="false"
-            :editStatusP="true"
-            :previewStatusP="true"
-            :navStatusP="true"
-            :icoStatusP="true"
-            @childevent="childEventHandler"
-            ></markdown>
-        </div>
-    </div>
+	<Row style="height: 100%;width: 100%;">
+		<Col span="24">
+			<Row>
+				<Col span="24">
+					<mavon-editor
+						v-model="msg.mdValue"
+					>
+					</mavon-editor>
+				</Col>
+			</Row>
+		</Col>
+	</Row>
 </template>
 
 <script>
-    import markdown from '@/components/markdown/markdown'
     export default {
         name: 'mdindex',
         data() {
             return {
-                // dilogStatus:false,
-                // msgShow:'我要显示的内容',
                 msg: {
                     mdValue:'## Vue-markdownEditor'
                 }
             }
         },
-        components: {
-            markdown
-        },
+        components: {},
         methods: {
-            childEventHandler:function(res){
-                // res:子组件会传回一个data,包含属性mdValue和htmlValue，具体含义请自行翻译
-                this.msg=res;
-            },
-            // datasubmit:function(){
-            //     this.$api.api_all.create_test(
-            //         this.msg
-            //     ).then((response)=>{
-            //         console.log(response.data)
-            //     }).catch((error)=>{
-            //         console.log(error.response.status)
-            //     })
-            // },
+
         }
     }
 </script>
