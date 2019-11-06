@@ -5,14 +5,32 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24">
-			<mavon-editor
-					:value="data.content"
-					:editable="false"
-					:toolbarsFlag="false"
-					:subfield="false"
-					:boxShadow="false"
-			>
-			</mavon-editor>
+			<Row>
+				<Col span="6">
+					<Icon type="ios-contact"></Icon>
+				</Col>
+				<Col span="6">
+					<Icon type="ios-contact"></Icon>
+				</Col>
+				<Col span="6">
+					<Icon type="ios-contact"></Icon>
+				</Col>
+				<Col span="6">
+					<Icon type="ios-contact"></Icon>
+				</Col>
+			</Row>
+			<Row>
+				<Col span="24">
+					<mavon-editor
+							:value="data.content"
+							:editable="false"
+							:toolbarsFlag="false"
+							:subfield="false"
+							:boxShadow="false"
+					>
+					</mavon-editor>
+				</Col>
+			</Row>
 		</Col>
 	</Row>
 </template>
