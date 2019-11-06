@@ -5,7 +5,14 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24">
-			<span>{{data.content}}</span>
+			<mavon-editor
+					:value="data.content"
+					:editable="false"
+					:toolbarsFlag="false"
+					:subfield="false"
+					:boxShadow="false"
+			>
+			</mavon-editor>
 		</Col>
 	</Row>
 </template>

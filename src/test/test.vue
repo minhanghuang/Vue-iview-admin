@@ -340,10 +340,15 @@
 </style>
 
 <template>
-	<Row style="height: 100%;width: 100%;">
-		<Col span="12">col-12</Col>
-		<Col span="12">col-12</Col>
-	</Row>
+	<div id="main">
+		<mavon-editor
+			v-model="value"
+			:editable="false"
+			:toolbarsFlag="true"
+			:subfield="false"
+		>
+		</mavon-editor>
+	</div>
 </template>
 
 <script>
@@ -351,7 +356,9 @@
         name: "blogdetail",
         components: {},
         data() {
-            return {}
+            return {
+                value:"# app",
+            }
         },
     }
 </script>
