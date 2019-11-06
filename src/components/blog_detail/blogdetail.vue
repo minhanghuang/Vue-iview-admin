@@ -25,7 +25,7 @@
 							:toolbarsFlag="false"
 							:subfield="false"
 							:boxShadow="false"
-							:defaultOpen="edit"
+							defaultOpen="preview"
 					>
 					</mavon-editor>
 				</Col>
