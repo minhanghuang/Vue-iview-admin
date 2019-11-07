@@ -25,6 +25,12 @@ const api_all = {
             method: 'DELETE',
         })
     },
+    detail_article_list_api(id) { // 获取博文详细信息
+        return axios({
+            url: '/api/article/detail-article/'+id+'/',
+            method: 'GET',
+        })
+    },
 };
 
 export default api_all

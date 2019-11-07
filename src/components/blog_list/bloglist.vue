@@ -155,10 +155,16 @@
                 })
             },
             handleInfo:function (row, index) {
-                this.modal.modalinfo = true; // 查看消息按钮弹框, 设置为true, 则弹框
-                this.$store.commit("update_blog_modalinfo",row.id); // 设置当前的id到vuex
-                this.child_blog_detail.data = row; // 将对应行的博文信息传给子组件(博文详细信息)
-                this.modal.title = row.title; // 弹框标题
+                this.$store.commit("update_blog_modalinfo",row.id); // 设置当前的id到vuex, 记下当前选中的博文
+                this.$api.api_all.detail_article_list_api(
+                    row.id
+                ).then((response)=>{ // 成功获取博文详细信息
+                    this.child_blog_detail.data = response.data.results[0]; // 后端接口博文详细信息
+                    this.modal.title = row.title; // 弹框标题
+                    this.modal.modalinfo = true; // 查看消息按钮弹框, 设置为true, 则弹框
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
             },
             handleEdit:function (row, index) {
                 console.log(row)
