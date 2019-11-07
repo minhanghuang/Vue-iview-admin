@@ -31,6 +31,16 @@ const api_all = {
             method: 'GET',
         })
     },
+    post_article_create_api(title,content) { // 用户登录
+        return axios({
+            url: '/api/article/create-article/',
+            method: 'POST',
+            data: {
+                title: title,
+                content: content,
+            }
+        })
+    },
 };
 
 export default api_all

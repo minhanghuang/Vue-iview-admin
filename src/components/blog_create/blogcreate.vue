@@ -56,12 +56,21 @@
         },
 	    methods:{
             create_blog_bt:function () { // 发布文章-按钮
-	            console.log(this.title);
-	            console.log(this.$refs.md.get_htlmvalue());
+	            let value = this.$refs.md.get_htlmvalue();
                 this.$refs.titleform.validate((valid) => {
                     // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
                     if (valid) {
-
+						if (value){
+                            this.$api.api_all.post_article_create_api(
+                                this.form.title,value
+                            ).then((response)=>{
+                                this.$Message.success(response.data.msg);
+                            }).catch((error)=>{
+                                this.$Message.error(error.response.data.msg);
+                            })
+						}else {
+                            this.$Message.error("内容不能为空");
+                        }
                     }
                 })
             }
