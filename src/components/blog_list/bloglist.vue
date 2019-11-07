@@ -114,7 +114,7 @@
         components: {
             blogdetail, // 子组件 - 博文详细信息
         },
-        created() {
+        created() { // html加载成功之前调用该函数
             this.$api.api_all.get_article_list_api().then((response)=>{
 	            this.data_table = response.data.results; // 后端接口博文列表
                 this.page_prop.total = response.data.count; // 总页数
@@ -124,7 +124,7 @@
                 this.$Message.error(error.response.data.msg);
             })
         },
-        computed: {
+        computed: { // 计算属性,不需要再data中定义,因为他就是监控data里面的数据
             table_loading: function () { // 表格是否加载中
                 return this.table_prop.loading
             },
@@ -134,11 +134,11 @@
             page_size: function () { // 单页条数
                 return this.page_prop.size
             },
-            blog_detail_data:function () {
+            blog_detail_data:function () { // 博文详细信息, 传给子组件
 	            return this.child_blog_detail.data
             },
-            modal_title:function () {
-	            return this.modal.title // 弹框标题
+            modal_title:function () { // 弹框标题
+	            return this.modal.title
             }
         },
 	    methods:{
@@ -154,7 +154,7 @@
                     this.$Message.error(error.response.data.msg);
                 })
             },
-            handleInfo:function (row, index) {
+            handleInfo:function (row, index) { // 点击查看按钮
                 this.$store.commit("update_blog_modalinfo",row.id); // 设置当前的id到vuex, 记下当前选中的博文
                 this.$api.api_all.detail_article_list_api(
                     row.id
@@ -166,11 +166,11 @@
                     this.$Message.error(error.response.data.msg);
                 })
             },
-            handleEdit:function (row, index) {
+            handleEdit:function (row, index) { // 点击编辑按钮
                 console.log(row)
             },
-            handleDelete:function (row, index) {
-                this.$api.api_all.delete_article_list_api(
+            handleDelete:function (row, index) { // 点击删除按钮
+                this.$api.api_all.delete_article_list_api( // 删除博文
                     row.id
                 ).then((response)=>{
 	                    this.$Message.success(response.data.msg);
@@ -186,11 +186,11 @@
                     this.$Message.error(error.response.data.msg);
                 })
             },
-            okInfo:function () { // 查看-ok
+            okInfo:function () { // 查看-ok-按钮
                 let id = this.$store.getters.get_blog_modalinfo;
 	            console.log(this.data_table[id].content)
             },
-            cancelInfo:function () { // 查看-cancel
+            cancelInfo:function () { // 查看-cancel-按钮
                 let id = this.$store.getters.get_blog_modalinfo;
                 console.log(id)
             }

@@ -10,17 +10,19 @@
 					<Row style="height: 100%">
 
 						<Col span="20" style="height: 100%;background-color: aquamarine">
-							<Input size="large" prefix="ios-paper-outline" placeholder="输入文章标题" style="height: 100%;width: 100%;" />
+							<Input v-model="title" type="text" clearable size="large" prefix="ios-paper-outline" placeholder="输入文章标题" style="height: 100%;width: 100%;" />
 						</Col>
 						<Col span="3" style="height: 100%" offset="1">
-							<Button type="error" size="large">发布文章</Button>
+							<Button type="error" size="large" @click="create_blog_bt">发布文章</Button>
 						</Col>
 					</Row>
 				</Col>
 			</Row>
 			<Row style="height: 700px;width: 100%">
 				<Col span="24" style="height: 100%;width: 100%">
-					<child-markdown>
+					<child-markdown
+						ref="md"
+					>
 
 					</child-markdown>
 				</Col>
@@ -38,8 +40,16 @@
             ChildMarkdown
         },
         data() {
-            return {}
+            return {
+                title:"",
+            }
         },
+	    methods:{
+            create_blog_bt:function () { // 发布文章-按钮
+	            console.log(this.title);
+	            console.log(this.$refs.md.get_htlmvalue());
+            }
+	    }
     }
 </script>
 
