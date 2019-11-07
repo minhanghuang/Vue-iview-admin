@@ -92,7 +92,9 @@
 						<BreadcrumbItem>Layout</BreadcrumbItem>
 					</Breadcrumb>
 					<Content :style="{padding: '24px', Height: 'auto', background: '#fff'}">
-						<router-view></router-view>
+						<my-main>
+
+						</my-main>
 					</Content>
 				</Layout>
 			</Layout>
@@ -100,7 +102,11 @@
 	</div>
 </template>
 <script>
+    import MyMain from '@/views/main/main'
     export default {
+        components:{
+            MyMain
+        },
         methods: {
             toroute(name) {
                 this.$router.push(name);

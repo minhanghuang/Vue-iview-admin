@@ -20,7 +20,7 @@ export default new Router({
                 },
                 {
                     path: "/createblog",
-                    component: () => import("@/components/markdown")
+                    component: () => import("@/components/blog_create/blogcreate")
                 }
             ]
         },
