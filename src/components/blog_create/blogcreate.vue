@@ -20,9 +20,9 @@
 			</Row>
 			<Row style="height: 700px;width: 100%">
 				<Col span="24" style="height: 100%;width: 100%">
-					<markdown>
+					<child-markdown>
 
-					</markdown>
+					</child-markdown>
 				</Col>
 			</Row>
 		</Col>
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-    import markdown from '@/components/markdown'
+    import ChildMarkdown from '@/components/child/markdown'
 
     export default {
         name: "blogcreate",
         components: {
-            markdown
+            ChildMarkdown
         },
         data() {
             return {}
