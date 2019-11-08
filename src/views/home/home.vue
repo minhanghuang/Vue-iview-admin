@@ -15,7 +15,7 @@
 <template>
 	<div class="layout">
 		<Layout>
-			<Header>
+			<Header style="background-color: #363436">
 				<Menu mode="horizontal" theme="dark" active-name="1">
 					<myhead></myhead>
 				</Menu>

@@ -2,7 +2,7 @@
 	.layout-logo{
 		width: 100px;
 		height: 30px;
-		background: #5b6270;
+		/*background: #5b6270;*/
 		border-radius: 3px;
 		float: left;
 		position: relative;
@@ -17,7 +17,7 @@
 </style>
 
 <template>
-	<Row style="height: 100%;width: 100%">
+	<Row style="height: 100%;width: 100%;background-color: #363436">
 		<Col style="height: 100%;width: 100%">
 			<div class="layout-logo"></div>
 			<div class="layout-nav">
@@ -26,7 +26,7 @@
 						<Row>
 							<Col span="4" offset="20" style="">
 								<Dropdown style="margin-left: 20px" @on-click="headdown">
-									<Avatar style="background-color: rgba(93, 88, 177, 0.45)" icon="ios-person" />
+									<Avatar style="background-color: #9c2760" icon="ios-person" />
 									<Icon type="ios-arrow-down"></Icon>
 									<DropdownMenu slot="list">
 										<DropdownItem name="center">个人中心</DropdownItem>

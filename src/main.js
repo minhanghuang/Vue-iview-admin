@@ -9,6 +9,7 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import store from './../store/index'
 import axios from "./api/";
+import '../my-theme/index.less'; // 自定义主题
 
 
 Vue.prototype.$api = axios;
