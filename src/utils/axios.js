@@ -6,6 +6,8 @@ import router from '../router/index'
 
 
 axios.defaults.baseURL = "http://127.0.0.1:19900/"; // 后端接口 ip:port
+// axios.defaults.baseURL = process.env.VUE_APP_BASE_API; // 后端接口 ip:port
+
 
 axios.interceptors.request.use((request) => {
     //在发送请求之前做某件事
