@@ -41,6 +41,15 @@ const api_all = {
             }
         })
     },
+    put_article_update_api(id,subtitle) { // 更新博文
+        return axios({
+            url: '/api/article/update-article/'+id+'/',
+            method: 'PUT',
+            data: {
+                subtitle: subtitle, // 副标题
+            }
+        })
+    },
 };
 
 export default api_all

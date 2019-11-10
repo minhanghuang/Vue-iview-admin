@@ -361,92 +361,138 @@
 <!--    }-->
 <!--</script>-->
 
+<!--<template>-->
+<!--	<div>-->
+<!--		<Upload-->
+<!--				:show-upload-list="false"-->
+<!--				:default-file-list="false"-->
+<!--				:format="['jpg','jpeg','png']"-->
+<!--				:max-size="2048"-->
+<!--				:on-success="uploadSuccess"-->
+<!--				:on-error="uploadError"-->
+<!--				:on-format-error="handleFormatError"-->
+<!--				:on-exceeded-size="handleMaxSize"-->
+<!--				:before-upload="handleBeforeUpload"-->
+<!--				:data="data_img"-->
+<!--				multiple-->
+<!--				type="drag"-->
+<!--				action="http://127.0.0.1:19900/api/test/create-imag/"-->
+<!--				style="display: inline-block;width:58px;"-->
+<!--		>-->
+<!--			<div style="width: 58px;height:58px;line-height: 58px;">-->
+<!--				<Icon type="ios-camera" size="20"></Icon>-->
+<!--			</div>-->
+<!--		</Upload>-->
+<!--	</div>-->
+<!--</template>-->
+<!--<script>-->
+<!--    export default {-->
+<!--        data () {-->
+<!--            return {-->
+<!--                data_img:{"a":"A"}-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            uploadSuccess (response, file, fileList) { // 文件上传成功时的钩子，返回字段为 response, file, fileList-->
+<!--                this.$Message.success("上传成功");-->
+<!--            },-->
+<!--            uploadError(error, file, fileList){ // 文件上传失败时的钩子，返回字段为 error, file, fileList-->
+<!--                this.$Message.error("上传失败");-->
+
+<!--            },-->
+<!--            handleFormatError(file, fileList){ // 文件格式验证失败时的钩子，返回字段为 file, fileList-->
+
+<!--            },-->
+<!--            handleMaxSize(file, fileList){ // 文件超出指定大小限制时的钩子，返回字段为 file, fileList-->
+
+<!--            },-->
+<!--            handleBeforeUpload(response){ // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传-->
+
+<!--            }-->
+<!--        },-->
+<!--    }-->
+<!--</script>-->
+<!--<style>-->
+<!--	.demo-upload-list{-->
+<!--		display: inline-block;-->
+<!--		width: 60px;-->
+<!--		height: 60px;-->
+<!--		text-align: center;-->
+<!--		line-height: 60px;-->
+<!--		border: 1px solid transparent;-->
+<!--		border-radius: 4px;-->
+<!--		overflow: hidden;-->
+<!--		background: #fff;-->
+<!--		position: relative;-->
+<!--		box-shadow: 0 1px 1px rgba(0,0,0,.2);-->
+<!--		margin-right: 4px;-->
+<!--	}-->
+<!--	.demo-upload-list img{-->
+<!--		width: 100%;-->
+<!--		height: 100%;-->
+<!--	}-->
+<!--	.demo-upload-list-cover{-->
+<!--		display: none;-->
+<!--		position: absolute;-->
+<!--		top: 0;-->
+<!--		bottom: 0;-->
+<!--		left: 0;-->
+<!--		right: 0;-->
+<!--		background: rgba(0,0,0,.6);-->
+<!--	}-->
+<!--	.demo-upload-list:hover .demo-upload-list-cover{-->
+<!--		display: block;-->
+<!--	}-->
+<!--	.demo-upload-list-cover i{-->
+<!--		color: #fff;-->
+<!--		font-size: 20px;-->
+<!--		cursor: pointer;-->
+<!--		margin: 0 2px;-->
+<!--	}-->
+<!--</style>-->
 <template>
 	<div>
-		<Upload
-				:show-upload-list="false"
-				:default-file-list="false"
-				:format="['jpg','jpeg','png']"
-				:max-size="2048"
-				:on-success="uploadSuccess"
-				:on-error="uploadError"
-				:on-format-error="handleFormatError"
-				:on-exceeded-size="handleMaxSize"
-				:before-upload="handleBeforeUpload"
-				:data="data_img"
-				multiple
-				type="drag"
-				action="http://127.0.0.1:19900/api/test/create-imag/"
-				style="display: inline-block;width:58px;"
-		>
-			<div style="width: 58px;height:58px;line-height: 58px;">
-				<Icon type="ios-camera" size="20"></Icon>
-			</div>
-		</Upload>
+		<Button @click="confirm">Normal</Button>
+		<Button @click="custom">Custom button text</Button>
+		<Button @click="async">Asynchronous closing</Button>
 	</div>
 </template>
 <script>
     export default {
-        data () {
-            return {
-                data_img:{"a":"A"}
-            }
-        },
         methods: {
-            uploadSuccess (response, file, fileList) { // 文件上传成功时的钩子，返回字段为 response, file, fileList
-                this.$Message.success("上传成功");
+            confirm () {
+                this.$Modal.confirm({
+                    title: 'Title',
+                    content: '<p>Content of dialog</p><p>Content of dialog</p>',
+                    onOk: () => {
+                        this.$Message.info('Clicked ok');
+                    },
+                    onCancel: () => {
+                        this.$Message.info('Clicked cancel');
+                    }
+                });
             },
-            uploadError(error, file, fileList){ // 文件上传失败时的钩子，返回字段为 error, file, fileList
-                this.$Message.error("上传失败");
-
+            custom () {
+                this.$Modal.confirm({
+                    title: 'Title',
+                    content: '<p>Content of dialog</p><p>Content of dialog</p>',
+                    okText: 'OK',
+                    cancelText: 'Cancel'
+                });
             },
-            handleFormatError(file, fileList){ // 文件格式验证失败时的钩子，返回字段为 file, fileList
-
-            },
-            handleMaxSize(file, fileList){ // 文件超出指定大小限制时的钩子，返回字段为 file, fileList
-
-            },
-            handleBeforeUpload(response){ // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者 Promise 则停止上传
-
+            async () {
+                this.$Modal.confirm({
+                    title: 'Title',
+                    content: '<p>The dialog box will be closed after 2 seconds</p>',
+                    loading: true,
+                    onOk: () => {
+                        // setTimeout(() => {
+                            this.$Modal.remove();
+                        //     this.$Message.info('Asynchronously close the dialog box');
+                        // }, 2000);
+                    }
+                });
             }
-        },
+        }
     }
 </script>
-<style>
-	.demo-upload-list{
-		display: inline-block;
-		width: 60px;
-		height: 60px;
-		text-align: center;
-		line-height: 60px;
-		border: 1px solid transparent;
-		border-radius: 4px;
-		overflow: hidden;
-		background: #fff;
-		position: relative;
-		box-shadow: 0 1px 1px rgba(0,0,0,.2);
-		margin-right: 4px;
-	}
-	.demo-upload-list img{
-		width: 100%;
-		height: 100%;
-	}
-	.demo-upload-list-cover{
-		display: none;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background: rgba(0,0,0,.6);
-	}
-	.demo-upload-list:hover .demo-upload-list-cover{
-		display: block;
-	}
-	.demo-upload-list-cover i{
-		color: #fff;
-		font-size: 20px;
-		cursor: pointer;
-		margin: 0 2px;
-	}
-</style>

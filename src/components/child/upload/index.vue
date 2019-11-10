@@ -47,10 +47,11 @@
 			:on-format-error="handleFormatError"
 			:on-exceeded-size="handleMaxSize"
 			:before-upload="handleBeforeUpload"
-			data="image_data_child"
+			:data="data_image"
 			multiple
 			type="drag"
 			action="http://127.0.0.1:19900/api/article/create-image/"
+			:headers="headers_token"
 			style="display: inline-block;width: 100%"
 		>
 			<div style="padding: 20px 0">
@@ -64,12 +65,29 @@
 <script>
     export default {
         name: "upload",
-	    props:["image_data_child"],
+	    props:["image_data_child",],
         components: {},
         data() {
             return {
+                headers:{
+                    "Authorization":""
+                },
+                xxxx:{
+                    "id":"a"
+                }
             }
         },
+	    computed:{
+            headers_token:function () {
+                var token = JSON.parse(localStorage.getItem('TOKEN'));
+                token = "TOKEN " + token;
+                this.headers.Authorization = token;
+                return this.headers
+            },
+            data_image:function () {
+	            return this.xxxx
+            }
+	    },
         methods: {
             uploadSuccess (response, file, fileList) { // 文件上传成功时的钩子，返回字段为 response, file, fileList
                 this.$Message.success("上传成功");
