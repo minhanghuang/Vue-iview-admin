@@ -18,6 +18,18 @@
 						</Col>
 						<Col span="3" style="height: 100%" offset="1">
 							<Button type="error" size="large" @click="create_blog_bt">发布文章</Button>
+							<Modal
+									v-model="modal.create_blog"
+									:title="form.title"
+									:mask-closable="false"
+									:z-index=5000
+									@on-ok="on_ok_create_blog"
+									@on-cancel="on_cancel_create_blog"
+							>
+								<p>Content of dialog</p>
+								<p>Content of dialog</p>
+								<p>Content of dialog</p>
+							</Modal>
 						</Col>
 					</Row>
 				</Col>
@@ -35,7 +47,7 @@
 </template>
 
 <script>
-    import ChildMarkdown from '@/components/child/markdown'
+    import ChildMarkdown from '@/components/child/markdown' // md子组件
 
     export default {
         name: "blogcreate",
@@ -45,7 +57,10 @@
         data() {
             return {
                 form:{
-                    title:""
+                    title: "", // 文章标题,input框
+                },
+                modal:{
+                    create_blog: false, // 发布文章按钮弹框
                 },
                 rulestitle:{ // 校验表单规则
                     title: [ // FormItem标签中的 prop 属性预期值
@@ -56,11 +71,14 @@
         },
 	    methods:{
             create_blog_bt:function () { // 发布文章-按钮
-	            let value = this.$refs.md.get_htlmvalue();
+                this.modal.create_blog = true; // 弹框
+            },
+            on_ok_create_blog:function () { // 确定发布文章
+                let value = this.$refs.md.get_htlmvalue(); // 获取md数据
                 this.$refs.titleform.validate((valid) => {
                     // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
                     if (valid) {
-						if (value){
+                        if (value){
                             this.$api.api_all.post_article_create_api(
                                 this.form.title,value
                             ).then((response)=>{
@@ -68,12 +86,15 @@
                             }).catch((error)=>{
                                 this.$Message.error(error.response.data.msg);
                             })
-						}else {
+                        }else {
                             this.$Message.error("内容不能为空");
                         }
                     }
                 })
-            }
+            },
+            on_cancel_create_blog:function () { // 取消按钮
+
+            },
 	    }
     }
 </script>
