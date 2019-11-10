@@ -110,7 +110,7 @@
                                 this.form.title,value
                             ).then((response)=>{
                                 this.$Message.success("文章保存至草稿箱");
-                                this.image.image_data = response.data.results.id; // 保存当前文章的id
+                                this.image.image_data.id = response.data.results.id; // 保存当前文章的id
 	                            console.log("kkk:",this.image.image_data)
                             }).catch((error)=>{
                                 this.$Message.error(error.response.data.msg);

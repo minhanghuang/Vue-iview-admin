@@ -47,7 +47,7 @@
 			:on-format-error="handleFormatError"
 			:on-exceeded-size="handleMaxSize"
 			:before-upload="handleBeforeUpload"
-			:data="data_image"
+			:data="image_data_child"
 			multiple
 			type="drag"
 			action="http://127.0.0.1:19900/api/article/create-image/"
@@ -57,6 +57,8 @@
 			<div style="padding: 20px 0">
 				<Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
 				<p>Click or drag files here to upload</p>
+				<p>		{{image_data_child}}</p>
+				<p>Click or drag files here to upload</p>
 			</div>
 		</Upload>
 	</div>
@@ -65,7 +67,7 @@
 <script>
     export default {
         name: "upload",
-	    props:["image_data_child",],
+	    props:["image_data_child"],
         components: {},
         data() {
             return {
@@ -93,6 +95,7 @@
                 this.$Message.success("上传成功");
             },
             uploadError(error, file, fileList){ // 文件上传失败时的钩子，返回字段为 error, file, fileList
+                console.log("image_data_child:")
                 this.$Message.error("上传失败");
 
             },
