@@ -9,18 +9,21 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         // 放置初始状态 app启动的时候的全局的初始值
-        bloglist:{
-            modalinfo:-1, // bloglist.vue 中 modalinfo数据, 默认给-1
+        // bloglist:{
+        //     modalinfo: -1, // bloglist.vue 中 modalinfo数据, 默认给-1
+        // },
+        blogdetail:{
+            blogid: 0, // 查看文章详细信息时,某篇文章的id,默认是0,不显示任何文章
         }
     },
     mutations:{
-        update_blog_modalinfo: (state, value) => {
-            state.bloglist.modalinfo = value
+        update_current_blog_id: (state, value) => {
+            state.blogdetail.blogid = value
         }
     },
     getters: {
-        get_blog_modalinfo: state => {
-            return state.bloglist.modalinfo
+        get_current_blog_id: state => {
+            return state.blogdetail.blogid // 获取当前文章id
         }
     }
 });

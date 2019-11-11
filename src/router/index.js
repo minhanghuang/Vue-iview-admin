@@ -21,7 +21,11 @@ export default new Router({
                 {
                     path: "/createblog",
                     component: () => import("@/components/blog_create/blogcreate")
-                }
+                },
+                {
+                    path: "/detailblog",
+                    component: () => import("@/components/blog_detail/blogdetail")
+                },
             ]
         },
         {

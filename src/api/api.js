@@ -31,7 +31,7 @@ const api_all = {
             method: 'GET',
         })
     },
-    post_article_create_api(title,content) { // 用户登录
+    post_article_create_api(title,content) { // 发布文章
         return axios({
             url: '/api/article/create-article/',
             method: 'POST',

@@ -13,19 +13,6 @@
 								<Button type="info" @click="handleInfo(row, index)">查看</Button>
 								<Button type="success" @click="handleEdit(row, index)">编辑</Button>
 								<Button type="error" @click="handleDelete(row, index)">删除</Button>
-								<Modal
-									v-model="modal.modalinfo"
-									:title="modal_title"
-									width="1000"
-									@on-ok="okInfo()"
-									@on-cancel="cancelInfo()"
-								>
-									<blogdetail
-										:data = "blog_detail_data"
-									>
-
-									</blogdetail>
-								</Modal>
 							</ButtonGroup>
 						</template>
 					</Table>
@@ -46,7 +33,6 @@
 </template>
 
 <script>
-    import blogdetail from '@/components/blog_detail/blogdetail'
 
     export default {
         name: "bloglist",
@@ -111,9 +97,6 @@
 	            },
             }
         },
-        components: {
-            blogdetail, // 子组件 - 博文详细信息
-        },
         created() { // html加载成功之前调用该函数
             this.$api.api_all.get_article_list_api().then((response)=>{
 	            this.data_table = response.data.results; // 后端接口博文列表
@@ -134,12 +117,6 @@
             page_size: function () { // 单页条数
                 return this.page_prop.size
             },
-            blog_detail_data:function () { // 博文详细信息, 传给子组件
-	            return this.child_blog_detail.data
-            },
-            modal_title:function () { // 弹框标题
-	            return this.modal.title
-            }
         },
 	    methods:{
             on_change_page:function (callback_page) { // 点击页码, 回调参数
@@ -155,22 +132,14 @@
                 })
             },
             handleInfo:function (row, index) { // 点击查看按钮
-                this.$store.commit("update_blog_modalinfo",row.id); // 设置当前的id到vuex, 记下当前选中的博文
-                this.$api.api_all.detail_article_list_api(
-                    row.id
-                ).then((response)=>{ // 成功获取博文详细信息
-                    this.child_blog_detail.data = response.data.results[0]; // 后端接口博文详细信息
-                    this.modal.title = row.title; // 弹框标题
-                    this.modal.modalinfo = true; // 查看消息按钮弹框, 设置为true, 则弹框
-                }).catch((error)=>{
-                    this.$Message.error(error.response.data.msg);
-                })
+                this.$store.commit("update_current_blog_id",row.id); // 将当前被查看的文章对应的id存到vuex中
+                this.$router.push("detailblog");
             },
             handleEdit:function (row, index) { // 点击编辑按钮
                 console.log(row)
             },
             handleDelete:function (row, index) { // 点击删除按钮
-                this.$api.api_all.delete_article_list_api( // 删除博文
+                this.$api.api_all.delete_article_list_api( // 删除博文api
                     row.id
                 ).then((response)=>{
 	                    this.$Message.success(response.data.msg);
@@ -186,14 +155,6 @@
                     this.$Message.error(error.response.data.msg);
                 })
             },
-            okInfo:function () { // 查看-ok-按钮
-                let id = this.$store.getters.get_blog_modalinfo;
-	            console.log(this.data_table[id].content)
-            },
-            cancelInfo:function () { // 查看-cancel-按钮
-                let id = this.$store.getters.get_blog_modalinfo;
-                console.log(id)
-            }
 	    }
     }
 </script>
