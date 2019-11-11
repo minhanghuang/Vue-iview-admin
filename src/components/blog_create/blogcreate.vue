@@ -8,15 +8,15 @@
 			<Row>
 				<Col span="24" style="height:40px;margin-bottom: 24px">
 					<Row style="height: 100%">
-
-						<Col span="20" style="height: 100%;background-color: aquamarine">
+						<Col span="17" style="height: 100%;background-color: aquamarine">
 							<Form ref="titleform" :model="form" :rules="rulestitle">
 								<FormItem prop="title">
 									<Input v-model="form.title" type="text" clearable size="large" prefix="ios-paper-outline" placeholder="输入文章标题" style="height: 100%;width: 100%;" />
 								</FormItem>
 							</Form>
 						</Col>
-						<Col span="3" style="height: 100%" offset="1">
+						<Col span="6" style="height: 100%" offset="1">
+							<Button type="error" ghost size="large">保存草稿</Button>
 							<Button type="error" size="large" @click="create_blog_bt">发布文章</Button>
 							<Modal
 									:value="modal.create_blog"

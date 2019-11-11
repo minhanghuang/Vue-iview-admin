@@ -59,7 +59,7 @@
                     {
                         title: '标题',
                         key: 'title',
-                        width:300,
+                        width:200,
                     },
                     {
                         title: '内容',
@@ -69,7 +69,13 @@
                     {
                         title: '更新时间',
                         key: 'updatedate',
+                        width: 200,
                         sortable: true // 排序
+                    },
+	                {
+                        title: '状态',
+                        key: 'state',
+		                width: 100,
                     },
                     {
                         title: '操作',
@@ -81,6 +87,7 @@
                         title: "title",
                         content: 'New York No. 1 Lake Park',
                         updatedate: '2016-10-03',
+                        state: '公开',
                         operating: '2016-10-03',
                     }
                 ],

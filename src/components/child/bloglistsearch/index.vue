@@ -8,7 +8,7 @@
 			<Row>
 				<Col span="24">
 					<Tabs value="name1">
-						<TabPane label="全部" name="name1"></TabPane>
+						<TabPane :label="label" name="name1"></TabPane>
 						<TabPane label="公开" name="name2"></TabPane>
 						<TabPane label="私密" name="name3"></TabPane>
 						<TabPane label="草稿箱" name="name4"></TabPane>
@@ -47,6 +47,12 @@
         components: {},
         data() {
             return {
+                label: (h) => {
+                    return h('div', [
+                        h('span', '全部'),
+                        h('span', '(7)'),
+                    ])
+                },
                 options2: {
                     shortcuts: [
                         {
