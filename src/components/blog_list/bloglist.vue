@@ -5,6 +5,7 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24" style="height: 100%;width: 100%">
+			<bloglist-search></bloglist-search>
 			<Row>
 				<Col span="24">
 					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table">
@@ -33,9 +34,13 @@
 </template>
 
 <script>
+    import BloglistSearch from '@/components/child/bloglistsearch' // md子组件
 
     export default {
         name: "bloglist",
+	    components:{
+            BloglistSearch,
+	    },
         data () {
             return {
                 columns_table: [

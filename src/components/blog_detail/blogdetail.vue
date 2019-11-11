@@ -4,9 +4,8 @@
 
 <template>
 	<Row style="height: 100%;width: 100%;">
-		<Col span="24">
+		<Col span="24" v-if="blog.blogid>0">
 			<Row style="padding-bottom: 16px">
-
 				<Col span="3" offset="8">
 					<Icon type="ios-contact" size="18" />
 					<span>{{blog.http_data.username}}</span>
@@ -15,10 +14,9 @@
 					<Icon type="ios-time" size="18" />
 					<span>{{blog.http_data.createdate}}</span>
 				</Col>
-
 			</Row>
-			<Row>
-				<Col span="24">
+			<Row style="height: 700px;width: 100%" >
+				<Col span="24" style="height: 100%;width: 100%">
 					<mavon-editor
 						v-model="blog.http_data.content"
 						:editable="false"
@@ -26,30 +24,36 @@
 						:subfield="false"
 						:boxShadow="false"
 						defaultOpen="preview"
+						style="height: 100%"
 					>
 					</mavon-editor>
 				</Col>
 			</Row>
 		</Col>
+		<Col span="24" v-else>
+			<Button type="error" @click="back_bt">返回</Button>
+		</Col>
 	</Row>
 </template>
 
 <script>
+
     export default {
         name: "blogdetail",
-	    props:["data",],
         components: {},
         data() {
             return {
                 blog: { // 文章
-                  http_data: { // 文章详细信息
+					http_data: { // 文章详细信息
 
-                  }
+					},
+                    blogid: -1, // 当前文章id
                 },
             }
         },
         created() { // html加载成功之前调用该函数
             let blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+	        this.blog.blogid = blogid;
 	        if (blogid > 0){ // 正常点击查看文章详细信息
                 this.$api.api_all.detail_article_list_api( // 发http请求, 获取id对应文章的详细信息
                     blogid
@@ -62,6 +66,11 @@
                 this.blog.http_data = {} // 返回空数据
 	        }
         },
+	    methods:{
+            back_bt:function () {
+                this.$router.push("listblog");
+            }
+	    }
     }
 </script>
 
