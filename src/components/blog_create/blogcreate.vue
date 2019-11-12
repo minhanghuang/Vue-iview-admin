@@ -16,7 +16,7 @@
 							</Form>
 						</Col>
 						<Col span="6" style="height: 100%" offset="1">
-							<Button type="error" ghost size="large">保存草稿</Button>
+							<Button type="error" ghost size="large" @click="draft_blog_bt">保存草稿</Button>
 							<Button type="error" size="large" @click="create_blog_bt">发布文章</Button>
 							<Modal
 									:value="modal.create_blog"
@@ -100,6 +100,9 @@
 
 	    },
 	    methods:{
+            draft_blog_bt:function(){ // 保存草稿箱按钮
+
+            },
             create_blog_bt:function () { // 发布文章-按钮
                 this.$refs.titleform.validate((valid) => {
                     // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
@@ -111,7 +114,6 @@
                             ).then((response)=>{
                                 this.$Message.success("文章保存至草稿箱");
                                 this.image.image_data.id = response.data.results.id; // 保存当前文章的id
-	                            console.log("kkk:",this.image.image_data)
                             }).catch((error)=>{
                                 this.$Message.error(error.response.data.msg);
                             });
@@ -123,7 +125,6 @@
                 })
             },
             on_ok_create_blog:function () { // 确定发布文章(实际是更新文章,文章已经在上一步保存到草稿箱中)
-
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题
                         if (this.image.image_data > 0){ // 文章已经保存至草稿箱

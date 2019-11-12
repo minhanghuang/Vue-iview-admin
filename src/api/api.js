@@ -41,9 +41,20 @@ const api_all = {
             }
         })
     },
-    put_article_update_api(id,subtitle) { // 更新博文
+    put_article_update_api(id,title,content,state) { // 更新文章
         return axios({
             url: '/api/article/update-article/'+id+'/',
+            method: 'PUT',
+            data: {
+                title: title, // 标题
+                content: content, // 内容
+                state: state, // 文章状态
+            }
+        })
+    },
+    put_images_update_api(id) { // 更新图片
+        return axios({
+            url: '/api/article/update-image/'+id+'/',
             method: 'PUT',
             data: {
                 subtitle: subtitle, // 副标题
