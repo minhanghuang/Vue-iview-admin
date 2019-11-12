@@ -22,6 +22,7 @@ const store = new Vuex.Store({
         }
     },
     getters: {
+        // // // let blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
         get_current_blog_id: state => {
             return state.blogdetail.blogid // 获取当前文章id
         }

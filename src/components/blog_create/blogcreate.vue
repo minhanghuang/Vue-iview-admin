@@ -83,7 +83,7 @@
                 },
 	            image:{ // 图片数据
                     image_data:{ // 传给后端的数据
-                        "id":0, // 当前文章id, 默认0, 没有该文章
+                        "blogid":-1, // 当前文章id, 默认-1, 没有该文章
                     }
 	            },
                 rulestitle:{ // 校验表单规则
@@ -101,35 +101,85 @@
 	    },
 	    methods:{
             draft_blog_bt:function(){ // 保存草稿箱按钮
-
-            },
-            create_blog_bt:function () { // 发布文章-按钮
-                this.$refs.titleform.validate((valid) => {
+                this.$refs.titleform.validate((valid) => { // 校验表单(标题)
                     // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
-                    let value = this.$refs.md.get_htlmvalue(); // 获取md数据
                     if (valid) { // 标题校验成功
+                        let value = this.$refs.md.get_htlmvalue(); // 获取md数据
                         if (value){ // md编辑框有数据
-                            this.$api.api_all.post_article_create_api( // 将文章存至草稿箱
-                                this.form.title,value
-                            ).then((response)=>{
-                                this.$Message.success("文章保存至草稿箱");
-                                this.image.image_data.id = response.data.results.id; // 保存当前文章的id
-                            }).catch((error)=>{
-                                this.$Message.error(error.response.data.msg);
-                            });
-                            this.modal.create_blog = true; // 弹框
+                            let blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+                            if (blogid <= 0) { // vuex没有id, 新建文章 -- 保存草稿
+                                let articlestate = 0; // 草稿箱
+                                this.$api.api_all.post_article_create_api( // 发布文章(草稿箱)
+                                    this.form.title, value, articlestate
+                                ).then((response) => {
+                                    this.$Message.success("文章保存至草稿箱");
+                                    this.image.image_data.blogid = response.data.results.id; // 保存当前文章的id
+                                    this.$store.commit("update_current_blog_id",response.data.results.id); // 将当前被查看的文章对应的id存到vuex中
+                                }).catch((error) => {
+                                    this.$Message.error(error.response.data.msg);
+                                });
+                            }else { // vuex有id, 更新文章 -- 保存草稿
+                                let articlestate = 0; // 草稿箱
+                                this.$api.api_all.put_article_update_api( // 发布文章(草稿箱)
+                                    blogid, this.form.title, value, articlestate
+                                ).then((response) => {
+                                    this.$Message.success("文章保存至草稿箱");
+                                    this.image.image_data.blogid = response.data.results.id; // 保存当前文章的id
+                                }).catch((error) => {
+                                    this.$Message.error(error.response.data.msg);
+                                });
+                            }
                         }else {
                             this.$Message.error("内容不能为空");
                         }
                     }
                 })
             },
-            on_ok_create_blog:function () { // 确定发布文章(实际是更新文章,文章已经在上一步保存到草稿箱中)
+
+
+            create_blog_bt:function () { // 发布文章-按钮
+                this.$refs.titleform.validate((valid) => { // 校验表单(标题)
+                    // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
+                    if (valid) { // 标题校验成功
+                        let value = this.$refs.md.get_htlmvalue(); // 获取md数据
+                        if (value){ // md编辑框有数据
+                            let blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+                            if (blogid <= 0) { // vuex没有id, 新建文章
+                                let articlestate = 0; // 发布文章
+                                this.$api.api_all.post_article_create_api( // 发布文章
+                                    this.form.title, value, articlestate
+                                ).then((response) => {
+                                    this.$Message.success("文章保存至草稿箱");
+                                    this.image.image_data.blogid = response.data.results.id; // 保存当前文章的id
+                                    this.$store.commit("update_current_blog_id",response.data.results.id); // 将当前被查看的文章对应的id存到vuex中
+	                                this.modal.create_blog = true; // 弹框
+                                }).catch((error) => {
+                                    this.$Message.error(error.response.data.msg);
+                                });
+                            }else { // vuex有id, 更新文章
+                                let articlestate = 0; // 草稿箱
+                                this.$api.api_all.put_article_update_api( // 发布文章(草稿箱)
+                                    blogid, this.form.title, value, articlestate
+                                ).then((response) => {
+                                    this.$Message.success("文章保存至草稿箱");
+                                    this.image.image_data.blogid = response.data.results.id; // 保存当前文章的id
+                                    this.modal.create_blog = true; // 弹框
+                                }).catch((error) => {
+                                    this.$Message.error(error.response.data.msg);
+                                });
+                            }
+                        }else {
+                            this.$Message.error("内容不能为空");
+                        }
+                    }
+                })
+            },
+            on_ok_create_blog:function () { // 确定发布文章
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题
-                        if (this.image.image_data > 0){ // 文章已经保存至草稿箱
-                            this.$api.api_all.put_article_update_api( // 更新文章
-                                this.image.image_data
+                        if (this.image.image_data.blogid > 0){ // 文章已经保存至草稿箱
+                            this.$api.api_all.put_msgarticle_update_api( // 更新文章
+                                this.image.image_data.blogid, this.form.subtitle, 1
                             ).then((response)=>{
                                 this.$Message.success(response.data.msg);
                                 this.modal.create_blog = false; // 关闭弹框
@@ -151,7 +201,6 @@
             on_cancel_create_blog:function () { // 点击取消按钮
                 this.$Message.error("退出编辑,文章以保存至草稿箱");
                 this.modal.create_blog = false; // 关闭弹框
-                this.$router.push("listblog"); // 跳转到博客列表
             },
 	    }
     }

@@ -31,17 +31,18 @@ const api_all = {
             method: 'GET',
         })
     },
-    post_article_create_api(title,content) { // 发布文章
+    post_article_create_api(title,content,state) { // 发布文章
         return axios({
             url: '/api/article/create-article/',
             method: 'POST',
             data: {
                 title: title,
                 content: content,
+                state: state,
             }
         })
     },
-    put_article_update_api(id,title,content,state) { // 更新文章
+    put_article_update_api(id, title, content, state) { // 更新文章
         return axios({
             url: '/api/article/update-article/'+id+'/',
             method: 'PUT',
@@ -52,12 +53,13 @@ const api_all = {
             }
         })
     },
-    put_images_update_api(id) { // 更新图片
+    put_msgarticle_update_api(id, subtitle, state) { // 更新文章弹框信息
         return axios({
-            url: '/api/article/update-image/'+id+'/',
+            url: '/api/article/update-msg-article/'+id+'/',
             method: 'PUT',
             data: {
                 subtitle: subtitle, // 副标题
+                state: state, // 文章状态
             }
         })
     },

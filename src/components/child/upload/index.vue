@@ -74,9 +74,6 @@
                 headers:{
                     "Authorization":""
                 },
-                xxxx:{
-                    "id":"a"
-                }
             }
         },
 	    computed:{
@@ -86,17 +83,13 @@
                 this.headers.Authorization = token;
                 return this.headers
             },
-            data_image:function () {
-	            return this.xxxx
-            }
 	    },
         methods: {
             uploadSuccess (response, file, fileList) { // 文件上传成功时的钩子，返回字段为 response, file, fileList
-                this.$Message.success("上传成功");
+                this.$Message.success("图片上传成功");
             },
             uploadError(error, file, fileList){ // 文件上传失败时的钩子，返回字段为 error, file, fileList
-                console.log("image_data_child:")
-                this.$Message.error("上传失败");
+                this.$Message.error("图片上传失败");
 
             },
             handleFormatError(file, fileList){ // 文件格式验证失败时的钩子，返回字段为 file, fileList
