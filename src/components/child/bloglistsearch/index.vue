@@ -1,9 +1,14 @@
 <style lang="scss" scoped>
-
+	.div_inline_block{
+		display: inline-block;
+	}
+	.search_len{
+		width: 950px;
+	}
 </style>
 
 <template>
-	<Row style="height: 100px;width: 100%;">
+	<Row style="height: 135px;width: 100%;">
 		<Col style="height: auto;width: 100%;">
 			<Row>
 				<Col span="24">
@@ -15,25 +20,62 @@
 					</Tabs>
 				</Col>
 			</Row>
-			<Row style="height: 50px;width: 100%;">
-				<Col span="24" style="height: inherit;width: inherit">
+			<Row style="height: 62px;width: 100%;background-color: #f5f7f9">
+				<Col span="24" style="height: 100%;width: 100%">
 					<Row>
-						<Col span="5" offset="10">
-							<Input v-model="value1"  placeholder="输入关键字" />
-						</Col>
-						<Col span="5" offset="1">
-							<DatePicker
-								type="daterange"
-								:options="options2"
-								placement="bottom-end"
-								placeholder="Select date"
-								style="width: 200px"
-							>
-							</DatePicker>
-						</Col>
-						<Col span="2">
-							<Button type="error">搜索</Button>
-						</Col>
+						<div class="div_inline_block search_len" style="height: 62px;padding: 15px 0;">
+							<div class="div_inline_block">
+								<Button type="text">内容:</Button>
+							</div>
+							<div class="div_inline_block" style="width: 170px">
+								<Input v-model="value1"  placeholder="输入关键字" />
+							</div>
+							<div class="div_inline_block">
+								<Button type="text">创建时间:</Button>
+							</div>
+							<div class="div_inline_block">
+								<DatePicker
+									type="daterange"
+									:options="options2"
+									placement="bottom-end"
+									placeholder="Select date"
+									style="width: 200px"
+								>
+								</DatePicker>
+							</div>
+							<div class="div_inline_block">
+								<Button type="text">创建时间:</Button>
+							</div>
+							<div class="div_inline_block">
+								<DatePicker
+										type="daterange"
+										:options="options2"
+										placement="bottom-end"
+										placeholder="Select date"
+										style="width: 200px"
+								>
+								</DatePicker>
+							</div>
+							<div class="div_inline_block" style="margin-left: 35px ">
+								<Button type="error">搜索</Button>
+							</div>
+						</div>
+<!--						<Col span="5" offset="10">-->
+<!--							<Input v-model="value1"  placeholder="输入关键字" />-->
+<!--						</Col>-->
+<!--						<Col span="5" offset="1">-->
+<!--							<DatePicker-->
+<!--								type="daterange"-->
+<!--								:options="options2"-->
+<!--								placement="bottom-end"-->
+<!--								placeholder="Select date"-->
+<!--								style="width: 200px"-->
+<!--							>-->
+<!--							</DatePicker>-->
+<!--						</Col>-->
+<!--						<Col span="2">-->
+<!--							<Button type="error">搜索</Button>-->
+<!--						</Col>-->
 					</Row>
 				</Col>
 			</Row>
