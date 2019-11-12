@@ -60,22 +60,6 @@
 								<Button type="error">搜索</Button>
 							</div>
 						</div>
-<!--						<Col span="5" offset="10">-->
-<!--							<Input v-model="value1"  placeholder="输入关键字" />-->
-<!--						</Col>-->
-<!--						<Col span="5" offset="1">-->
-<!--							<DatePicker-->
-<!--								type="daterange"-->
-<!--								:options="options2"-->
-<!--								placement="bottom-end"-->
-<!--								placeholder="Select date"-->
-<!--								style="width: 200px"-->
-<!--							>-->
-<!--							</DatePicker>-->
-<!--						</Col>-->
-<!--						<Col span="2">-->
-<!--							<Button type="error">搜索</Button>-->
-<!--						</Col>-->
 					</Row>
 				</Col>
 			</Row>
