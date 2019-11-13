@@ -44,22 +44,24 @@
         data () {
             return {
                 columns_table: [
-                    {
-	                    // 多选标签
-                        type: 'selection',
-                        width: 60,
-                        align: 'center'
-                    },
+                    // {
+	                //     // 多选标签
+                    //     type: 'selection',
+                    //     width: 60,
+                    //     align: 'center'
+                    // },
                     {
                         type: 'index',
                         width: 70,
                         align: 'center',
+                        fixed: 'left', // 固定在左边
 	                    sortable: true // 排序
                     },
                     {
                         title: '标题',
                         key: 'title',
                         width:200,
+                        fixed: 'left',
                     },
                     {
                         title: '内容',
@@ -79,7 +81,9 @@
                     },
                     {
                         title: '操作',
-                        slot: 'action'
+                        slot: 'action',
+                        width: 200,
+                        fixed: 'right',
                     }
                 ],
                 data_table: [ // 获取博文列表之后, 不止以下几个字段,会被整个博文列表返回值给替代
