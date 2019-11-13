@@ -46,8 +46,8 @@
 									:image_data_child="blog.blogid"
 								></upload-image>
 								<div slot="footer">
-									<Button type="error" ghost size="large" @click="on_save_blog">保存草稿</Button>
-									<Button type="error" size="large" @click="on_update_blog">发布文章</Button>
+									<Button type="error" ghost  @click="on_save_blog">保存草稿</Button>
+									<Button type="error"  @click="on_update_blog">发布文章</Button>
 								</div>
 							</Modal>
 						</Col>
