@@ -47,17 +47,17 @@
 			:on-format-error="handleFormatError"
 			:on-exceeded-size="handleMaxSize"
 			:before-upload="handleBeforeUpload"
-			:data="image_data_child"
+			:data="file_data"
 			multiple
 			type="drag"
-			action="http://127.0.0.1:19900/api/article/create-image/"
+			action="http://127.0.0.1:19900/api/article/update-image/"
 			:headers="headers_token"
 			style="display: inline-block;width: 100%"
 		>
 			<div style="padding: 20px 0">
 				<Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
 				<p>Click or drag files here to upload</p>
-				<p>		{{image_data_child}}</p>
+				<p>		{{file_data}}</p>
 				<p>Click or drag files here to upload</p>
 			</div>
 		</Upload>
@@ -74,6 +74,9 @@
                 headers:{
                     "Authorization":""
                 },
+	            file_data:{
+                    "blogid": this.image_data_child
+	            }
             }
         },
 	    computed:{
@@ -89,6 +92,7 @@
                 this.$Message.success("图片上传成功");
             },
             uploadError(error, file, fileList){ // 文件上传失败时的钩子，返回字段为 error, file, fileList
+                console.log(error)
                 this.$Message.error("图片上传失败");
 
             },

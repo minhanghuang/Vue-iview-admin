@@ -6,7 +6,10 @@
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24" v-if="blog.blogid>0">
 			<Row style="padding-bottom: 16px">
-				<Col span="3" offset="8">
+				<Col span="3" >
+					<Button type="error" @click="back_list_bt">返回</Button>
+				</Col>
+				<Col span="3" offset="6">
 					<Icon type="ios-contact" size="18" />
 					<span>{{blog.http_data.username}}</span>
 				</Col>
@@ -31,7 +34,7 @@
 			</Row>
 		</Col>
 		<Col span="24" v-else>
-			<Button type="error" @click="back_bt">返回</Button>
+			<Button type="error" @click="back_list_bt">返回</Button>
 		</Col>
 	</Row>
 </template>
@@ -52,11 +55,10 @@
             }
         },
         created() { // html加载成功之前调用该函数
-            let blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
-	        this.blog.blogid = blogid;
-	        if (blogid > 0){ // 正常点击查看文章详细信息
+            this.blog.blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+	        if (this.blog.blogid > 0){ // 正常点击查看文章详细信息
                 this.$api.api_all.detail_article_list_api( // 发http请求, 获取id对应文章的详细信息
-                    blogid
+                    this.blog.blogid
                 ).then((response)=>{ // 成功获取博文详细信息
                     this.blog.http_data = response.data.results[0]; // 后端接口博文详细信息
                 }).catch((error)=>{
@@ -66,8 +68,11 @@
                 this.blog.http_data = {} // 返回空数据
 	        }
         },
+	    beforeDestroy(){ // Vue组件销毁前 钩子
+            this.$store.commit("clear_current_blog_id", -1); // 清空Vuex中当前文章的id, 将id设为-1
+	    },
 	    methods:{
-            back_bt:function () {
+            back_list_bt:function () { // 点击返回按钮, 返回文章列表
                 this.$router.push("listblog");
             }
 	    }

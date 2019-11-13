@@ -7,7 +7,7 @@
 	<Row style="height: 100%">
 		<Col span="24" style="height: 100%">
 			<mavon-editor
-				v-model="htmlvalue"
+				v-model="mddefaultdata"
 				style="height: 100%"
 			>
 			</mavon-editor>
@@ -18,15 +18,16 @@
 <script>
     export default {
         name: 'mdindex',
+	    props:["mddefaultdata",],
         data() {
             return {
-                htmlvalue : "## Hello iView"
+
             }
         },
         components: {},
         methods: {
 			get_htlmvalue:function () { // 获取md数据,提供给父组件接口
-				return this.htmlvalue
+				return this.mddefaultdata
             }
         }
     }

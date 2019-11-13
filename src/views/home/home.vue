@@ -57,7 +57,7 @@
 					<Breadcrumb :style="{margin: '24px 0'}">
 						<BreadcrumbItem>Home</BreadcrumbItem>
 						<BreadcrumbItem>Components</BreadcrumbItem>
-						<BreadcrumbItem>Layout</BreadcrumbItem>
+						<BreadcrumbItem>{{current_blog}}</BreadcrumbItem>
 					</Breadcrumb>
 					<Content :style="{padding: '24px', Height: 'auto', background: '#fff'}">
 						<mycontent>
@@ -73,8 +73,14 @@
     import mycontent from '@/views/mycontent/mycontent'
     import myhead from '@/views/myhead/myhead'
 
-
     export default {
+        data(){
+          return {
+              blog:{
+                  blogid: -1, // 文章当前的id
+              }
+          }
+        },
         components:{
             mycontent,
             myhead,
@@ -82,6 +88,12 @@
         methods: {
             toroute(name) {
                 this.$router.push(name);
+            }
+        },
+	    computed:{
+            current_blog:function () {
+                this.blog.blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+	            return this.blog.blogid
             }
         }
     }

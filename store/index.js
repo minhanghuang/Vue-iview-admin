@@ -8,23 +8,22 @@ Vue.use(Vuex);
 // 需要维护的状态
 const store = new Vuex.Store({
     state: {
-        // 放置初始状态 app启动的时候的全局的初始值
-        // bloglist:{
-        //     modalinfo: -1, // bloglist.vue 中 modalinfo数据, 默认给-1
-        // },
-        blogdetail:{
-            blogid: 0, // 查看文章详细信息时,某篇文章的id,默认是0,不显示任何文章
+        blog:{
+            blogid: -1, // 查看文章详细信息时,某篇文章的id,默认是-1,不显示任何文章
         }
     },
     mutations:{
-        update_current_blog_id: (state, value) => {
-            state.blogdetail.blogid = value
+        update_current_blog_id: (state, value) => { // 将当前文章的id保存到Vuex
+            state.blog.blogid = value
+        },
+        clear_current_blog_id: (state, value) => { // 清空Vuex中的文章id
+            state.blog.blogid = value  // 默认-1
         }
     },
     getters: {
         // // // let blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
         get_current_blog_id: state => {
-            return state.blogdetail.blogid // 获取当前文章id
+            return state.blog.blogid // 获取当前文章id
         }
     }
 });

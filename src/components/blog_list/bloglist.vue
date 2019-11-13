@@ -152,7 +152,8 @@
                 this.$router.push("detailblog");
             },
             handleEdit:function (row, index) { // 点击编辑按钮
-                console.log(row)
+                this.$store.commit("update_current_blog_id",row.id); // 将当前被查看的文章对应的id存到vuex中
+                this.$router.push("createblog");
             },
             handleDelete:function (row, index) { // 点击删除按钮
                 this.$api.api_all.delete_article_list_api( // 删除博文api
