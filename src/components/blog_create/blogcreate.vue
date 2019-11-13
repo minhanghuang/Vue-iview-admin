@@ -26,7 +26,6 @@
 									:z-index=2000
 									ok-text="发布文章"
 									cancel-text="保存草稿"
-									@on-ok="on_ok_create_blog"
 									@on-cancel="on_cancel_create_blog"
 							>
 								<Form ref="subtitleform" :model="form" :rules="rulestitle">
@@ -46,6 +45,10 @@
 								<upload-image
 									:image_data_child="blog.blogid"
 								></upload-image>
+								<div slot="footer">
+									<Button type="error" ghost size="large" @click="on_save_blog">保存草稿</Button>
+									<Button type="error" size="large" @click="on_update_blog">发布文章</Button>
+								</div>
 							</Modal>
 						</Col>
 					</Row>
@@ -198,7 +201,7 @@
                     }
                 })
             },
-            on_ok_create_blog:function () { // 确定发布文章
+            on_update_blog:function () { // 点击发布文章按钮
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题
                         if (this.blog.blogid > 0){ // 文章已经保存至草稿箱
@@ -213,6 +216,8 @@
                             })
                         }
                     }else { // 校验副标题失败
+                        this.modal.create_blog = true;
+                        this.$Message.error("副标题不能为空");
                         setTimeout(() => { // 异步处理弹框问题
                             this.modal.ok_bt_loading = false;
                             this.$nextTick(() => {
@@ -222,7 +227,7 @@
                     }
                 })
             },
-            on_cancel_create_blog:function () { // 点击取消按钮
+            on_save_blog:function () { // 点击保存草稿按钮
                 this.$api.api_all.put_msgarticle_update_api( // 更新文章
                     this.blog.blogid, this.form.subtitle, 0
                 ).then((response)=>{
@@ -231,8 +236,11 @@
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })
-
             },
+            on_cancel_create_blog:function () { // 点击取消按钮
+                this.modal.create_blog = false; // 关闭弹框
+                this.$Message.error("退出成功");
+            }
 	    }
     }
 </script>
