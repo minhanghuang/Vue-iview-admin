@@ -77,11 +77,19 @@
 	                {
                         title: '状态',
                         key: 'state',
-		                width: 100,
+                        align: 'center',
+                        width: 100,
+                    },
+                    {
+                        title: '阅读量',
+                        key: 'readcount',
+                        align: 'center',
+                        width: 80,
                     },
                     {
                         title: '操作',
                         slot: 'action',
+                        align: 'center',
                         width: 200,
                         fixed: 'right',
                     }

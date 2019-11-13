@@ -24,6 +24,8 @@
 									:loading="modal.ok_bt_loading"
 									:mask-closable="false"
 									:z-index=2000
+									ok-text="发布文章"
+									cancel-text="保存草稿"
 									@on-ok="on_ok_create_blog"
 									@on-cancel="on_cancel_create_blog"
 							>
@@ -109,6 +111,7 @@
                 ).then((response)=>{ // 成功获取博文详细信息
                     let http_data = response.data.results[0]; // 后端接口博文详细信息
 	                this.form.title = http_data.title;
+	                this.form.subtitle = http_data.subtitle;
 	                this.child.md_default_data = http_data.content;
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
@@ -165,7 +168,6 @@
                     if (valid) { // 标题校验成功
                         let value = this.$refs.md.get_htlmvalue(); // 获取md数据
                         if (value){ // md编辑框有数据
-                            console.log("aaa")
                             if (this.blog.blogid <= 0) { // vuex没有id, 新建文章
                                 let articlestate = 0; // 发布文章
                                 this.$api.api_all.post_article_create_api( // 发布文章
@@ -221,8 +223,15 @@
                 })
             },
             on_cancel_create_blog:function () { // 点击取消按钮
-                this.$Message.error("退出编辑,文章以保存至草稿箱");
-                this.modal.create_blog = false; // 关闭弹框
+                this.$api.api_all.put_msgarticle_update_api( // 更新文章
+                    this.blog.blogid, this.form.subtitle, 0
+                ).then((response)=>{
+                    this.$Message.warning("退出编辑,文章以保存至草稿箱");
+                    this.modal.create_blog = false; // 关闭弹框
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
+
             },
 	    }
     }

@@ -76,7 +76,17 @@
                 },
 	            file_data:{
                     "blogid": this.image_data_child
-	            }
+	            },
+                defaultList: [
+                    {
+                        'name': 'a42bdcc1178e62b4694c830f028db5c0',
+                        'url': 'https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar'
+                    },
+                    {
+                        'name': 'bc7521e033abdd1e92222d733590f104',
+                        'url': 'https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar'
+                    }
+                ],
             }
         },
 	    computed:{
@@ -89,12 +99,12 @@
 	    },
         methods: {
             uploadSuccess (response, file, fileList) { // 文件上传成功时的钩子，返回字段为 response, file, fileList
+                console.log(response.results.image)
                 this.$Message.success("图片上传成功");
             },
             uploadError(error, file, fileList){ // 文件上传失败时的钩子，返回字段为 error, file, fileList
                 console.log(error)
                 this.$Message.error("图片上传失败");
-
             },
             handleFormatError(file, fileList){ // 文件格式验证失败时的钩子，返回字段为 file, fileList
 
