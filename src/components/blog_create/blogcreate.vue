@@ -31,15 +31,19 @@
 								<Form ref="subtitleform" :model="form" :rules="rulestitle">
 									<FormItem prop="subtitle">
 										<Row>
-											<Col span="7">
-												<Button type="text" size="large" style="background-color: white">请输入副标题</Button>
-											</Col>
-											<Col span="17">
+											<p>请输入副标题:</p>
+											<Col span="24">
 												<Input v-model="form.subtitle" type="text" clearable size="large" prefix="ios-paper-outline" placeholder="输入文章标题" style="height: 100%;width: 100%;" />
 											</Col>
 										</Row>
 									</FormItem>
 								</Form>
+								<Divider></Divider>
+								<p>文章标签：</p>
+								<child-tag
+									ref="tag"
+								>
+								</child-tag>
 								<Divider></Divider>
 								<p>提交图片</p>
 								<upload-image
@@ -70,12 +74,14 @@
 <script>
     import ChildMarkdown from '@/components/child/markdown' // md子组件
     import UploadImage from '@/components/child/upload' // md子组件
+    import ChildTag from '@/components/child/tag' // tag子组件
 
     export default {
         name: "blogcreate",
         components: {
             ChildMarkdown,
             UploadImage,
+            ChildTag,
         },
         data() {
             return {
@@ -163,8 +169,6 @@
                     }
                 });
             },
-
-
             create_blog_bt:function () { // 发布文章-按钮
                 this.$refs.titleform.validate((valid) => { // 校验表单(标题)
                     // this.$refs.loginForm.validate : 获取表单校验结果; 校验正确-> valid为True; 校验失败-> valid为False;
@@ -202,6 +206,8 @@
                 })
             },
             on_update_blog:function () { // 点击发布文章按钮
+                console.log(this.$refs.tag.get_tag_value());
+
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题
                         if (this.blog.blogid > 0){ // 文章已经保存至草稿箱
