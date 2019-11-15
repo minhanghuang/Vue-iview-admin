@@ -206,13 +206,13 @@
                 })
             },
             on_update_blog:function () { // 点击发布文章按钮
-                console.log(this.$refs.tag.get_tag_value());
-
+                console.log();
+                const tag_value = this.$refs.tag.get_tag_value();
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题
                         if (this.blog.blogid > 0){ // 文章已经保存至草稿箱
                             this.$api.api_all.put_msgarticle_update_api( // 更新文章
-                                this.blog.blogid, this.form.subtitle, 1
+                                this.blog.blogid, this.form.subtitle, tag_value, 1
                             ).then((response)=>{
                                 this.$Message.success(response.data.msg);
                                 this.modal.create_blog = false; // 关闭弹框
@@ -234,8 +234,9 @@
                 })
             },
             on_save_blog:function () { // 点击保存草稿按钮
+                const tag_value = this.$refs.tag.get_tag_value();
                 this.$api.api_all.put_msgarticle_update_api( // 更新文章
-                    this.blog.blogid, this.form.subtitle, 0
+                    this.blog.blogid, this.form.subtitle, tag_value, 0
                 ).then((response)=>{
                     this.$Message.warning("退出编辑,文章以保存至草稿箱");
                     this.modal.create_blog = false; // 关闭弹框

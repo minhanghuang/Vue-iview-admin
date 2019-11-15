@@ -164,21 +164,30 @@
                 this.$router.push("createblog");
             },
             handleDelete:function (row, index) { // 点击删除按钮
-                this.$api.api_all.delete_article_list_api( // 删除博文api
-                    row.id
-                ).then((response)=>{
-	                    this.$Message.success(response.data.msg);
-                    this.$api.api_all.get_article_list_api().then((response)=>{ // 删除成功后再次请求列表数据
-                        this.data_table = response.data.results; // 后端接口博文列表
-                        this.page_prop.total = response.data.count; // 总页数
-                        this.page_prop.size = response.data.size; // 单页条数
-                        this.table_prop.loading = false; // 表格是否加载中
-                    }).catch((error)=>{
-                        this.$Message.error(error.response.data.msg);
-                    })
-                }).catch((error)=>{
-                    this.$Message.error(error.response.data.msg);
-                })
+                this.$Modal.confirm({
+                    title: '删除文章'+row.title,
+                    okText: '删除',
+                    cancelText: '取消',
+                    onOk: () => {
+                        this.$api.api_all.delete_article_list_api( // 删除博文api
+                            row.id
+                        ).then((response)=>{
+                            this.$Message.success(response.data.msg);
+                            this.$api.api_all.get_article_list_api().then((response)=>{ // 删除成功后再次请求列表数据
+                                this.data_table = response.data.results; // 后端接口博文列表
+                                this.page_prop.total = response.data.count; // 总页数
+                                this.page_prop.size = response.data.size; // 单页条数
+                                this.table_prop.loading = false; // 表格是否加载中
+                            }).catch((error)=>{
+                                this.$Message.error(error.response.data.msg);
+                            })
+                        }).catch((error)=>{
+                            this.$Message.error(error.response.data.msg);
+                        })
+                    },
+                    onCancel: () => {
+                    }
+                });
             },
 	    }
     }

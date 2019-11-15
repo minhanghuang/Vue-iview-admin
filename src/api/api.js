@@ -53,12 +53,13 @@ const api_all = {
             }
         })
     },
-    put_msgarticle_update_api(id, subtitle, state) { // 更新文章弹框信息
+    put_msgarticle_update_api(id, subtitle, tag_value, state) { // 更新文章弹框信息
         return axios({
             url: '/api/article/update-msg-article/'+id+'/',
             method: 'PUT',
             data: {
                 subtitle: subtitle, // 副标题
+                tag: JSON.stringify(tag_value), // 副标题
                 state: state, // 文章状态
             }
         })
