@@ -12,11 +12,11 @@
 		<Col style="height: auto;width: 100%;">
 			<Row>
 				<Col span="24">
-					<Tabs value="name1">
-						<TabPane :label="label" name="name1"></TabPane>
-						<TabPane label="公开" name="name2"></TabPane>
-						<TabPane label="私密" name="name3"></TabPane>
-						<TabPane label="草稿箱" name="name4"></TabPane>
+					<Tabs value="name1" @on-click="click_tabpane">
+						<TabPane :label="label" name="all"></TabPane>
+						<TabPane label="公开" name="public"></TabPane>
+						<TabPane label="私密" name="private"></TabPane>
+						<TabPane label="草稿箱" name="draft"></TabPane>
 					</Tabs>
 				</Col>
 			</Row>
@@ -28,7 +28,7 @@
 								<Button type="text">内容:</Button>
 							</div>
 							<div class="div_inline_block" style="width: 170px">
-								<Input v-model="value1"  placeholder="输入关键字" />
+								<Input v-model="input_value"  placeholder="输入关键字" />
 							</div>
 							<div class="div_inline_block">
 								<Button type="text">创建时间:</Button>
@@ -109,9 +109,44 @@
                             }
                         }
                     ]
-                }
+                },
+                input_value:'',
+	            blog:{
+                    http_data:{}
+	            }
             }
         },
+	    methods:{
+            get_blog_list:function (){
+				return this.blog.http_data
+            },
+            click_tabpane:function (name) {
+                let article_state = ""
+	            if (name=="all"){
+	                console.log("all")
+                    article_state = ""
+	            } else if (name=="public") {
+                    console.log("public")
+                    article_state = 1
+	            } else if (name=="private") {
+                    console.log("private")
+                    article_state = 2
+                }else if (name=="draft") {
+                    console.log("draft")
+                    article_state = 0
+                }else {
+                    console.log("xxx")
+	            }
+                this.$api.api_all.get_article_list_api(
+	                {state: article_state}
+                ).then((response)=>{
+					console.log(response.data.results)
+	                this.blog.http_data = response.data.results;
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
+            }
+	    }
     }
 </script>
 

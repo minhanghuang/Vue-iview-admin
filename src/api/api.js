@@ -16,7 +16,7 @@ const api_all = {
         return axios({
             url: '/api/article/list-article/',
             method: 'GET',
-            params: params,
+            params: params, // {"page":callback_page}
         })
     },
     delete_article_list_api(id) { // 删除博文列表

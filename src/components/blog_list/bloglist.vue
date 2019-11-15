@@ -5,7 +5,10 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24" style="height: 100%;width: 100%">
-			<bloglist-search></bloglist-search>
+			<bloglist-search
+				ref="search"
+			>
+			</bloglist-search>
 			<Row>
 				<Col span="24">
 					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table">
@@ -119,6 +122,7 @@
 
                     }
 	            },
+	            a:''
             }
         },
         created() { // html加载成功之前调用该函数
@@ -142,6 +146,22 @@
                 return this.page_prop.size
             },
         },
+        // updated() {
+        //     console.log('updated--数据更新完成时状态')
+        //     const tag_value = this.$refs.search.get_blog_list();
+        //     console.log(tag_value)
+	    //     this.a = tag_value
+        // },
+	    watch:{
+            a(newVal, oldVal){
+                // // 监听 num 属性的数据变化
+                // // 作用 : 只要 num 的值发生变化,这个方法就会被调用
+                // // 第一个参数 : 新值
+                // // 第二个参数 : 旧值,之前的值
+                // console.log('oldVal:',oldVal)
+                // console.log('newVal:',newVal)
+            }
+	    },
 	    methods:{
             on_change_page:function (callback_page) { // 点击页码, 回调参数
                 this.$api.api_all.get_article_list_api(
