@@ -42,6 +42,7 @@
 								<p>文章标签：</p>
 								<child-tag
 									ref="tag"
+									:tag_data="blog.tag"
 								>
 								</child-tag>
 								<Divider></Divider>
@@ -98,6 +99,8 @@
 	            },
 	            blog:{
                     blogid: -1, // 当前文章id
+		            detail_data: {}, // http请求后端详细数据
+		            tag:{},
 	            },
                 rulestitle:{ // 校验表单规则
                     title: [ // FormItem标签中的 prop 属性预期值
@@ -119,9 +122,13 @@
                     this.blog.blogid
                 ).then((response)=>{ // 成功获取博文详细信息
                     let http_data = response.data.results[0]; // 后端接口博文详细信息
+	                this.blog.detail_data = http_data; // 详细数据
 	                this.form.title = http_data.title;
 	                this.form.subtitle = http_data.subtitle;
 	                this.child.md_default_data = http_data.content;
+	                this.blog.tag = http_data.tag;
+                    var timestamp3 = new Date().getTime()
+                    console.log("new Date().get.Time(1111):",timestamp3)
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })
@@ -206,7 +213,6 @@
                 })
             },
             on_update_blog:function () { // 点击发布文章按钮
-                console.log();
                 const tag_value = this.$refs.tag.get_tag_value();
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题

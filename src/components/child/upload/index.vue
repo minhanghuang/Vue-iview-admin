@@ -74,9 +74,6 @@
                 headers:{
                     "Authorization":""
                 },
-	            // file_data:{
-                //     "blogid": this.image_data_child
-	            // },
                 defaultList: [
                     {
                         'name': 'a42bdcc1178e62b4694c830f028db5c0',
