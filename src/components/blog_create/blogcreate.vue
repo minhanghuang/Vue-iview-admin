@@ -42,7 +42,6 @@
 								<p>文章标签：</p>
 								<child-tag
 									ref="tag"
-									:tag_data="blog.tag"
 								>
 								</child-tag>
 								<Divider></Divider>
@@ -100,7 +99,6 @@
 	            blog:{
                     blogid: -1, // 当前文章id
 		            detail_data: {}, // http请求后端详细数据
-		            tag:{},
 	            },
                 rulestitle:{ // 校验表单规则
                     title: [ // FormItem标签中的 prop 属性预期值
@@ -126,9 +124,6 @@
 	                this.form.title = http_data.title;
 	                this.form.subtitle = http_data.subtitle;
 	                this.child.md_default_data = http_data.content;
-	                this.blog.tag = http_data.tag;
-                    var timestamp3 = new Date().getTime()
-                    console.log("new Date().get.Time(1111):",timestamp3)
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })

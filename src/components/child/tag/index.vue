@@ -10,56 +10,52 @@
 
 <template>
 	<div>
-		{{count}}
-		<Form ref="tagform" :model="input_data">
-			<FormItem prop="tag">
-				<Tag v-for="item in count" :key="item" :name="item" closable @on-close="handleClose2">
-					<Input v-model="input_data[item]" placeholder="iview" style="height: 19px;width: auto" class="tag_input">
+		<Tag v-for="item in count" :key="item" :name="item" closable @on-close="handleClose2">
+			<Input v-model="input_data[item]" placeholder="iview" style="height: 19px;width: auto" class="tag_input">
 
-					</Input>
-				</Tag>
-				<Button icon="ios-add" type="dashed" size="small" @click="handleAdd">添加标签</Button>
-			</FormItem>
-		</Form>
+			</Input>
+		</Tag>
+		<Button icon="ios-add" type="dashed" size="small" @click="handleAdd">添加标签</Button>
 	</div>
 </template>
 <script>
     export default {
-        props:["tag_data",],
         data () {
             return {
                 count: [],
                 input_data: {},
-	            a:"aaa"
+	            blog:{
+                    blogid: -1,
+		            tag:{},
+	            }
             }
         },
-	    created(){
-            var timestamp3 = new Date().getTime()
-            console.log("new Date().get.Time(222):",timestamp3)
-            console.log("this.tag_data:",this.tag_data)
-            console.log("this.a:",this.a)
-            let arr = new Array(0);
-		    let obj_tag_data = JSON.parse(this.tag_data);
-		    for (var key in obj_tag_data) {
-                arr.push(key)
-		    }
-            this.count = arr;
-		    this.input_data = obj_tag_data;
-		    console.log("this.tag_data:",this.tag_data)
-		    console.log("arr:",arr)
-		    console.log("obj_tag_data:",obj_tag_data)
+	    created(){ // 从父组件获取tag数据不能及时同步,因为axios是异步发送请求,后端还没来得及相应,Vue的生命周期已经走到子组件里面,这样的话父组件传来的值就是空的
+            this.blog.blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+            if (this.blog.blogid >0 ){ // Vuex有值, 有文章需要编辑
+                this.$api.api_all.detail_article_list_api( // 发http请求, 获取id对应文章的详细信息
+                    this.blog.blogid
+                ).then((response)=>{ // 成功获取博文详细信息
+                    let http_data = response.data.results[0]; // 后端接口博文详细信息
+	                this.blog.tag = JSON.parse(http_data.tag);
+	                for (var key in this.blog.tag){
+	                    this.count.push(key)
+	                }
+	                this.input_data = this.blog.tag;
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
+            } else {
+
+            }
 	    },
 	    computed:{
             tag:function () { // tag数据
 	            return this.tag_data
             },
-		    aa:function () {
-			    return this.tag_data
-            }
 	    },
         methods: {
             handleAdd () {
-                console.log("this.zzzzzz:",this.tag_data)
                 if (this.count.length) {
                     const indexadd = this.count[this.count.length - 1] + 1;
                     this.count.push(indexadd);
