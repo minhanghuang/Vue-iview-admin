@@ -25,10 +25,10 @@
 					<Row>
 						<div class="div_inline_block search_len" style="height: 62px;padding: 15px 0;">
 							<div class="div_inline_block">
-								<Button type="text">内容:</Button>
+								<Button type="text" >内容:</Button>
 							</div>
 							<div class="div_inline_block" style="width: 170px">
-								<Input v-model="input_value"  placeholder="输入关键字" />
+								<Input v-model="input_value" @on-enter="search_bt" @on-clear="search_bt" clearable placeholder="输入关键字" />
 							</div>
 							<div class="div_inline_block">
 								<Button type="text">创建时间:</Button>
@@ -57,7 +57,7 @@
 								</DatePicker>
 							</div>
 							<div class="div_inline_block" style="margin-left: 35px ">
-								<Button type="error">搜索</Button>
+								<Button type="error" @click="search_bt">搜索</Button>
 							</div>
 						</div>
 					</Row>
@@ -148,7 +148,6 @@
                 }catch(err){
                     count_all = 0;
                 }
-
 	            return "("+count_all+")"
             },
             tagpane_public:function () {
@@ -196,7 +195,7 @@
             })
         },
 	    methods:{
-            click_tabpane:function (name) { // 点击事件
+            click_tabpane:function (name) { // 点击tabpane
                 let article_state = "";
 	            if (name==="all"){
                     article_state = ""
@@ -214,6 +213,17 @@
                 ).then((response)=>{
 	                this.blog.response_data = response.data; // 完成的后端请求数据
 					this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
+            },
+            search_bt:function () { // 搜索-按钮
+                console.log(this.input_value)
+                this.$api.api_all.get_article_list_api(
+                    {search: this.input_value}
+                ).then((response)=>{
+                    this.blog.response_data = response.data; // 完成的后端请求数据
+                    this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })
