@@ -7,6 +7,7 @@
 		<Col span="24" style="height: 100%;width: 100%">
 			<bloglist-search
 				ref="search"
+				@get_list="update_list"
 			>
 			</bloglist-search>
 			<Row>
@@ -122,19 +123,18 @@
 
                     }
 	            },
-	            a:''
             }
         },
-        created() { // html加载成功之前调用该函数
-            this.$api.api_all.get_article_list_api().then((response)=>{
-	            this.data_table = response.data.results; // 后端接口博文列表
-                this.page_prop.total = response.data.count; // 总页数
-                this.page_prop.size = response.data.size; // 单页条数
-                this.table_prop.loading = false; // 表格是否加载中
-            }).catch((error)=>{
-                this.$Message.error(error.response.data.msg);
-            })
-        },
+        // created() { // html加载成功之前调用该函数
+        //     this.$api.api_all.get_article_list_api().then((response)=>{
+	    //         this.data_table = response.data.results; // 后端接口博文列表
+        //         this.page_prop.total = response.data.count; // 总页数
+        //         this.page_prop.size = response.data.size; // 单页条数
+        //         this.table_prop.loading = false; // 表格是否加载中
+        //     }).catch((error)=>{
+        //         this.$Message.error(error.response.data.msg);
+        //     })
+        // },
         computed: { // 计算属性,不需要再data中定义,因为他就是监控data里面的数据
             table_loading: function () { // 表格是否加载中
                 return this.table_prop.loading
@@ -193,6 +193,12 @@
                     }
                 });
             },
+		    update_list:function (response_data) {
+                this.data_table = response_data.results; // 后端接口博文列表
+                this.page_prop.total = response_data.count; // 总页数
+                this.page_prop.size = response_data.size; // 单页条数
+                this.table_prop.loading = false; // 表格是否加载中
+            }
 	    }
     }
 </script>

@@ -13,10 +13,10 @@
 			<Row>
 				<Col span="24">
 					<Tabs value="name1" @on-click="click_tabpane">
-						<TabPane :label="label" name="all"></TabPane>
-						<TabPane label="公开" name="public"></TabPane>
-						<TabPane label="私密" name="private"></TabPane>
-						<TabPane label="草稿箱" name="draft"></TabPane>
+						<TabPane :label="tabpane.label.all" name="all"></TabPane>
+						<TabPane :label="tabpane.label.public" name="public"></TabPane>
+						<TabPane :label="tabpane.label.private" name="private"></TabPane>
+						<TabPane :label="tabpane.label.draft" name="draft"></TabPane>
 					</Tabs>
 				</Col>
 			</Row>
@@ -73,11 +73,35 @@
         components: {},
         data() {
             return {
-                label: (h) => {
-                    return h('div', [
-                        h('span', '全部'),
-                        h('span', '(7)'),
-                    ])
+                tabpane:{
+                    label:{
+                        response_data:{},
+                        all: (h) => {
+				            return h('div', [
+				                h('span', '全部'),
+				                h('span', this.tagpane_all),
+				            ])
+                        },
+                        public: (h) => {
+				            return h('div', [
+				                h('span', '公开'),
+				                h('span', this.tagpane_public),
+				            ])
+                        },
+                        private: (h) => {
+				            return h('div', [
+				                h('span', '私密'),
+				                h('span', this.tagpane_private),
+				            ])
+                        },
+                        draft: (h) => {
+				            return h('div', [
+				                h('span', '草稿箱'),
+				                h('span', this.tagpane_draft),
+				            ])
+                        },
+
+                    }
                 },
                 options2: {
                     shortcuts: [
@@ -112,36 +136,84 @@
                 },
                 input_value:'',
 	            blog:{
-                    http_data:{}
+                    response_data:{}
 	            }
             }
         },
-	    methods:{
-            get_blog_list:function (){
-				return this.blog.http_data
+	    computed:{
+            tagpane_all:function () {
+                let count_all = 0;
+                try{
+                    count_all = this.tabpane.label.response_data.results.all;
+                }catch(err){
+                    count_all = 0;
+                }
+
+	            return "("+count_all+")"
             },
-            click_tabpane:function (name) {
-                let article_state = ""
-	            if (name=="all"){
-	                console.log("all")
+            tagpane_public:function () {
+                let count_public = 0;
+                try{
+                    count_public = this.tabpane.label.response_data.results.public;
+                }catch(err){
+                    count_public = 0;
+                }
+                return "("+count_public+")"
+            },
+            tagpane_private:function () {
+                let count_private = 0;
+                try{
+                    count_private = this.tabpane.label.response_data.results.private;
+                }catch(err){
+                    count_private = 0;
+                }
+                return "("+count_private+")"
+            },
+            tagpane_draft:function () {
+                let count_draft = 0;
+                try{
+                    count_draft = this.tabpane.label.response_data.results.draft;
+                }catch(err){
+                    count_draft = 0;
+                }
+                return "("+count_draft+")"
+            }
+	    },
+        created() { // html加载成功之前调用该函数
+            this.$api.api_all.get_article_list_api(
+
+            ).then((response)=>{
+                this.blog.response_data = response.data; // 完成的后端请求数据
+                this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
+            }).catch((error)=>{
+                this.$Message.error(error.response.data.msg);
+            });
+
+            this.$api.api_all.get_article_state_api().then((response)=>{
+                this.tabpane.label.response_data = response.data; // 完成的后端请求数据
+            }).catch((error)=>{
+                this.$Message.error(error.response.data.msg);
+            })
+        },
+	    methods:{
+            click_tabpane:function (name) { // 点击事件
+                let article_state = "";
+	            if (name==="all"){
                     article_state = ""
-	            } else if (name=="public") {
-                    console.log("public")
+	            } else if (name==="public") {
                     article_state = 1
-	            } else if (name=="private") {
-                    console.log("private")
+	            } else if (name==="private") {
                     article_state = 2
-                }else if (name=="draft") {
-                    console.log("draft")
+                }else if (name==="draft") {
                     article_state = 0
                 }else {
-                    console.log("xxx")
+                    this.$Message.error("非法操作");
 	            }
                 this.$api.api_all.get_article_list_api(
 	                {state: article_state}
                 ).then((response)=>{
-					console.log(response.data.results)
-	                this.blog.http_data = response.data.results;
+	                this.blog.response_data = response.data; // 完成的后端请求数据
+					this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })

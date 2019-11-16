@@ -64,6 +64,12 @@ const api_all = {
             }
         })
     },
+    get_article_state_api() { // 获取文章状态数量
+        return axios({
+            url: '/api/article/get-state-article/',
+            method: 'GET',
+        })
+    },
 };
 
 export default api_all
