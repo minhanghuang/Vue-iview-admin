@@ -36,6 +36,8 @@
 							<div class="div_inline_block">
 								<DatePicker
 									type="daterange"
+									:value="this.time.create.time_value"
+									@on-change="create_time_change"
 									:options="options2"
 									placement="bottom-end"
 									placeholder="Select date"
@@ -44,11 +46,13 @@
 								</DatePicker>
 							</div>
 							<div class="div_inline_block">
-								<Button type="text">创建时间:</Button>
+								<Button type="text">更新时间:</Button>
 							</div>
 							<div class="div_inline_block">
 								<DatePicker
 										type="daterange"
+										:value="this.time.update.time_value"
+										@on-change="update_time_change"
 										:options="options2"
 										placement="bottom-end"
 										placeholder="Select date"
@@ -68,6 +72,28 @@
 </template>
 
 <script>
+
+    function get_article_state(self, params) { // 获取文章状态
+        self.$api.api_all.get_article_state_api(
+            params
+        ).then((response)=>{
+            self.tabpane.label.response_data = response.data; // 完成的后端请求数据
+        }).catch((error)=>{
+            self.$Message.error(error.response.data.msg);
+        })
+    }
+    function get_article_list(self,params) { // 获取文章列表 (函数包含获取文章状态api)
+        self.$api.api_all.get_article_list_api(
+            params
+        ).then((response)=>{
+            self.blog.response_data = response.data; // 完成的后端请求数据
+            self.$emit("get_list",self.blog.response_data) // 将后端返回的数据全部传给父组件
+        }).catch((error)=>{
+            self.$Message.error(error.response.data.msg);
+        });
+        get_article_state(self, params); // 获取文章状态 api
+    }
+
     export default {
         name: "bloglistsearch",
         components: {},
@@ -137,6 +163,14 @@
                 input_value:'',
 	            blog:{
                     response_data:{}
+	            },
+	            time: {
+                    create:{
+                        time_value: ['',''],
+                    },
+		            update:{
+                        time_value: ['',''],
+		            }
 	            }
             }
         },
@@ -179,23 +213,10 @@
             }
 	    },
         created() { // html加载成功之前调用该函数
-            this.$api.api_all.get_article_list_api(
-
-            ).then((response)=>{
-                this.blog.response_data = response.data; // 完成的后端请求数据
-                this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
-            }).catch((error)=>{
-                this.$Message.error(error.response.data.msg);
-            });
-
-            this.$api.api_all.get_article_state_api().then((response)=>{
-                this.tabpane.label.response_data = response.data; // 完成的后端请求数据
-            }).catch((error)=>{
-                this.$Message.error(error.response.data.msg);
-            })
+            get_article_list(this); // 获取文章列表 api
         },
 	    methods:{
-            click_tabpane:function (name) { // 点击tabpane
+            click_tabpane:function (name) { // 点击tabpane标签页
                 let article_state = "";
 	            if (name==="all"){
                     article_state = ""
@@ -208,26 +229,37 @@
                 }else {
                     this.$Message.error("非法操作");
 	            }
-                this.$api.api_all.get_article_list_api(
-	                {state: article_state}
-                ).then((response)=>{
-	                this.blog.response_data = response.data; // 完成的后端请求数据
-					this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
-                }).catch((error)=>{
-                    this.$Message.error(error.response.data.msg);
-                })
+                get_article_list(this,{"state":article_state}); // 获取文章列表 api
             },
             search_bt:function () { // 搜索-按钮
-                console.log(this.input_value)
-                this.$api.api_all.get_article_list_api(
-                    {search: this.input_value}
-                ).then((response)=>{
-                    this.blog.response_data = response.data; // 完成的后端请求数据
-                    this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
-                }).catch((error)=>{
-                    this.$Message.error(error.response.data.msg);
-                })
-            }
+                get_article_list(this,{
+                    "search":this.input_value, // 搜索输入框内容
+                    "createdate_after":this.time.create.time_value[0], // 搜索输入框内容
+                    "createdate_before":this.time.create.time_value[1], // 搜索输入框内容
+                    "updatedate_after":this.time.update.time_value[0], // 搜索输入框内容
+                    "updatedate_before":this.time.update.time_value[1], // 搜索输入框内容
+                }); // 获取文章列表 api
+            },
+            create_time_change:function (time_value) { // 文章创建时间-日期选择器
+                this.time.create.time_value = time_value;
+                get_article_list(this,{
+                    "search":this.input_value, // 搜索输入框内容
+                    "createdate_after":time_value[0], // 起始时间
+                    "createdate_before":time_value[1], // 终止时间
+                    "updatedate_after":this.time.update.time_value[0], // 起始时间
+                    "updatedate_before":this.time.update.time_value[1], // 终止时间
+                }); // 获取文章列表 api
+            },
+            update_time_change:function (time_value) { // 文章更新时间-日期选择器
+                this.time.update.time_value = time_value;
+                get_article_list(this,{
+                    "search":this.input_value, // 搜索输入框内容
+                    "updatedate_after":time_value[0], // 起始时间
+                    "updatedate_before":time_value[1], // 终止时间
+                    "createdate_after":this.time.create.time_value[0], // 起始时间
+                    "createdate_before":this.time.create.time_value[1], // 终止时间
+                }); // 获取文章列表 api
+            },
 	    }
     }
 </script>
