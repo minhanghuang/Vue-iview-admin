@@ -5,17 +5,14 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24" v-if="blog.blogid>0">
-			<Row style="padding-bottom: 16px">
-				<Col span="3" >
+			<Row style="padding-bottom: 30px;height:192px; width: 100%;">
+				<Col span="2" style="" >
 					<Button type="error" @click="back_list_bt">返回</Button>
 				</Col>
-				<Col span="3" offset="6">
-					<Icon type="ios-contact" size="18" />
-					<span>{{blog.http_data.username}}</span>
-				</Col>
-				<Col span="5">
-					<Icon type="ios-time" size="18" />
-					<span>{{blog.http_data.createdate}}</span>
+				<Col span="22" style="height: 100%;" >
+					<detail-title
+						:blog_detail="this.blog.http_data"
+					></detail-title>
 				</Col>
 			</Row>
 			<Row style="height: 700px;width: 100%" >
@@ -40,10 +37,12 @@
 </template>
 
 <script>
-
+	import DetailTitle from "@/components/blog_detail/title"
     export default {
         name: "blogdetail",
-        components: {},
+        components: {
+            DetailTitle,
+        },
         data() {
             return {
                 blog: { // 文章
@@ -61,6 +60,7 @@
                     this.blog.blogid
                 ).then((response)=>{ // 成功获取博文详细信息
                     this.blog.http_data = response.data.results[0]; // 后端接口博文详细信息
+                    this.$store.commit("update_current_blog_detail", this.blog.http_data);
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })

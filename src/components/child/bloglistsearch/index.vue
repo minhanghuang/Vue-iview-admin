@@ -17,6 +17,7 @@
 						<TabPane :label="tabpane.label.public" name="public"></TabPane>
 						<TabPane :label="tabpane.label.private" name="private"></TabPane>
 						<TabPane :label="tabpane.label.draft" name="draft"></TabPane>
+						<TabPane :label="tabpane.label.delete" name="delete"></TabPane>
 					</Tabs>
 				</Col>
 			</Row>
@@ -38,7 +39,7 @@
 									type="daterange"
 									:value="this.time.create.time_value"
 									@on-change="create_time_change"
-									:options="options2"
+									:options="this.time.create.options"
 									placement="bottom-end"
 									placeholder="Select date"
 									style="width: 200px"
@@ -53,7 +54,7 @@
 										type="daterange"
 										:value="this.time.update.time_value"
 										@on-change="update_time_change"
-										:options="options2"
+										:options="this.time.update.options"
 										placement="bottom-end"
 										placeholder="Select date"
 										style="width: 200px"
@@ -126,39 +127,13 @@
 				                h('span', this.tagpane_draft),
 				            ])
                         },
-
+                        delete: (h) => {
+                            return h('div', [
+                                h('span', '已删除'),
+                                h('span', this.tagpane_delete),
+                            ])
+                        },
                     }
-                },
-                options2: {
-                    shortcuts: [
-                        {
-                            text: '1 week',
-                            value () {
-                                const end = new Date();
-                                const start = new Date();
-                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                                return [start, end];
-                            }
-                        },
-                        {
-                            text: '1 month',
-                            value () {
-                                const end = new Date();
-                                const start = new Date();
-                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                                return [start, end];
-                            }
-                        },
-                        {
-                            text: '3 months',
-                            value () {
-                                const end = new Date();
-                                const start = new Date();
-                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                                return [start, end];
-                            }
-                        }
-                    ]
                 },
                 input_value:'',
 	            blog:{
@@ -167,10 +142,72 @@
 	            time: {
                     create:{
                         time_value: ['',''],
+                        options: {
+                            shortcuts: [
+                                {
+                                    text: '1 week',
+                                    value () {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                                        return [start, end];
+                                    }
+                                },
+                                {
+                                    text: '1 month',
+                                    value () {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                                        return [start, end];
+                                    }
+                                },
+                                {
+                                    text: '3 months',
+                                    value () {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                                        return [start, end];
+                                    }
+                                }
+                            ]
+                        },
                     },
 		            update:{
                         time_value: ['',''],
-		            }
+                        options: {
+                            shortcuts: [
+                                {
+                                    text: '1 week',
+                                    value () {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                                        return [start, end];
+                                    }
+                                },
+                                {
+                                    text: '1 month',
+                                    value () {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                                        return [start, end];
+                                    }
+                                },
+                                {
+                                    text: '3 months',
+                                    value () {
+                                        const end = new Date();
+                                        const start = new Date();
+                                        start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                                        return [start, end];
+                                    }
+                                }
+                            ]
+                        },
+                    }
 	            }
             }
         },
@@ -210,6 +247,15 @@
                     count_draft = 0;
                 }
                 return "("+count_draft+")"
+            },
+            tagpane_delete:function () {
+                let count_delete = 0;
+                try{
+                    count_delete = this.tabpane.label.response_data.results.delete;
+                }catch(err){
+                    count_delete = 0;
+                }
+                return "("+count_delete+")"
             }
 	    },
         created() { // html加载成功之前调用该函数
@@ -226,10 +272,24 @@
                     article_state = 2
                 }else if (name==="draft") {
                     article_state = 0
+                }else if (name==="delete") {
+                    article_state = 3
                 }else {
                     this.$Message.error("非法操作");
 	            }
-                get_article_list(this,{"state":article_state}); // 获取文章列表 api
+                this.$api.api_all.get_article_list_api({
+	                "state":article_state,
+                    "search":this.input_value, // 搜索输入框内容
+                    "createdate_after":this.time.create.time_value[0], // 搜索输入框内容
+                    "createdate_before":this.time.create.time_value[1], // 搜索输入框内容
+                    "updatedate_after":this.time.update.time_value[0], // 搜索输入框内容
+                    "updatedate_before":this.time.update.time_value[1],
+                }).then((response)=>{
+                    this.blog.response_data = response.data; // 完成的后端请求数据
+                    this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                });
             },
             search_bt:function () { // 搜索-按钮
                 get_article_list(this,{

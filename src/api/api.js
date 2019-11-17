@@ -19,10 +19,13 @@ const api_all = {
             params: params, // {"page":callback_page}
         })
     },
-    delete_article_list_api(id) { // 删除博文列表
+    delete_article_list_api(id,state) { // 删除博文列表
         return axios({
             url: '/api/article/delete-article/'+id+'/',
-            method: 'DELETE',
+            method: 'PUT',
+            data: {
+                state: state,
+            }
         })
     },
     detail_article_list_api(id) { // 获取博文详细信息

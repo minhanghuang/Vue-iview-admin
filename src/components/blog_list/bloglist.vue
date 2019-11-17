@@ -1,5 +1,7 @@
 <style lang="scss" scoped>
+	.button_action{
 
+	}
 </style>
 
 <template>
@@ -14,11 +16,12 @@
 				<Col span="24">
 					<Table stripe border :loading="table_loading" ref="selection" :columns="columns_table" :data="data_table">
 						<template slot-scope="{ row, index }" slot="action">
-							<ButtonGroup size="small">
-								<Button type="info" @click="handleInfo(row, index)">查看</Button>
-								<Button type="success" @click="handleEdit(row, index)">编辑</Button>
-								<Button type="error" @click="handleDelete(row, index)">删除</Button>
-							</ButtonGroup>
+							<div size="small" style="width: 100%">
+								<Button size="small" class="button_action success" type="success" @click="handleInfo(row, index)" >查看</Button>
+								<Button size="small" class="button_action info" type="info" @click="handleEdit(row, index)" >编辑</Button>
+								<Button size="small" class="button_action error" type="error" @click="handleDelete(row, index,{'state':3,'title':'删除'})" v-if="row.state!='已删除'" >删除</Button>
+								<Button size="small" class="button_action dashed" type="dashed" @click="handleDelete(row, index,{'state':0,'title':'恢复'})" v-if="row.state=='已删除'" >恢复</Button>
+							</div>
 						</template>
 					</Table>
 				</Col>
@@ -48,12 +51,6 @@
         data () {
             return {
                 columns_table: [
-                    // {
-	                //     // 多选标签
-                    //     type: 'selection',
-                    //     width: 60,
-                    //     align: 'center'
-                    // },
                     {
                         type: 'index',
                         width: 70,
@@ -94,7 +91,7 @@
                         title: '操作',
                         slot: 'action',
                         align: 'center',
-                        width: 200,
+                        width: 230,
                         fixed: 'right',
                     }
                 ],
@@ -125,16 +122,6 @@
 	            },
             }
         },
-        // created() { // html加载成功之前调用该函数
-        //     this.$api.api_all.get_article_list_api().then((response)=>{
-	    //         this.data_table = response.data.results; // 后端接口博文列表
-        //         this.page_prop.total = response.data.count; // 总页数
-        //         this.page_prop.size = response.data.size; // 单页条数
-        //         this.table_prop.loading = false; // 表格是否加载中
-        //     }).catch((error)=>{
-        //         this.$Message.error(error.response.data.msg);
-        //     })
-        // },
         computed: { // 计算属性,不需要再data中定义,因为他就是监控data里面的数据
             table_loading: function () { // 表格是否加载中
                 return this.table_prop.loading
@@ -167,14 +154,14 @@
                 this.$store.commit("update_current_blog_id",row.id); // 将当前被查看的文章对应的id存到vuex中
                 this.$router.push("createblog");
             },
-            handleDelete:function (row, index) { // 点击删除按钮
+            handleDelete:function (row, index, data) { // 点击删除按钮
                 this.$Modal.confirm({
-                    title: '删除文章'+row.title,
-                    okText: '删除',
+                    title: data.title+'文章'+row.title,
+                    okText: data.title,
                     cancelText: '取消',
                     onOk: () => {
                         this.$api.api_all.delete_article_list_api( // 删除博文api
-                            row.id
+                            row.id, data.state
                         ).then((response)=>{
                             this.$Message.success(response.data.msg);
                             this.$api.api_all.get_article_list_api().then((response)=>{ // 删除成功后再次请求列表数据
