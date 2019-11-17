@@ -30,8 +30,7 @@
 									<Icon type="ios-arrow-down"></Icon>
 									<DropdownMenu slot="list">
 										<DropdownItem name="center">个人中心</DropdownItem>
-										<DropdownItem name="about">关于我</DropdownItem>
-										<DropdownItem name="logout">退出</DropdownItem>
+										<DropdownItem name="logout">退出登录</DropdownItem>
 									</DropdownMenu>
 								</Dropdown>
 							</Col>

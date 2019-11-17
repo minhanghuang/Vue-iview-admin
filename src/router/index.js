@@ -26,6 +26,10 @@ export default new Router({
                     path: "/detailblog",
                     component: () => import("@/components/blog_detail/blogdetail")
                 },
+                {
+                    path: "/person",
+                    component: () => import("@/views/person/person")
+                },
             ]
         },
         {

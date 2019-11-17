@@ -70,8 +70,8 @@
                         ellipsis: true,
                     },
                     {
-                        title: '更新时间',
-                        key: 'updatedate',
+                        title: '创建时间',
+                        key: 'createdate',
                         width: 200,
                         sortable: true // 排序
                     },
@@ -99,7 +99,7 @@
                     {
                         title: "title",
                         content: 'New York No. 1 Lake Park',
-                        updatedate: '2016-10-03',
+                        createdate: '2016-10-03',
                         state: '公开',
                         operating: '2016-10-03',
                     }

@@ -450,48 +450,70 @@
 <!--		margin: 0 2px;-->
 <!--	}-->
 <!--</style>-->
+<!--<template>-->
+<!--	<div>-->
+<!--		<Button @click="confirm">Normal</Button>-->
+<!--		<Button @click="custom">Custom button text</Button>-->
+<!--		<Button @click="async">Asynchronous closing</Button>-->
+<!--	</div>-->
+<!--</template>-->
+<!--<script>-->
+<!--    export default {-->
+<!--        methods: {-->
+<!--            confirm () {-->
+<!--                this.$Modal.confirm({-->
+<!--                    title: 'Title',-->
+<!--                    content: '<p>Content of dialog</p><p>Content of dialog</p>',-->
+<!--                    onOk: () => {-->
+<!--                        this.$Message.info('Clicked ok');-->
+<!--                    },-->
+<!--                    onCancel: () => {-->
+<!--                        this.$Message.info('Clicked cancel');-->
+<!--                    }-->
+<!--                });-->
+<!--            },-->
+<!--            custom () {-->
+<!--                this.$Modal.confirm({-->
+<!--                    title: 'Title',-->
+<!--                    content: '<p>Content of dialog</p><p>Content of dialog</p>',-->
+<!--                    okText: 'OK',-->
+<!--                    cancelText: 'Cancel'-->
+<!--                });-->
+<!--            },-->
+<!--            async () {-->
+<!--                this.$Modal.confirm({-->
+<!--                    title: 'Title',-->
+<!--                    content: '<p>The dialog box will be closed after 2 seconds</p>',-->
+<!--                    loading: true,-->
+<!--                    onOk: () => {-->
+<!--                        // setTimeout(() => {-->
+<!--                            this.$Modal.remove();-->
+<!--                        //     this.$Message.info('Asynchronously close the dialog box');-->
+<!--                        // }, 2000);-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
+
 <template>
 	<div>
-		<Button @click="confirm">Normal</Button>
-		<Button @click="custom">Custom button text</Button>
-		<Button @click="async">Asynchronous closing</Button>
+		<Button type="primary">Primary</Button>
+		<Button type="dashed">Dashed</Button>
+		<Button type="error">Error</Button>
+		<el-input placeholder="请输入内容" v-model="input1">
+			<template slot="prepend">Http://</template>
+		</el-input>
 	</div>
 </template>
 <script>
     export default {
-        methods: {
-            confirm () {
-                this.$Modal.confirm({
-                    title: 'Title',
-                    content: '<p>Content of dialog</p><p>Content of dialog</p>',
-                    onOk: () => {
-                        this.$Message.info('Clicked ok');
-                    },
-                    onCancel: () => {
-                        this.$Message.info('Clicked cancel');
-                    }
-                });
-            },
-            custom () {
-                this.$Modal.confirm({
-                    title: 'Title',
-                    content: '<p>Content of dialog</p><p>Content of dialog</p>',
-                    okText: 'OK',
-                    cancelText: 'Cancel'
-                });
-            },
-            async () {
-                this.$Modal.confirm({
-                    title: 'Title',
-                    content: '<p>The dialog box will be closed after 2 seconds</p>',
-                    loading: true,
-                    onOk: () => {
-                        // setTimeout(() => {
-                            this.$Modal.remove();
-                        //     this.$Message.info('Asynchronously close the dialog box');
-                        // }, 2000);
-                    }
-                });
+        name:"",
+        data(){
+            return{
+
             }
         }
     }
