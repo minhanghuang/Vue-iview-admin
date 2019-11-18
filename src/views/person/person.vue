@@ -15,7 +15,7 @@
 										<Col span="24" style="height: auto">
 											<div style="margin: 8px 0;text-align: center">
 												<div style="margin: 0 auto;width: auto;height: auto">
-													<img src="../../../src/assets/logo.png" style="height: 100px;width: 100px">
+													<img src="../../../src/assets/logo.png" style="height: 100px;width: 100px;border-radius:50px">
 												</div>
 											</div>
 											<div style="text-align: center;margin: 10px 0">
@@ -62,8 +62,46 @@
 								</Col>
 							</Row>
 						</Col>
-						<Col span="14" style="height: auto">
-							aaa
+						<Col span="16" style="height: auto">
+							<div style="height: auto;width: 100%">
+								<div style="padding: 15px 15px 15px 0;margin-left: 30px; background-color: #f5f7f9">
+									<div style="padding-left: 20px">
+										<Tabs value="name1">
+											<TabPane label="基本设置" name="name1"></TabPane>
+										</Tabs>
+									</div>
+									<div style="padding-left: 30px">
+										<div style="padding-bottom: 26px">
+											姓名
+											<Input v-model="value2" placeholder="Cox" style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											描述
+											<Input v-model="value2" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											邮箱
+											<Input v-model="value2" placeholder="job@minhung.me"  style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											公司
+											<Input v-model="value2" placeholder="某某公司"  style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											部门
+											<Input v-model="value2" placeholder="某某部门"  style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											职位
+											<Input v-model="value2" placeholder="后端开发工程师"  style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											地址
+											<Input v-model="value2" placeholder="深圳"  style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+									</div>
+								</div>
+							</div>
 						</Col>
 					</Row>
 				</Col>
