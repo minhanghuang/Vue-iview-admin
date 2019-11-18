@@ -40,7 +40,7 @@
 							</MenuItem>
 						</Submenu>
 						<MenuItem name="person">
-							<Icon type="md-person"></Icon>
+							<Icon type="ios-contact"></Icon>
 							<span>个人中心</span>
 						</MenuItem>
 					</Menu>
