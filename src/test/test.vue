@@ -509,12 +509,17 @@
 	</div>
 </template>
 <script>
+
     export default {
         name:"",
         data(){
             return{
-
+	            a:'0',
+	            num:100
             }
-        }
+        },
+	    components:{
+
+	    }
     }
 </script>
