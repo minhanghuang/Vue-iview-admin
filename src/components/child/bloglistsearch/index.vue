@@ -74,7 +74,7 @@
 
 <script>
 
-    function get_article_state(self, params) { // 获取文章状态
+    function get_article_state(self, params) { // 获取文章状态数量
         self.$api.api_all.get_article_state_api(
             params
         ).then((response)=>{
@@ -92,7 +92,7 @@
         }).catch((error)=>{
             self.$Message.error(error.response.data.msg);
         });
-        get_article_state(self, params); // 获取文章状态 api
+        get_article_state(self, params); // 获取文章状态数量 api
     }
 
     export default {
