@@ -30,7 +30,7 @@
 														<Icon type="ios-mail-outline" size="20" style="" ></Icon>
 													</Col>
 													<Col span="10">
-														<div style="float: top; display: inline-block; margin-left: 10px;font-size: 14px;font-weight: 400;color: #2f2f2f;">job@minhung.me</div>
+														<div style="float: left; display: inline-block; margin-left: 10px;font-size: 14px;font-weight: 400;color: #2f2f2f;">job@minhung.me</div>
 													</Col>
 												</Row>
 												<Row style="margin: 5px 0">
