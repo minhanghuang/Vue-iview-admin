@@ -74,6 +74,12 @@ const api_all = {
             params: params,
         })
     },
+    get_user_detail_api(username) { // 获取用户详细细聊
+        return axios({
+            url: '/api/user/detail-user/'+username+'/',
+            method: 'GET',
+        })
+    },
 };
 
 export default api_all

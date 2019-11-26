@@ -498,28 +498,111 @@
 <!--</script>-->
 
 
+<!--<template>-->
+<!--	<div>-->
+<!--		<el-tag-->
+<!--				:key="tag"-->
+<!--				v-for="tag in dynamicTags"-->
+<!--				closable-->
+<!--				:disable-transitions="false"-->
+<!--				@close="handleClose(tag)">-->
+<!--			{{tag}}-->
+<!--		</el-tag>-->
+<!--		<el-input-->
+<!--				class="input-new-tag"-->
+<!--				v-if="inputVisible"-->
+<!--				v-model="inputValue"-->
+<!--				ref="saveTagInput"-->
+<!--				size="small"-->
+<!--				@keyup.enter.native="handleInputConfirm"-->
+<!--				@blur="handleInputConfirm"-->
+<!--		>-->
+<!--		</el-input>-->
+<!--		<el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>-->
+<!--	</div>-->
+<!--</template>-->
+<!--<script>-->
+
+<!--    export default {-->
+<!--        data() {-->
+<!--            return {-->
+<!--                dynamicTags: ['标签一', '标签二', '标签三'], // 需要显示的标签-->
+<!--                inputVisible: false, // 是否可输入-->
+<!--                inputValue: '', // 双向数据绑定, 当前输入的数据-->
+<!--            };-->
+<!--        },-->
+<!--        methods: {-->
+<!--            handleClose(tag) { // 关掉某个标签事件-->
+<!--                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);-->
+<!--            },-->
+
+<!--            showInput() {-->
+<!--                this.inputVisible = true;-->
+<!--                this.$nextTick(_ => {-->
+<!--                    this.$refs.saveTagInput.$refs.input.focus();-->
+<!--                });-->
+<!--            },-->
+
+<!--            handleInputConfirm() { // 回车按键-->
+<!--                let inputValue = this.inputValue;-->
+<!--                if (inputValue) {-->
+<!--                    this.dynamicTags.push(inputValue);-->
+<!--                }-->
+<!--                this.inputVisible = false;-->
+<!--                this.inputValue = '';-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+<!--<style>-->
+<!--	.el-tag + .el-tag {-->
+<!--		margin-left: 10px;-->
+<!--	}-->
+<!--	.button-new-tag {-->
+<!--		margin-left: 10px;-->
+<!--		height: 32px;-->
+<!--		line-height: 30px;-->
+<!--		padding-top: 0;-->
+<!--		padding-bottom: 0;-->
+<!--	}-->
+<!--	.input-new-tag {-->
+<!--		width: 90px;-->
+<!--		margin-left: 10px;-->
+<!--		vertical-align: bottom;-->
+<!--	}-->
+<!--</style>-->
+
+
 <template>
 	<div>
-		<Button type="primary">Primary</Button>
-		<Button type="dashed">Dashed</Button>
-		<Button type="error">Error</Button>
-		<el-input placeholder="请输入内容" v-model="input1">
-			<template slot="prepend">Http://</template>
-		</el-input>
+		<el-upload
+			:action="upload_action"
+			list-type="picture-card"
+			:headers="headers_token"
+		>
+			<i class="el-icon-plus"></i>
+		</el-upload>
 	</div>
 </template>
 <script>
-
     export default {
-        name:"",
-        data(){
-            return{
-	            a:'0',
-	            num:100
-            }
+        data() {
+            return {
+                dialogImageUrl: '',
+                dialogVisible: false,
+            };
         },
-	    components:{
-
-	    }
+        computed:{
+            headers_token:function () {
+                var token = JSON.parse(localStorage.getItem('TOKEN'));
+                token = "TOKEN " + token;
+                return {"Authorization":token}
+            },
+            upload_action:function () {
+				return "http://127.0.0.1:19900/api/user/update-avataruser/"
+            },
+        },
+        methods: {
+        }
     }
 </script>

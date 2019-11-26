@@ -1,0 +1,78 @@
+<!--<style lang="scss" scoped>-->
+<!--	.tag_input >>> .ivu-input{-->
+<!--		width: 55px;-->
+<!--		height: 16px;-->
+<!--		padding: 0;-->
+<!--		margin: 0;-->
+<!--	}-->
+<!--</style>-->
+
+
+<!--<template>-->
+<!--	<div>-->
+<!--		<Tag v-for="item in count" :key="item" :name="item" closable @on-close="handleClose2">-->
+<!--			<Input v-model="input_data[item]" placeholder="iview" style="height: 19px;width: auto" class="tag_input">-->
+
+<!--			</Input>-->
+<!--		</Tag>-->
+<!--		<Button icon="ios-add" type="dashed" size="small" @click="handleAdd">添加标签</Button>-->
+<!--	</div>-->
+<!--</template>-->
+<!--<script>-->
+<!--    export default {-->
+<!--        data () {-->
+<!--            return {-->
+<!--                count: [],-->
+<!--                input_data: {},-->
+<!--	            blog:{-->
+<!--                    blogid: -1,-->
+<!--		            tag:{},-->
+<!--	            }-->
+<!--            }-->
+<!--        },-->
+<!--	    created(){ // 从父组件获取tag数据不能及时同步,因为axios是异步发送请求,后端还没来得及相应,Vue的生命周期已经走到子组件里面,这样的话父组件传来的值就是空的-->
+<!--            this.blog.blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id-->
+<!--            if (this.blog.blogid >0 ){ // Vuex有值, 有文章需要编辑-->
+<!--                this.$api.api_all.detail_article_list_api( // 发http请求, 获取id对应文章的详细信息-->
+<!--                    this.blog.blogid-->
+<!--                ).then((response)=>{ // 成功获取博文详细信息-->
+<!--                    let http_data = response.data.results[0]; // 后端接口博文详细信息-->
+<!--	                this.blog.tag = JSON.parse(http_data.tag);-->
+<!--	                for (var key in this.blog.tag){-->
+<!--	                    this.count.push(key)-->
+<!--	                }-->
+<!--	                this.input_data = this.blog.tag;-->
+<!--                }).catch((error)=>{-->
+<!--                    this.$Message.error(error.response.data.msg);-->
+<!--                })-->
+<!--            } else {-->
+
+<!--            }-->
+<!--	    },-->
+<!--	    computed:{-->
+<!--            tag:function () { // tag数据-->
+<!--	            return this.tag_data-->
+<!--            },-->
+<!--	    },-->
+<!--        methods: {-->
+<!--            handleAdd () {-->
+<!--                if (this.count.length) {-->
+<!--                    const indexadd = this.count[this.count.length - 1] + 1;-->
+<!--                    this.count.push(indexadd);-->
+<!--                    this.input_data[indexadd] = ''-->
+<!--                } else {-->
+<!--                    this.count.push(0);-->
+<!--                    this.input_data[0] = ''-->
+<!--                }-->
+<!--            },-->
+<!--            handleClose2 (event, name) {-->
+<!--                const indexclose = this.count.indexOf(name); // 找到name所在的位置-->
+<!--                this.count.splice(indexclose, 1); // 将index删除-->
+<!--                delete this.input_data[name]-->
+<!--            },-->
+<!--            get_tag_value:function () {-->
+<!--	            return this.input_data-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->

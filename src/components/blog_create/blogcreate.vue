@@ -33,7 +33,7 @@
 										<Row>
 											<p>请输入副标题:</p>
 											<Col span="24">
-												<Input v-model="form.subtitle" type="text" clearable size="large" prefix="ios-paper-outline" placeholder="输入文章标题" style="height: 100%;width: 100%;" />
+												<Input v-model="form.subtitle" type="textarea" maxlength="150" show-word-limit clearable size="large" prefix="ios-paper-outline" placeholder="输入文章标题" style="height: 100%;width: 100%;" />
 											</Col>
 										</Row>
 									</FormItem>
@@ -42,6 +42,8 @@
 								<p>文章标签：</p>
 								<child-tag
 									ref="tag"
+									:tag_data="blog.detail_data"
+									:count="5"
 								>
 								</child-tag>
 								<Divider></Divider>
@@ -74,7 +76,7 @@
 <script>
     import ChildMarkdown from '@/components/child/markdown' // md子组件
     import UploadImage from '@/components/child/upload' // md子组件
-    import ChildTag from '@/components/child/tag' // tag子组件
+	    import ChildTag from '@/components/child/tag' // tag子组件
 
     export default {
         name: "blogcreate",
@@ -121,6 +123,7 @@
                 ).then((response)=>{ // 成功获取博文详细信息
                     let http_data = response.data.results[0]; // 后端接口博文详细信息
 	                this.blog.detail_data = http_data; // 详细数据
+	                console.log("this.blog.detail_data:",this.blog.detail_data)
 	                this.form.title = http_data.title;
 	                this.form.subtitle = http_data.subtitle;
 	                this.child.md_default_data = http_data.content;

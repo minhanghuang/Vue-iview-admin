@@ -36,6 +36,7 @@
                 ).then((response)=>{
                     this.$Message.success(response.data.msg);
                     localStorage.setItem('TOKEN', JSON.stringify(response.data.results.TOKEN)); // 设置TOKEN
+                    localStorage.setItem('username', JSON.stringify(response.data.results.username)); // 设置TOKEN
                     this.$router.push("/") // 跳转到首页
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);

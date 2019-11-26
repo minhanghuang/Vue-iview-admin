@@ -1,77 +1,87 @@
 <style lang="scss" scoped>
-	.tag_input >>> .ivu-input{
-		width: 55px;
-		height: 16px;
-		padding: 0;
-		margin: 0;
+	.el-tag + .el-tag {
+		margin-left: 10px;
+	}
+	.button-new-tag {
+		margin-left: 10px;
+		height: 32px;
+		line-height: 30px;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.input-new-tag {
+		width: 90px;
+		margin-left: 10px;
+		vertical-align: bottom;
 	}
 </style>
 
 
 <template>
 	<div>
-		<Tag v-for="item in count" :key="item" :name="item" closable @on-close="handleClose2">
-			<Input v-model="input_data[item]" placeholder="iview" style="height: 19px;width: auto" class="tag_input">
-
-			</Input>
-		</Tag>
-		<Button icon="ios-add" type="dashed" size="small" @click="handleAdd">添加标签</Button>
+		<el-tag
+			:key="tag"
+			v-for="tag in dynamicTags"
+			closable
+			:disable-transitions="false"
+			@close="handleClose(tag)">
+			{{tag}}
+		</el-tag>
+		<el-input
+			class="input-new-tag"
+			v-if="inputVisible"
+			v-model="inputValue"
+			ref="saveTagInput"
+			size="small"
+			@keyup.enter.native="handleInputConfirm"
+			@blur="handleInputConfirm"
+		>
+		</el-input>
+		<el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="dynamicTags.length < count" >+ 添加标签</el-button>
 	</div>
 </template>
 <script>
     export default {
-        data () {
+        props:["tag_data","count"],
+	    name:"tagsindex",
+        data() {
             return {
-                count: [],
-                input_data: {},
-	            blog:{
-                    blogid: -1,
-		            tag:{},
+                dynamicTags: [], // 需要显示的标签
+                inputVisible: false, // 是否可输入
+                inputValue: '', // 双向数据绑定, 当前输入的数据
+	            blog: { // 文章相关数据
+                    tags: [],
 	            }
-            }
+            };
         },
-	    created(){ // 从父组件获取tag数据不能及时同步,因为axios是异步发送请求,后端还没来得及相应,Vue的生命周期已经走到子组件里面,这样的话父组件传来的值就是空的
-            this.blog.blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
-            if (this.blog.blogid >0 ){ // Vuex有值, 有文章需要编辑
-                this.$api.api_all.detail_article_list_api( // 发http请求, 获取id对应文章的详细信息
-                    this.blog.blogid
-                ).then((response)=>{ // 成功获取博文详细信息
-                    let http_data = response.data.results[0]; // 后端接口博文详细信息
-	                this.blog.tag = JSON.parse(http_data.tag);
-	                for (var key in this.blog.tag){
-	                    this.count.push(key)
-	                }
-	                this.input_data = this.blog.tag;
-                }).catch((error)=>{
-                    this.$Message.error(error.response.data.msg);
-                })
-            } else {
-
+	    watch:{
+            tag_data(newval,oldval){ // 监听父组件传来的后端拿到的数据 tags
+	            this.dynamicTags = JSON.parse(newval.tag); //
+	            console.log("this.dynamicTags:",this.dynamicTags)
             }
-	    },
-	    computed:{
-            tag:function () { // tag数据
-	            return this.tag_data
-            },
 	    },
         methods: {
-            handleAdd () {
-                if (this.count.length) {
-                    const indexadd = this.count[this.count.length - 1] + 1;
-                    this.count.push(indexadd);
-                    this.input_data[indexadd] = ''
-                } else {
-                    this.count.push(0);
-                    this.input_data[0] = ''
+            handleClose(tag) { // 关掉某个标签事件
+                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            },
+
+            showInput() {
+                this.inputVisible = true;
+                this.$nextTick(_ => {
+                    this.$refs.saveTagInput.$refs.input.focus();
+                });
+            },
+
+            handleInputConfirm() { // 回车按键
+                let inputValue = this.inputValue;
+                if (inputValue) {
+                    this.dynamicTags.push(inputValue);
                 }
+                this.inputVisible = false;
+                this.inputValue = '';
             },
-            handleClose2 (event, name) {
-                const indexclose = this.count.indexOf(name); // 找到name所在的位置
-                this.count.splice(indexclose, 1); // 将index删除
-                delete this.input_data[name]
-            },
-            get_tag_value:function () {
-	            return this.input_data
+            get_tag_value:function () { // 父组件获取当前组件tags的数据
+	            return this.dynamicTags
             }
         }
     }

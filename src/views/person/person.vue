@@ -66,38 +66,64 @@
 							<div style="height: auto;width: 100%">
 								<div style="padding: 15px 15px 15px 0;margin-left: 30px; background-color: #f5f7f9">
 									<div style="padding-left: 20px">
-										<Tabs value="name1">
-											<TabPane label="基本设置" name="name1"></TabPane>
+										<Tabs >
+											<TabPane label="基本设置"></TabPane>
 										</Tabs>
 									</div>
 									<div style="padding-left: 30px">
+										<div style="margin-bottom: 26px">
+											<child-uploadele>
+
+											</child-uploadele>
+										</div>
 										<div style="padding-bottom: 26px">
 											姓名
-											<Input v-model="value2" placeholder="Cox" style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.username" placeholder="Cox" style="margin-left: 15px ;width: 300px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											描述
-											<Input v-model="value2" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.description" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 300px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											邮箱
-											<Input v-model="value2" placeholder="job@minhung.me"  style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.email" placeholder="job@minhung.me"  style="margin-left: 15px ;width: 300px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											公司
-											<Input v-model="value2" placeholder="某某公司"  style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.company" placeholder="某某公司"  style="margin-left: 15px ;width: 300px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											部门
-											<Input v-model="value2" placeholder="某某部门"  style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.department" placeholder="某某部门"  style="margin-left: 15px ;width: 300px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											职位
-											<Input v-model="value2" placeholder="后端开发工程师"  style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.position" placeholder="后端开发工程师"  style="margin-left: 15px ;width: 300px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											地址
-											<Input v-model="value2" placeholder="深圳"  style="margin-left: 15px ;width: 300px"></Input>
+											<Input v-model="value.city" placeholder="深圳"  style="margin-left: 15px ;width: 300px"></Input>
+										</div>
+										<div style="padding-bottom: 26px">
+											<div style="height: auto;">
+												<div style="display: inline-block;margin-right: 15px">
+													标签
+												</div>
+												<div style="display: inline-block;border:2px solid #eee;height: auto;max-width: 500px">
+													<child-tag
+															ref="tag"
+															:tag_data="user.http_data"
+															:count="4"
+													>
+													</child-tag>
+												</div>
+											</div>
+										</div>
+										<div style="padding-bottom: 26px">
+											<div style="display: inline-block;margin-right: 15px;color: rgb(245, 247, 249)">
+												标签
+											</div>
+											<Button type="error">保存</Button>
 										</div>
 									</div>
 								</div>
@@ -106,17 +132,68 @@
 					</Row>
 				</Col>
 			</Row>
+			<Spin size="large" fix v-if="loadding"></Spin>
 		</Col>
 	</Row>
 </template>
 
 <script>
+    import ChildTag from '@/components/child/tag' // tag子组件
+    import ChildUploadele from '@/components/child/upload/avatar' // 更新头像子组件
+
     export default {
-        name: "person",
-        components: {},
-        data() {
-            return {}
+        name: "myperson",
+        components: {
+            ChildTag,
+            ChildUploadele,
         },
+        data() {
+            return {
+                value:{
+                    username: "",
+                    description: "",
+                    email: "",
+                    company: "",
+                    department: "",
+                    position: "",
+                    address: "",
+                    tags: ["Vue.js"],
+                },
+	            user: {
+                    http_data: {},
+	            },
+                loadding: true,
+            }
+        },
+	    watch:{
+            user:{
+                handler (newval, oldval) {
+	                this.loadding = false;
+                },
+	            deep: true,
+            }
+	    },
+	    created() {
+            var username = JSON.parse(localStorage.getItem('username'));
+            this.$api.api_all.get_user_detail_api( // 发http请求, 获取用户的详细资料
+                username
+            ).then((response)=>{ // 成功获取博文详细信息
+                this.user.http_data = response.data.results[0]; // 后端接口博文详细信息
+	            console.log(response.data.results[0])
+                this.value.username = response.data.results[0].username;
+                this.value.description = response.data.results[0].description;
+                this.value.email = response.data.results[0].email;
+                this.value.company = response.data.results[0].company;
+                this.value.department = response.data.results[0].department;
+                this.value.position = response.data.results[0].position;
+                this.value.city = response.data.results[0].city;
+                console.log("this.value:",this.value)
+                console.log("user.http_data:",this.user.http_data)
+            }).catch((error)=>{
+                this.$Message.error(error.response.data.msg);
+            })
+        },
+
     }
 </script>
 
