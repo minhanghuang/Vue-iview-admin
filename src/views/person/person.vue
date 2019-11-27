@@ -9,13 +9,13 @@
 				<Col style="height: 100%;width: 100%;">
 					<Row style="padding: 30px;" >
 						<Col span="7" style="height: auto">
-							<Row style="padding: 15px;height: auto;background-color: #f5f7f9" >
+							<Row style="padding: 15px;height: auto;background-color: #f5f7f9;border-radius: 20px" >
 								<Col span="24" style="height: auto">
 									<Row style="padding: 25px;height: auto" >
 										<Col span="24" style="height: auto">
 											<div style="margin: 8px 0;text-align: center">
 												<div style="margin: 0 auto;width: auto;height: auto">
-													<img src="../../../src/assets/logo.png" style="height: 100px;width: 100px;border-radius:50px">
+													<img :src="value.avatar" style="height: 100px;width: 100px;border-radius:50px">
 												</div>
 											</div>
 											<div style="text-align: center;margin: 10px 0">
@@ -71,7 +71,7 @@
 						</Col>
 						<Col span="17" style="height: auto">
 							<div style="height: auto;width: 100%">
-								<div style="padding: 15px 15px 15px 0;margin-left: 30px; background-color: #f5f7f9">
+								<div style="padding: 15px 15px 15px 0;margin-left: 30px; background-color: #f5f7f9;border-radius: 20px">
 									<div style="padding-left: 20px">
 										<Tabs >
 											<TabPane label="基本设置"></TabPane>
@@ -79,8 +79,11 @@
 									</div>
 									<div style="padding-left: 30px">
 										<div style="margin-bottom: 26px">
-											<child-uploadele>
-
+											<child-uploadele
+												:is_auto_upload="auto_upload"
+												:is_save_submit="is_submit"
+												@real_upload_success="real_upload_success"
+											>
 											</child-uploadele>
 										</div>
 										<div style="padding-bottom: 26px">
@@ -133,7 +136,7 @@
 											<div style="display: inline-block;margin-right: 15px;color: rgb(245, 247, 249)">
 												标签
 											</div>
-											<Button type="error">保存</Button>
+											<Button type="error" @click="save_bt">保存</Button>
 										</div>
 									</div>
 								</div>
@@ -150,6 +153,7 @@
 <script>
     import ChildTag from '@/components/child/tag' // tag子组件
     import ChildUploadele from '@/components/child/upload/avatar' // 更新头像子组件
+	import imga from "@/assets/logo.png";
 
     export default {
         name: "myperson",
@@ -168,11 +172,18 @@
                     position: "",
                     address: "",
 	                tag:"",
+                    avatar: "",
                 },
 	            user: {
                     http_data: {},
+		            avatar: imga
+		            // avatar:"https://profile.csdnimg.cn/6/2/D/3_qq_25479327"
+		            // avatar:"../../../src/assets/logo.png"
 	            },
                 loadding: true,
+                auto_upload: false, // 不自动上传, 需要点击保存按钮才上传
+                is_submit: false, // 点击保存按钮后, 该变量变为true, 并立即传给子组件, 子组件触发上传文件事件
+                upload_success: false,
             }
         },
 	    watch:{
@@ -181,12 +192,6 @@
 	                this.loadding = false;
                 },
 	            deep: true,
-            },
-            value:{
-                handler (newval, oldval) {
-
-                },
-                deep: true,
             },
 	    },
 	    created() {
@@ -201,8 +206,24 @@
             })
         },
 		methods:{
-            real_time_get_tags:function (new_tag_value) {
+            real_time_get_tags:function (new_tag_value) { // 获取子组件实时的tag数据
 	            this.value.tag = new_tag_value;
+            },
+            real_upload_success:function (new_value) {
+                this.upload_success = new_value;
+            },
+            save_bt:function () { // 点击保存按钮
+				this.is_submit = true;
+                var username = JSON.parse(localStorage.getItem('username'));
+                this.$api.api_all.put_user_detail_api( // 更新用户资料
+                    username, this.value
+                ).then((response)=>{
+                    this.$Message.success(response.data.msg);
+                    this.user.http_data = response.data.results[0]; // 更新用户资料, 更新后的数据, 同步到data中
+                    this.value = response.data.results[0];
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                })
             }
 		}
     }

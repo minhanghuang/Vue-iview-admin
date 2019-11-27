@@ -74,10 +74,25 @@ const api_all = {
             params: params,
         })
     },
-    get_user_detail_api(username) { // 获取用户详细细聊
+    get_user_detail_api(username) { // 获取用户详细资料
         return axios({
             url: '/api/user/detail-user/'+username+'/',
             method: 'GET',
+        })
+    },
+    put_user_detail_api(username, value) { // 更新用户详细资料
+        return axios({
+            url: '/api/user/update-user/'+username+'/',
+            method: 'PUT',
+            data: {
+                description: value.description,
+                email: value.email,
+                company: value.company,
+                department: value.department,
+                position: value.position,
+                city: value.city,
+                tag: value.tag,
+            }
         })
     },
 };
