@@ -42,8 +42,10 @@
 								<p>文章标签：</p>
 								<child-tag
 									ref="tag"
-									:tag_data="blog.detail_data"
+									:tag_data="blog.detail_data.tag"
 									:count="5"
+									:disable="false"
+									tag_size="medium"
 								>
 								</child-tag>
 								<Divider></Divider>

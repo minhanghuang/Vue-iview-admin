@@ -1,9 +1,9 @@
 <style lang="scss" scoped>
 	.el-tag + .el-tag {
-		margin-left: 10px;
+		margin-left: 2px; // 标签的距离
 	}
 	.button-new-tag {
-		margin-left: 10px;
+		margin-left: 2px; // 输入框的距离
 		height: 32px;
 		line-height: 30px;
 		padding-top: 0;
@@ -18,18 +18,20 @@
 
 
 <template>
-	<div>
+	<div class="mytag">
 		<el-tag
 			:key="tag"
 			v-for="tag in dynamicTags"
 			closable
 			:disable-transitions="false"
-			@close="handleClose(tag)">
+			@close="handleClose(tag)"
+			:size="tag_size"
+		>
 			{{tag}}
 		</el-tag>
 		<el-input
 			class="input-new-tag"
-			v-if="inputVisible"
+			v-if="inputVisible && !disable"
 			v-model="inputValue"
 			ref="saveTagInput"
 			size="small"
@@ -37,12 +39,18 @@
 			@blur="handleInputConfirm"
 		>
 		</el-input>
-		<el-button v-else class="button-new-tag" size="small" @click="showInput" v-show="dynamicTags.length < count" >+ 添加标签</el-button>
+		<el-button
+			v-if="!inputVisible && !disable"
+			class="button-new-tag"
+			size="small"
+			@click="showInput"
+			v-show="dynamicTags.length < count"
+		>+ 添加标签</el-button>
 	</div>
 </template>
 <script>
     export default {
-        props:["tag_data","count"],
+        props:["tag_data","count","disable","tag_size"],
 	    name:"tagsindex",
         data() {
             return {
@@ -56,8 +64,10 @@
         },
 	    watch:{
             tag_data(newval,oldval){ // 监听父组件传来的后端拿到的数据 tags
-	            this.dynamicTags = JSON.parse(newval.tag); //
-	            console.log("this.dynamicTags:",this.dynamicTags)
+	            this.dynamicTags = JSON.parse(newval); //
+            },
+            dynamicTags(newval, oldval){ // 当前组件标签被修改, 触发, 将修改后的数据传给父组件
+                this.$emit('realtime', JSON.stringify(newval))
             }
 	    },
         methods: {

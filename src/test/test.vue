@@ -573,36 +573,54 @@
 <!--</style>-->
 
 
+<!--<template>-->
+<!--	<div>-->
+<!--		<el-upload-->
+<!--			:action="upload_action"-->
+<!--			list-type="picture-card"-->
+<!--			:headers="headers_token"-->
+<!--		>-->
+<!--			<i class="el-icon-plus"></i>-->
+<!--		</el-upload>-->
+<!--	</div>-->
+<!--</template>-->
+<!--<script>-->
+<!--    export default {-->
+<!--        data() {-->
+<!--            return {-->
+<!--                dialogImageUrl: '',-->
+<!--                dialogVisible: false,-->
+<!--            };-->
+<!--        },-->
+<!--        computed:{-->
+<!--            headers_token:function () {-->
+<!--                var token = JSON.parse(localStorage.getItem('TOKEN'));-->
+<!--                token = "TOKEN " + token;-->
+<!--                return {"Authorization":token}-->
+<!--            },-->
+<!--            upload_action:function () {-->
+<!--				return "http://127.0.0.1:19900/api/user/update-avataruser/"-->
+<!--            },-->
+<!--        },-->
+<!--        methods: {-->
+<!--        }-->
+<!--    }-->
+<!--</script>-->
+
 <template>
 	<div>
-		<el-upload
-			:action="upload_action"
-			list-type="picture-card"
-			:headers="headers_token"
-		>
-			<i class="el-icon-plus"></i>
-		</el-upload>
+		<Input v-model="value.a" placeholder="Enter something..." style="width: 300px" ></Input>
+		{{value.a}}
 	</div>
 </template>
 <script>
     export default {
         data() {
             return {
-                dialogImageUrl: '',
-                dialogVisible: false,
+                value: {
+                    a:"",
+                },
             };
         },
-        computed:{
-            headers_token:function () {
-                var token = JSON.parse(localStorage.getItem('TOKEN'));
-                token = "TOKEN " + token;
-                return {"Authorization":token}
-            },
-            upload_action:function () {
-				return "http://127.0.0.1:19900/api/user/update-avataruser/"
-            },
-        },
-        methods: {
-        }
     }
 </script>
