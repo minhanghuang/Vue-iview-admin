@@ -88,11 +88,11 @@
 										</div>
 										<div style="padding-bottom: 26px">
 											姓名
-											<Input v-model="value.username" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
+											<Input readonly v-model="value.username" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											描述
-											<Input v-model="value.description" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 372px"></Input>
+											<Input :show-word-limit="true" maxlength="30" v-model="value.description" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 372px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											邮箱
