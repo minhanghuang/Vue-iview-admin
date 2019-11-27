@@ -23,7 +23,7 @@
 			<Layout>
 				<Sider hide-trigger :style="{background: '#fff'}">
 						<Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" @on-select="toroute">
-						<MenuItem name="">
+						<MenuItem name="dashboard">
 							<Icon type="ios-stats"></Icon>
 							<span>Dashboard</span>
 						</MenuItem>

@@ -30,6 +30,10 @@ export default new Router({
                     path: "/person",
                     component: () => import("@/views/person/person")
                 },
+                {
+                    path: "/dashboard",
+                    component: () => import("@/views/dashboard/dashboard")
+                },
             ]
         },
         {

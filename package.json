@@ -14,6 +14,8 @@
     "element-ui": "^2.12.0",
     "iview-area": "^1.5.17",
     "mavon-editor": "^2.7.7",
+    "countup": "^1.8.2",
+    "echarts": "^4.0.4",
     "view-design": "^4.0.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",

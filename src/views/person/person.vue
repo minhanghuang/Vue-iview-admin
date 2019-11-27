@@ -8,7 +8,7 @@
 			<Row style="height: 100%;width: 100%;">
 				<Col style="height: 100%;width: 100%;">
 					<Row style="padding: 30px;" >
-						<Col span="8" style="height: auto">
+						<Col span="6" style="height: auto">
 							<Row style="padding: 15px;height: auto;background-color: #f5f7f9" >
 								<Col span="24" style="height: auto">
 									<Row style="padding: 25px;height: auto" >
@@ -62,7 +62,7 @@
 								</Col>
 							</Row>
 						</Col>
-						<Col span="16" style="height: auto">
+						<Col span="18" style="height: auto">
 							<div style="height: auto;width: 100%">
 								<div style="padding: 15px 15px 15px 0;margin-left: 30px; background-color: #f5f7f9">
 									<div style="padding-left: 20px">
