@@ -34,6 +34,10 @@ export default new Router({
                     path: "/dashboard",
                     component: () => import("@/views/dashboard/dashboard")
                 },
+                {
+                    path: "/logs",
+                    component: () => import("@/views/mylogs/mylogs")
+                },
             ]
         },
         {

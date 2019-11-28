@@ -25,7 +25,6 @@
 			:on-success="upload_success"
 			:on-error="upload_error"
 			:auto-upload="is_auto_upload"
-			:limit=1
 			ref="upload"
 			class="upload_avatar"
 		>

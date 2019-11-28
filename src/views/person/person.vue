@@ -19,7 +19,7 @@
 												</div>
 											</div>
 											<div style="text-align: center;margin: 10px 0">
-												<p style="color: rgba(0, 0, 0, 0.85);font-size: 20px;font-weight:500; ">{{value.username}}</p>
+												<p style="color: rgba(0, 0, 0, 0.85);font-size: 20px;font-weight:500; ">{{value.name}}</p>
 											</div>
 											<div style="text-align: center;width:auto;margin: 0 auto">
 												<p>{{value.description}}</p>
@@ -58,10 +58,11 @@
 												<child-tag
 													ref="tag"
 													:tag_data="value.tag"
-													:count="4"
+													:count="20"
 													:disable="true"
 													tag_size="small"
 													:closable="false"
+													type="danger"
 												>
 												</child-tag>
 											</div>
@@ -88,7 +89,7 @@
 										</div>
 										<div style="padding-bottom: 26px">
 											姓名
-											<Input readonly v-model="value.username" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
+											<Input v-model="value.name" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
 										</div>
 										<div style="padding-bottom: 26px">
 											描述
@@ -123,7 +124,7 @@
 													<child-tag
 														ref="tag"
 														:tag_data="value.tag"
-														:count="4"
+														:count="20"
 														:closable="true"
 														:disable="false"
 														tag_size=""
@@ -165,7 +166,7 @@
         data() {
             return {
                 value:{
-                    username: "",
+                    name: "",
                     description: "",
                     email: "",
                     company: "",

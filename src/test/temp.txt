@@ -76,3 +76,24 @@
 <!--        }-->
 <!--    }-->
 <!--</script>-->
+
+
+			<div class="layout-logo"></div>
+			<div class="layout-nav">
+				<Row>
+					<Col>
+						<Row>
+							<Col span="4" offset="20" style="">
+								<Dropdown style="margin-left: 20px" @on-click="headdown">
+									<Avatar style="background-color: #9c2760" icon="ios-person" />
+									<Icon type="ios-arrow-down"></Icon>
+									<DropdownMenu slot="list">
+										<DropdownItem name="center">个人中心</DropdownItem>
+										<DropdownItem name="logout">退出登录</DropdownItem>
+									</DropdownMenu>
+								</Dropdown>
+							</Col>
+						</Row>
+					</Col>
+				</Row>
+			</div>

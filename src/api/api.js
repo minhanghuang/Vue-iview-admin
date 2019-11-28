@@ -85,6 +85,7 @@ const api_all = {
             url: '/api/user/update-user/'+username+'/',
             method: 'PUT',
             data: {
+                name: value.name,
                 description: value.description,
                 email: value.email,
                 company: value.company,

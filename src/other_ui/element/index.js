@@ -1,5 +1,5 @@
 // 导入自己需要的组件
-import { Select, Option, OptionGroup, Input, Tree, Dialog, Row, Col, Tag, Button, ButtonGroup, Upload} from 'element-ui'
+import { Select, Option, OptionGroup, Input, Tree, Dialog, Row, Col, Tag, Button, ButtonGroup, Upload, Timeline, TimelineItem, } from 'element-ui'
 const element = {
     install: function (Vue) {
         Vue.use(Select);
@@ -14,7 +14,8 @@ const element = {
         Vue.use(Button);
         Vue.use(ButtonGroup);
         Vue.use(Upload);
-        // Vue.use(Dialog);
+        Vue.use(Timeline);
+        Vue.use(TimelineItem);
     }
 };
 export default element

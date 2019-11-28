@@ -26,6 +26,7 @@
 			:disable-transitions="false"
 			@close="handleClose(tag)"
 			:size="tag_size"
+			:type="type"
 		>
 			{{tag}}
 		</el-tag>
@@ -50,8 +51,8 @@
 </template>
 <script>
     export default {
-        // tag_data: 标签数据; count: 标签最大个数; disable: 标签是否可添加; tag_size: 标签大小; closable: 标签是佛可删除;
-        props:["tag_data","count","disable","tag_size","closable"],
+        // tag_data: 标签数据; count: 标签最大个数; disable: 标签是否可添加; tag_size: 标签大小; closable: 标签是佛可删除; type: 标签类型
+        props:["tag_data","count","disable","tag_size","closable","type"],
 	    name:"tagsindex",
         data() {
             return {

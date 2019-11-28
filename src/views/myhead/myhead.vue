@@ -14,32 +14,27 @@
 		margin: 0 auto;
 		margin-right: 20px;
 	}
+	.header-box{
+		height: 60px;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		display:inline-flex;
+		/*.header-box-l{*/
+		/*	width: 200px;*/
+		/*	height: 100%;*/
+		/*}*/
+		/*.header-box-r{*/
+		/*	height: 100%;*/
+		/*	flex: 1; // 左边固定宽度, 右边自适应*/
+		/*}*/
+	}
 </style>
 
 <template>
-	<Row style="height: 100%;width: 100%;background-color: #363436">
-		<Col style="height: 100%;width: 100%">
-			<div class="layout-logo"></div>
-			<div class="layout-nav">
-				<Row>
-					<Col>
-						<Row>
-							<Col span="4" offset="20" style="">
-								<Dropdown style="margin-left: 20px" @on-click="headdown">
-									<Avatar style="background-color: #9c2760" icon="ios-person" />
-									<Icon type="ios-arrow-down"></Icon>
-									<DropdownMenu slot="list">
-										<DropdownItem name="center">个人中心</DropdownItem>
-										<DropdownItem name="logout">退出登录</DropdownItem>
-									</DropdownMenu>
-								</Dropdown>
-							</Col>
-						</Row>
-					</Col>
-				</Row>
-			</div>
-		</Col>
-	</Row>
+	<div class="header-box">
+
+	</div>
 </template>
 
 <script>

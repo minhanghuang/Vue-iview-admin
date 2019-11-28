@@ -10,41 +10,52 @@
 			height: inherit;
 		}
 	}
-
+	.header-con{
+		height: 60px;
+		width: 100%;
+		background-color: white;
+		margin: 0;
+		padding: 0;
+	}
 </style>
 <template>
 	<div class="layout">
 		<Layout>
-			<Header style="background-color: #363436">
-				<Menu mode="horizontal" theme="dark" active-name="1">
-					<myhead></myhead>
+			<Sider hide-trigger style="background-color: white;border-top: 1px solid #d7dde4">
+				<Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" @on-select="toroute">
+					<MenuItem name="" style="height: 60px;text-align: center">
+						<span>BLOG ADMIN</span>
+					</MenuItem>
+					<MenuItem name="dashboard">
+						<Icon type="ios-stats"></Icon>
+						<span>Dashboard</span>
+					</MenuItem>
+					<Submenu name="1">
+						<template slot="title">
+							<Icon type="ios-paper"></Icon>
+							文章
+						</template>
+						<MenuItem name="listblog">
+							列表
+						</MenuItem>
+						<MenuItem name="createblog">
+							创建
+						</MenuItem>
+					</Submenu>
+					<MenuItem name="person">
+						<Icon type="ios-contact"></Icon>
+						<span>个人中心</span>
+					</MenuItem>
+					<MenuItem name="logs">
+						<Icon type="ios-log-out"></Icon>
+						<span>系统更新日志</span>
+					</MenuItem>
 				</Menu>
-			</Header>
+			</Sider>
 			<Layout>
-				<Sider hide-trigger :style="{background: '#fff'}">
-						<Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" @on-select="toroute">
-						<MenuItem name="dashboard">
-							<Icon type="ios-stats"></Icon>
-							<span>Dashboard</span>
-						</MenuItem>
-						<Submenu name="1">
-							<template slot="title">
-								<Icon type="ios-paper"></Icon>
-								文章
-							</template>
-							<MenuItem name="listblog">
-								列表
-							</MenuItem>
-							<MenuItem name="createblog">
-								创建
-							</MenuItem>
-						</Submenu>
-						<MenuItem name="person">
-							<Icon type="ios-contact"></Icon>
-							<span>个人中心</span>
-						</MenuItem>
-					</Menu>
-				</Sider>
+				<div class="header-con" style="height: 60px;width: 100%;background-color: white">
+					<myhead></myhead>
+				</div>
 				<Layout :style="{padding: '0 24px 24px'}">
 					<Breadcrumb :style="{margin: '24px 0'}">
 						<BreadcrumbItem>Home</BreadcrumbItem>
