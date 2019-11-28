@@ -19,7 +19,7 @@
 		width: 100%;
 		margin: 0;
 		padding: 0;
-		display:inline-flex;
+		/*display:inline-flex;*/
 		/*.header-box-l{*/
 		/*	width: 200px;*/
 		/*	height: 100%;*/
@@ -28,12 +28,20 @@
 		/*	height: 100%;*/
 		/*	flex: 1; // 左边固定宽度, 右边自适应*/
 		/*}*/
+		.header-box-content{
+			height: 100%;
+			width: 540px;
+			float: right;
+			background-color: #56b6c2;
+		}
 	}
 </style>
 
 <template>
 	<div class="header-box">
+		<div class="header-box-content">
 
+		</div>
 	</div>
 </template>
 

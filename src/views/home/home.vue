@@ -23,8 +23,12 @@
 		<Layout>
 			<Sider hide-trigger style="background-color: white;border-top: 1px solid #d7dde4">
 				<Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" @on-select="toroute">
-					<MenuItem name="" style="height: 60px;text-align: center">
-						<span>BLOG ADMIN</span>
+					<MenuItem name="" style="height: 60px;">
+						<Row>
+							<Col span="18" offset="3">
+								<span style="color: #409EFF;font-size: 20px;vertical-align:center">ADMIN</span>
+							</Col>
+						</Row>
 					</MenuItem>
 					<MenuItem name="dashboard">
 						<Icon type="ios-stats"></Icon>
