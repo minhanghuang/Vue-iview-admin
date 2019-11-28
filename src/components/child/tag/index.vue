@@ -22,7 +22,7 @@
 		<el-tag
 			:key="tag"
 			v-for="tag in dynamicTags"
-			closable
+			:closable="closable"
 			:disable-transitions="false"
 			@close="handleClose(tag)"
 			:size="tag_size"
@@ -50,7 +50,8 @@
 </template>
 <script>
     export default {
-        props:["tag_data","count","disable","tag_size"],
+        // tag_data: 标签数据; count: 标签最大个数; disable: 标签是否可添加; tag_size: 标签大小; closable: 标签是佛可删除;
+        props:["tag_data","count","disable","tag_size","closable"],
 	    name:"tagsindex",
         data() {
             return {

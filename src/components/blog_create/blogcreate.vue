@@ -44,6 +44,7 @@
 									ref="tag"
 									:tag_data="blog.detail_data.tag"
 									:count="5"
+									:closable="true"
 									:disable="false"
 									tag_size="medium"
 								>
@@ -78,7 +79,7 @@
 <script>
     import ChildMarkdown from '@/components/child/markdown' // md子组件
     import UploadImage from '@/components/child/upload' // md子组件
-	    import ChildTag from '@/components/child/tag' // tag子组件
+    import ChildTag from '@/components/child/tag' // tag子组件
 
     export default {
         name: "blogcreate",

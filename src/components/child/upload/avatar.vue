@@ -25,6 +25,7 @@
 			:on-success="upload_success"
 			:on-error="upload_error"
 			:auto-upload="is_auto_upload"
+			:limit=1
 			ref="upload"
 			class="upload_avatar"
 		>
@@ -36,27 +37,15 @@
 <script>
     export default {
         name: "avatar", // 头像
-	    props:["is_auto_upload","is_save_submit"],
+	    props:["is_auto_upload"],
         components: {},
         data() {
             return {
                 dialogImageUrl: '',
                 dialogVisible: false,
-	            upload_avatar_success: false, // 头像上传成功后, 该变量翻转
             };
         },
 	    watch:{
-            is_save_submit(newval, oldval){
-                if(newval){ // 父组件点击保存按钮后, 该条件成立
-                    console.log("父组件点击保存按钮后:",newval);
-                    this.$refs.upload.submit(); // 上传图片
-                }
-            },
-            upload_avatar_success:function (newval, oldval) {
-	            if (newval){
-                    this.$emit('realuploadsuccess', newval)
-                }
-            }
 	    },
         computed:{
             headers_token:function () {
@@ -70,12 +59,13 @@
         },
 	    methods:{
             upload_success:function (response, file, fileList) {
+                this.$emit('get_upload_success_file', response.results.avatar); // 将更新后的头像返回到父组件
                 this.$Message.success("上传成功");
-                this.upload_avatar_success = true; // 头像上传成功标志位
             },
             upload_error:function (err, file, fileList) {
                 this.$Message.error("上传失败");
-            }
+            },
+
 	    }
     }
 </script>

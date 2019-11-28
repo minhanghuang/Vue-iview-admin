@@ -61,6 +61,7 @@
 													:count="4"
 													:disable="true"
 													tag_size="small"
+													:closable="false"
 												>
 												</child-tag>
 											</div>
@@ -81,8 +82,7 @@
 										<div style="margin-bottom: 26px">
 											<child-uploadele
 												:is_auto_upload="auto_upload"
-												:is_save_submit="is_submit"
-												@real_upload_success="real_upload_success"
+												@get_upload_success_file="get_upload_success_file"
 											>
 											</child-uploadele>
 										</div>
@@ -124,6 +124,7 @@
 														ref="tag"
 														:tag_data="value.tag"
 														:count="4"
+														:closable="true"
 														:disable="false"
 														tag_size=""
 														@realtime="real_time_get_tags"
@@ -181,8 +182,7 @@
 		            // avatar:"../../../src/assets/logo.png"
 	            },
                 loadding: true,
-                auto_upload: false, // 不自动上传, 需要点击保存按钮才上传
-                is_submit: false, // 点击保存按钮后, 该变量变为true, 并立即传给子组件, 子组件触发上传文件事件
+                auto_upload: true, // 自动上传
                 upload_success: false,
             }
         },
@@ -209,21 +209,20 @@
             real_time_get_tags:function (new_tag_value) { // 获取子组件实时的tag数据
 	            this.value.tag = new_tag_value;
             },
-            real_upload_success:function (new_value) {
-                this.upload_success = new_value;
-            },
             save_bt:function () { // 点击保存按钮
-				this.is_submit = true;
-                var username = JSON.parse(localStorage.getItem('username'));
+                var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
                 this.$api.api_all.put_user_detail_api( // 更新用户资料
                     username, this.value
                 ).then((response)=>{
                     this.$Message.success(response.data.msg);
-                    this.user.http_data = response.data.results[0]; // 更新用户资料, 更新后的数据, 同步到data中
-                    this.value = response.data.results[0];
+                    this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
+                    this.value = response.data.results;
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
-                })
+                });
+            },
+            get_upload_success_file:function (file_value) {
+	            this.value.avatar = file_value;
             }
 		}
     }
