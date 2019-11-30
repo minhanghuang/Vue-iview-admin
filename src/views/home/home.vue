@@ -31,12 +31,12 @@
 						</Row>
 					</MenuItem>
 					<MenuItem name="dashboard">
-						<Icon type="ios-stats"></Icon>
+						<Icon type="ios-stats" :size="icon_size" ></Icon>
 						<span>Dashboard</span>
 					</MenuItem>
 					<Submenu name="1">
 						<template slot="title">
-							<Icon type="ios-paper"></Icon>
+							<Icon type="ios-book" :size="icon_size" ></Icon>
 							文章
 						</template>
 						<MenuItem name="listblog">
@@ -47,11 +47,11 @@
 						</MenuItem>
 					</Submenu>
 					<MenuItem name="person">
-						<Icon type="ios-contact"></Icon>
+						<Icon type="ios-contact" :size="icon_size" ></Icon>
 						<span>个人中心</span>
 					</MenuItem>
 					<MenuItem name="logs">
-						<Icon type="ios-log-out"></Icon>
+						<Icon type="ios-cog" :size="icon_size"></Icon>
 						<span>系统更新日志</span>
 					</MenuItem>
 				</Menu>
@@ -85,7 +85,8 @@
           return {
               blog:{
                   blogid: -1, // 文章当前的id
-              }
+              },
+              icon_size: 20,
           }
         },
         components:{

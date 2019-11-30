@@ -23,7 +23,7 @@
 			height: 100%;
 			width: 540px;
 			float: right;
-			background-color: #56b6c2;
+			/*background-color: #56b6c2;*/
 			display: inline-flex;
 			justify-content: flex-end;
 			.menu{
@@ -81,6 +81,25 @@
 					-webkit-transform: rotate(180deg) // 箭头旋转180度
 				}
 			}
+			.top-menu{
+				width: auto;
+				height: 100%;
+				padding: 0 15px;
+				margin-right: 10px;
+				background-color: white;
+				i{
+					position: relative;
+					top: 17px;
+				}
+			}
+			.top-menu:hover{
+				background-color: #e3e6e8; // 背景变灰色
+			}
+			.search{
+				width: 120px;
+				height: 32px;
+				margin: 15px 20px 0 0;
+			}
 		}
 	}
 	.mydropdown >>> .ivu-dropdown-rel{
@@ -88,29 +107,42 @@
 		width: 100%;
 	}
 	.mydropdown >>> .ivu-select-dropdown{
-		 /*height: 60px;*/
 		 width: 150px;
 	 }
+	.my-tooltip >>> .ivu-tooltip-rel{
+		height: 60px; // 修改悬浮文字的位置
+	}
+	.search >>> .ivu-input-wrapper{
+		height: 100%;
+	}
 </style>
 
 <template>
 	<div class="header-box">
 		<div class="header-box-content">
 			<div class="search">
-				search
+				<Input v-model="search_value" placeholder="全局搜索..." />
 			</div>
-			<div class="msg">
-				msg
-			</div>
-			<div class="bell">
-				bell
-			</div>
-			<div class="github">
-				github
-			</div>
-			<div class="help">
-				help
-			</div>
+			<Tooltip content="Tools" placement="bottom" class="my-tooltip">
+				<div class="top-menu">
+					<Icon type="ios-construct-outline" :size="icon_size" ></Icon>
+				</div>
+			</Tooltip>
+			<Tooltip content="Task" placement="bottom" class="my-tooltip">
+				<div class="top-menu">
+					<Icon type="ios-chatbubbles-outline" :size="icon_size" ></Icon>
+				</div>
+			</Tooltip>
+			<Tooltip content="GitHub" placement="bottom" class="my-tooltip">
+				<div class="top-menu">
+					<Icon type="logo-github" :size="icon_size" ></Icon>
+				</div>
+			</Tooltip>
+			<Tooltip content="教学文档" placement="bottom" class="my-tooltip">
+				<div class="top-menu">
+					<Icon type="ios-help-circle-outline" :size="icon_size" ></Icon>
+				</div>
+			</Tooltip>
 			<Dropdown class="mydropdown" @on-click="click_dropdown">
 				<div class="menu">
 					<div class="menu-box">
@@ -150,7 +182,10 @@
         name: "myhead",
         components: {},
         data() {
-            return {}
+            return {
+                icon_size: 23, // 矢量图标大小
+                search_value: "", // 搜索双向数据绑定 
+            }
         },
 	    methods:{
             click_dropdown:function (name) {
