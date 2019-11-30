@@ -130,7 +130,7 @@
 			</Tooltip>
 			<Tooltip content="Task" placement="bottom" class="my-tooltip">
 				<div class="top-menu">
-					<Icon type="ios-chatbubbles-outline" :size="icon_size" ></Icon>
+					<Icon type="md-notifications-outline" :size="icon_size" ></Icon>
 				</div>
 			</Tooltip>
 			<Tooltip content="GitHub" placement="bottom" class="my-tooltip">

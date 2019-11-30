@@ -76,9 +76,13 @@
 				</div>
 				<Layout :style="{padding: '0 24px 24px'}">
 					<Breadcrumb :style="{margin: '24px 0'}">
-						<BreadcrumbItem>Home</BreadcrumbItem>
-						<BreadcrumbItem>Components</BreadcrumbItem>
-						<BreadcrumbItem>{{current_blog}}</BreadcrumbItem>
+						<div v-for="item in breadcrumb_item.count" style="display: inline-block">
+							<BreadcrumbItem :to="breadcrumb_item.data[item-1].path" >
+								<Icon :type="breadcrumb_item.data[item-1].icon"></Icon>
+								{{breadcrumb_item.data[item-1].name}}
+							</BreadcrumbItem>
+						</div>
+<!--						<BreadcrumbItem>{{current_blog}}</BreadcrumbItem>-->
 					</Breadcrumb>
 					<Content :style="{padding: '24px', Height: 'auto', background: '#fff'}">
 						<mycontent>
@@ -93,6 +97,8 @@
 <script>
     import mycontent from '@/views/mycontent/mycontent'
     import myhead from '@/views/myhead/myhead'
+    import { getBreadcrumbPath } from '@/utils/tools'
+
 
     export default {
         data(){
@@ -101,12 +107,38 @@
                   blogid: -1, // 文章当前的id
               },
               icon_size: 20,
+              breadcrumb_item: {
+                  count: 3,
+                  data:[
+                      {
+                          name: "Home",
+                          path: "/",
+	                      icon:"ios-home-outline"
+                      },
+                      {
+                          name: "Article",
+                          path: "/listblog",
+                          icon:"ios-book-outline"
+                      },
+                      {
+                          name: "文章列表",
+                          path: "/listblog",
+                          icon:"ios-home-outline"
+                      }
+                  ],
+              }
           }
         },
         components:{
             mycontent,
             myhead,
         },
+	    watch:{
+            "$route":function (newval, oldval) {
+                var current_path = this.$route.path;
+                this.breadcrumb_item = getBreadcrumbPath(current_path);
+            }
+	    },
         methods: {
             toroute(name) {
                 this.$router.push(name);

@@ -206,10 +206,92 @@ export const hasKey = (obj, key) => {
  * @description 判断两个对象是否相等，这两个对象的值只能是数字或字符串
  */
 export const objEqual = (obj1, obj2) => {
-  const keysArr1 = Object.keys(obj1)
-  const keysArr2 = Object.keys(obj2)
-  if (keysArr1.length !== keysArr2.length) return false
-  else if (keysArr1.length === 0 && keysArr2.length === 0) return true
+  const keysArr1 = Object.keys(obj1);
+  const keysArr2 = Object.keys(obj2);
+  if (keysArr1.length !== keysArr2.length) return false;
+  else if (keysArr1.length === 0 && keysArr2.length === 0) return true;
   /* eslint-disable-next-line */
   else return !keysArr1.some(key => obj1[key] != obj2[key])
-}
+};
+
+
+
+export const getBreadcrumbPath = (path_value) => {
+    let breadcrumb_item = {
+        count: 2,
+        data:[
+            {
+                name: "Home",
+                path: "/",
+                icon:"ios-home-outline"
+            },
+            {
+                name: "Article",
+                path: "/listblog",
+                icon:"ios-book-outline"
+            },
+            {
+                name: "文章列表",
+                path: "/listblog",
+                icon:"ios-bookmarks-outline"
+            }
+        ],
+    };
+    if (path_value === "/" || path_value === "/dashboard") {
+        breadcrumb_item.data[1].name = "Dashboard";
+        breadcrumb_item.data[1].path = "/dashboard";
+        breadcrumb_item.data[1].icon = "ios-stats";
+    }else if (path_value === "/listblog"){
+        breadcrumb_item.count = 3;
+    }else if (path_value === "/createblog"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[2].name = "新建文章";
+        breadcrumb_item.data[2].path = "/createblog";
+        breadcrumb_item.data[2].icon = "ios-add-circle-outline";
+    } else if (path_value === "/detailblog"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[2].name = "文章详细";
+        breadcrumb_item.data[2].path = "/detailblog";
+        breadcrumb_item.data[2].icon = "ios-albums-outline";
+    }else if (path_value === "/person"){
+        breadcrumb_item.count = 2;
+        breadcrumb_item.data[1].name = "个人中心";
+        breadcrumb_item.data[1].path = "/person";
+        breadcrumb_item.data[1].icon = "ios-contact";
+    }else if (path_value === "/logs"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "系统";
+        breadcrumb_item.data[1].path = "/logs";
+        breadcrumb_item.data[1].icon = "ios-cog-outline";
+        breadcrumb_item.data[2].name = "更新日志";
+        breadcrumb_item.data[2].path = "/logs";
+        breadcrumb_item.data[2].icon = "ios-trending-up";
+    }else if (path_value === "/tools"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "系统";
+        breadcrumb_item.data[1].path = "/logs";
+        breadcrumb_item.data[1].icon = "ios-cog-outline";
+        breadcrumb_item.data[2].name = "工具";
+        breadcrumb_item.data[2].path = "/tools";
+        breadcrumb_item.data[2].icon = "ios-construct-outline";
+    }else if (path_value === "/task"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "系统";
+        breadcrumb_item.data[1].path = "/logs";
+        breadcrumb_item.data[1].icon = "ios-cog-outline";
+        breadcrumb_item.data[2].name = "代办任务";
+        breadcrumb_item.data[2].path = "/task";
+        breadcrumb_item.data[2].icon = "md-notifications-outline";
+    }else if (path_value === "/help"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "系统";
+        breadcrumb_item.data[1].path = "/logs";
+        breadcrumb_item.data[1].icon = "ios-cog-outline";
+        breadcrumb_item.data[2].name = "帮助文档";
+        breadcrumb_item.data[2].path = "/help";
+        breadcrumb_item.data[2].icon = "ios-help-circle-outline";
+    }else {
+
+    }
+    return breadcrumb_item
+};
