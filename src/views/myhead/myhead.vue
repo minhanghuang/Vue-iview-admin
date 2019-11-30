@@ -124,22 +124,22 @@
 				<Input v-model="search_value" placeholder="全局搜索..." />
 			</div>
 			<Tooltip content="Tools" placement="bottom" class="my-tooltip">
-				<div class="top-menu">
+				<div class="top-menu" @click="tools_bt">
 					<Icon type="ios-construct-outline" :size="icon_size" ></Icon>
 				</div>
 			</Tooltip>
 			<Tooltip content="Task" placement="bottom" class="my-tooltip">
-				<div class="top-menu">
+				<div class="top-menu" @click="task_bt">
 					<Icon type="md-notifications-outline" :size="icon_size" ></Icon>
 				</div>
 			</Tooltip>
-			<Tooltip content="GitHub" placement="bottom" class="my-tooltip">
+			<Tooltip content="GitHub" placement="bottom" class="my-tooltip" onclick="window.open('https://github.com/Coxhuang')">
 				<div class="top-menu">
 					<Icon type="logo-github" :size="icon_size" ></Icon>
 				</div>
 			</Tooltip>
 			<Tooltip content="教学文档" placement="bottom" class="my-tooltip">
-				<div class="top-menu">
+				<div class="top-menu" @click="help_bt">
 					<Icon type="ios-help-circle-outline" :size="icon_size" ></Icon>
 				</div>
 			</Tooltip>
@@ -199,6 +199,15 @@
                 } else {
 
 	            }
+            },
+            tools_bt:function () {
+                this.$router.push("tools");
+            },
+            task_bt:function () {
+                this.$router.push("task");
+            },
+            help_bt:function () {
+                this.$router.push("help");
             }
 	    }
     }

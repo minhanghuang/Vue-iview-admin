@@ -108,7 +108,7 @@
               },
               icon_size: 20,
               breadcrumb_item: {
-                  count: 3,
+                  count: 2,
                   data:[
                       {
                           name: "Home",
@@ -116,9 +116,9 @@
 	                      icon:"ios-home-outline"
                       },
                       {
-                          name: "Article",
-                          path: "/listblog",
-                          icon:"ios-book-outline"
+                          name: "Dashboard",
+                          path: "/dashboard",
+                          icon:"ios-stats-outline"
                       },
                       {
                           name: "文章列表",

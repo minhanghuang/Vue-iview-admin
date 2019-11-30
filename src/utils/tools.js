@@ -240,7 +240,7 @@ export const getBreadcrumbPath = (path_value) => {
     if (path_value === "/" || path_value === "/dashboard") {
         breadcrumb_item.data[1].name = "Dashboard";
         breadcrumb_item.data[1].path = "/dashboard";
-        breadcrumb_item.data[1].icon = "ios-stats";
+        breadcrumb_item.data[1].icon = "ios-stats-outline";
     }else if (path_value === "/listblog"){
         breadcrumb_item.count = 3;
     }else if (path_value === "/createblog"){
