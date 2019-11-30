@@ -96,7 +96,7 @@
                 },
                 modal:{
                     create_blog: false, // 发布文章按钮弹框
-                    ok_bt_loading: true, // 打开loading
+	                    ok_bt_loading: true, // 打开loading
                 },
 	            child:{
                     md_default_data: "## Hello iView",
@@ -133,8 +133,7 @@
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })
-		    } else {
-
+		    } else { // Vuex没有值, 文章需要新建
 		    }
         },
         beforeDestroy(){ // Vue组件销毁前 钩子

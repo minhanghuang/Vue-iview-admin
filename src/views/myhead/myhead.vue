@@ -21,7 +21,7 @@
 		padding: 0;
 		.header-box-content{
 			height: 100%;
-			width: 540px;
+			width: auto;
 			float: right;
 			/*background-color: #56b6c2;*/
 			display: inline-flex;
@@ -115,13 +115,17 @@
 	.search >>> .ivu-input-wrapper{
 		height: 100%;
 	}
+	.search >>> .ivu-input{
+		border: 0 solid #dcdee2;
+		background-color: white;
+	}
 </style>
 
 <template>
 	<div class="header-box">
 		<div class="header-box-content">
 			<div class="search">
-				<Input v-model="search_value" placeholder="全局搜索..." />
+				<Input v-model="search_value" placeholder="全局搜索..."></Input>
 			</div>
 			<Tooltip content="Tools" placement="bottom" class="my-tooltip">
 				<div class="top-menu" @click="tools_bt">

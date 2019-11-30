@@ -27,7 +27,7 @@
 						</Col>
 					</Row>
 					<Row style="width: 100%;">
-						<Col span="24" style="height: 22px;margin: 6px 0;">
+						<Col span="24" style="height: 22px;margin: 13px 0 18px 0;">
 							<h4 class="subtitle">
 								{{this.blog.blog_detail.subtitle}}
 							</h4>

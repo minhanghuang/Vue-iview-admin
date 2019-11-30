@@ -71,10 +71,10 @@
 				</Menu>
 			</Sider>
 			<Layout>
-				<div class="header-con" style="height: 60px;width: 100%;background-color: white">
+				<div class="header-con" style="height: 60px;width: 100%;background-color: white;">
 					<myhead></myhead>
 				</div>
-				<Layout :style="{padding: '0 24px 24px'}">
+				<Layout  style="padding: 0 24px 24px;box-shadow:inset 0 15px 1px -15px #000;">
 					<Breadcrumb :style="{margin: '24px 0'}">
 						<div v-for="item in breadcrumb_item.count" style="display: inline-block">
 							<BreadcrumbItem :to="breadcrumb_item.data[item-1].path" >
@@ -82,7 +82,7 @@
 								{{breadcrumb_item.data[item-1].name}}
 							</BreadcrumbItem>
 						</div>
-<!--						<BreadcrumbItem>{{current_blog}}</BreadcrumbItem>-->
+						<BreadcrumbItem>{{current_blog}}</BreadcrumbItem>
 					</Breadcrumb>
 					<Content :style="{padding: '24px', Height: 'auto', background: '#fff'}">
 						<mycontent>
@@ -141,6 +141,9 @@
 	    },
         methods: {
             toroute(name) {
+                if (name==="createblog"){
+                    this.$store.commit("clear_current_blog_id", -1); // 清空Vuex中当前文章的id, 将id设为-1
+                }
                 this.$router.push(name);
             }
         },

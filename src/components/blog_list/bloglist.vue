@@ -66,7 +66,7 @@
                     },
                     {
                         title: '内容',
-                        key: 'content',
+                        key: 'subtitle',
                         ellipsis: true,
                     },
                     {

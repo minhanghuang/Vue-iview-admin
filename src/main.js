@@ -14,6 +14,7 @@ import '../my-theme/index.less'; // 自定义主题
 // 按需加载element组件
 import 'element-ui/lib/theme-chalk/index.css'
 import element from './other_ui/element/index'
+
 Vue.use(element);
 
 Vue.prototype.$api = axios;

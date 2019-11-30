@@ -86,6 +86,7 @@ const api_all = {
             method: 'PUT',
             data: {
                 name: value.name,
+                wechat: value.wechat,
                 description: value.description,
                 email: value.email,
                 company: value.company,
