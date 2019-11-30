@@ -38,6 +38,18 @@ export default new Router({
                     path: "/logs",
                     component: () => import("@/views/mylogs/mylogs")
                 },
+                {
+                    path: "/tools",
+                    component: () => import("@/views/mytools/mytools")
+                },
+                {
+                    path: "/task",
+                    component: () => import("@/views/mytask/mytask")
+                },
+                {
+                    path: "/help",
+                    component: () => import("@/views/myhelp/myhelp")
+                },
             ]
         },
         {

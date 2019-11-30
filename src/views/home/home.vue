@@ -46,13 +46,27 @@
 							创建
 						</MenuItem>
 					</Submenu>
+					<Submenu name="system">
+						<template slot="title">
+							<Icon type="ios-cog" :size="icon_size" ></Icon>
+							系统
+						</template>
+						<MenuItem name="tools">
+							工具
+						</MenuItem>
+						<MenuItem name="task">
+							代办任务
+						</MenuItem>
+						<MenuItem name="help">
+							帮助文档
+						</MenuItem>
+						<MenuItem name="logs">
+							系统更新日志
+						</MenuItem>
+					</Submenu>
 					<MenuItem name="person">
 						<Icon type="ios-contact" :size="icon_size" ></Icon>
 						<span>个人中心</span>
-					</MenuItem>
-					<MenuItem name="logs">
-						<Icon type="ios-cog" :size="icon_size"></Icon>
-						<span>系统更新日志</span>
 					</MenuItem>
 				</Menu>
 			</Sider>

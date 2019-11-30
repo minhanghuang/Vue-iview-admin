@@ -184,7 +184,7 @@
         data() {
             return {
                 icon_size: 23, // 矢量图标大小
-                search_value: "", // 搜索双向数据绑定 
+                search_value: "", // 搜索双向数据绑定
             }
         },
 	    methods:{
