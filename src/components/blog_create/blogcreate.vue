@@ -72,6 +72,7 @@
 					</child-markdown>
 				</Col>
 			</Row>
+			<Spin size="large" fix v-if="loadding" style="zIndex:2000"></Spin>
 		</Col>
 	</Row>
 </template>
@@ -112,7 +113,8 @@
                     subtitle: [ // FormItem标签中的 prop 属性预期值
                         { required: true, message: '副标题不能为空', trigger: 'change' }
                     ],
-                }
+                },
+                loadding: true, // loadding
             }
         },
 	    computed:{
@@ -126,14 +128,16 @@
                 ).then((response)=>{ // 成功获取博文详细信息
                     let http_data = response.data.results[0]; // 后端接口博文详细信息
 	                this.blog.detail_data = http_data; // 详细数据
-	                console.log("this.blog.detail_data:",this.blog.detail_data)
 	                this.form.title = http_data.title;
 	                this.form.subtitle = http_data.subtitle;
 	                this.child.md_default_data = http_data.content;
+                    this.loadding= false; // 关闭 loadding
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
+                    this.loadding= false; // 关闭 loadding
                 })
 		    } else { // Vuex没有值, 文章需要新建
+                this.loadding= false; // 关闭 loadding
 		    }
         },
         beforeDestroy(){ // Vue组件销毁前 钩子
@@ -148,6 +152,7 @@
                         if (value){ // md编辑框有数据
                             if (this.blog.blogid <= 0) { // vuex没有id, 新建文章 -- 保存草稿
                                 let articlestate = 0; // 草稿箱
+                                this.loadding= true; // 打开 loadding
                                 this.$api.api_all.post_article_create_api( // 发布文章(草稿箱)
                                     this.form.title, value, articlestate
                                 ).then((response) => {
@@ -155,19 +160,24 @@
                                     this.blog.blogid = response.data.results.id; // 保存当前文章的id
                                     this.child.md_default_data = response.data.results.content; // 更新md编辑框里面的数据
                                     this.$store.commit("update_current_blog_id",response.data.results.id); // 将当前被查看的文章对应的id存到vuex中
+                                    this.loadding= false; // 关闭 loadding
                                 }).catch((error) => {
                                     this.$Message.error(error.response.data.msg);
+                                    this.loadding= false; // 关闭 loadding
                                 });
                             }else { // vuex有id, 更新文章 -- 保存草稿
                                 let articlestate = 0; // 草稿箱
+                                this.loadding= true; // 打开 loadding
                                 this.$api.api_all.put_article_update_api( // 发布文章(草稿箱)
                                     this.blog.blogid, this.form.title, value, articlestate
                                 ).then((response) => {
                                     this.$Message.success("文章保存至草稿箱");
                                     this.blog.blogid = response.data.results.id; // 保存当前文章的id
                                     this.child.md_default_data = response.data.results.content; // 更新md编辑框里面的数据
+                                    this.loadding= false; // 关闭 loadding
                                 }).catch((error) => {
                                     this.$Message.error(error.response.data.msg);
+                                    this.loadding= false; // 关闭 loadding
                                 });
                             }
                         }else {
@@ -184,26 +194,32 @@
                         if (value){ // md编辑框有数据
                             if (this.blog.blogid <= 0) { // vuex没有id, 新建文章
                                 let articlestate = 0; // 发布文章
+                                // this.loadding= true; // 打开 loadding
                                 this.$api.api_all.post_article_create_api( // 发布文章
                                     this.form.title, value, articlestate
                                 ).then((response) => {
                                     this.$Message.success("文章保存至草稿箱");
                                     this.blog.blogid = response.data.results.id; // 保存当前文章的id
                                     this.$store.commit("update_current_blog_id",response.data.results.id); // 将当前被查看的文章对应的id存到vuex中
-	                                this.modal.create_blog = true; // 弹框
+                                    this.loadding= false; // 关闭 loadding
+                                    this.modal.create_blog = true; // 弹框
                                 }).catch((error) => {
                                     this.$Message.error(error.response.data.msg);
+                                    this.loadding= false; // 关闭 loadding
                                 });
                             }else { // vuex有id, 更新文章
                                 let articlestate = 0; // 草稿箱
+                                // this.loadding= true; // 关闭 loadding
                                 this.$api.api_all.put_article_update_api( // 发布文章(草稿箱)
                                     this.blog.blogid, this.form.title, value, articlestate
                                 ).then((response) => {
                                     this.$Message.success("文章保存至草稿箱");
                                     this.blog.blogid = response.data.results.id; // 保存当前文章的id
+                                    this.loadding= false; // 关闭 loadding
                                     this.modal.create_blog = true; // 弹框
                                 }).catch((error) => {
                                     this.$Message.error(error.response.data.msg);
+                                    this.loadding= false; // 关闭 loadding
                                 });
                             }
                         }else {
@@ -217,14 +233,17 @@
                 this.$refs.subtitleform.validate((valid) => {
                     if (valid) { // 校验副标题
                         if (this.blog.blogid > 0){ // 文章已经保存至草稿箱
+                            this.loadding= true; // 打开 loadding
                             this.$api.api_all.put_msgarticle_update_api( // 更新文章
                                 this.blog.blogid, this.form.subtitle, tag_value, 1
                             ).then((response)=>{
                                 this.$Message.success(response.data.msg);
                                 this.modal.create_blog = false; // 关闭弹框
+                                this.loadding= false; // 关闭 loadding
                                 this.$router.push("listblog"); // 跳转到博客列表
                             }).catch((error)=>{
                                 this.$Message.error(error.response.data.msg);
+                                this.loadding= false; // 关闭 loadding
                             })
                         }
                     }else { // 校验副标题失败
@@ -241,13 +260,16 @@
             },
             on_save_blog:function () { // 点击保存草稿按钮
                 const tag_value = this.$refs.tag.get_tag_value();
+                this.loadding= true; // 打开 loadding
                 this.$api.api_all.put_msgarticle_update_api( // 更新文章
                     this.blog.blogid, this.form.subtitle, tag_value, 0
                 ).then((response)=>{
                     this.$Message.warning("退出编辑,文章以保存至草稿箱");
+                    this.loadding= false; // 关闭 loadding
                     this.modal.create_blog = false; // 关闭弹框
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
+                    this.loadding= false; // 关闭 loadding
                 })
             },
             on_cancel_create_blog:function () { // 点击取消按钮

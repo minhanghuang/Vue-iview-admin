@@ -10,3 +10,7 @@ export const get_upload_avatar_url = () => { // 更新头像后端api地址
     let avatar_router = '/api/user/update-avataruser/';
     return base_url + avatar_router
 };
+export const get_upload_image_url = () => { // 更新头像后端api地址
+    let avatar_router = '/api/article/update-image/';
+    return base_url + avatar_router
+};

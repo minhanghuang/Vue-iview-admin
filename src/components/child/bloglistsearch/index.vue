@@ -84,13 +84,16 @@
         })
     }
     function get_article_list(self,params) { // 获取文章列表 (函数包含获取文章状态api)
+        self.$emit("get_loadding_state", true); // 打开 loadding
         self.$api.api_all.get_article_list_api(
             params
         ).then((response)=>{
             self.blog.response_data = response.data; // 完成的后端请求数据
-            self.$emit("get_list",self.blog.response_data) // 将后端返回的数据全部传给父组件
+            self.$emit("get_loadding_state", false); // 关闭 loadding
+            self.$emit("get_list",self.blog.response_data); // 将后端返回的数据全部传给父组件
         }).catch((error)=>{
             self.$Message.error(error.response.data.msg);
+            self.$emit("get_loadding_state", false); // 关闭 loadding
         });
         get_article_state(self, params); // 获取文章状态数量 api
     }
@@ -133,7 +136,8 @@
                                 h('span', this.tagpane_delete),
                             ])
                         },
-                    }
+                    },
+                    article_state: "",
                 },
                 input_value:'',
 	            blog:{
@@ -263,22 +267,22 @@
         },
 	    methods:{
             click_tabpane:function (name) { // 点击tabpane标签页
-                let article_state = "";
 	            if (name==="all"){
-                    article_state = ""
+                    this.tabpane.article_state = ""
 	            } else if (name==="public") {
-                    article_state = 1
+                    this.tabpane.article_state = 1
 	            } else if (name==="private") {
-                    article_state = 2
+                    this.tabpane.article_state = 2
                 }else if (name==="draft") {
-                    article_state = 0
+                    this.tabpane.article_state = 0
                 }else if (name==="delete") {
-                    article_state = 3
+                    this.tabpane.article_state = 3
                 }else {
                     this.$Message.error("非法操作");
 	            }
+                this.$emit("get_loadding_state", true); // 打开 loadding
                 this.$api.api_all.get_article_list_api({
-	                "state":article_state,
+	                "state":this.tabpane.article_state,
                     "search":this.input_value, // 搜索输入框内容
                     "createdate_after":this.time.create.time_value[0], // 搜索输入框内容
                     "createdate_before":this.time.create.time_value[1], // 搜索输入框内容
@@ -286,13 +290,16 @@
                     "updatedate_before":this.time.update.time_value[1],
                 }).then((response)=>{
                     this.blog.response_data = response.data; // 完成的后端请求数据
-                    this.$emit("get_list",this.blog.response_data) // 将后端返回的数据全部传给父组件
+                    this.$emit("get_list",this.blog.response_data); // 将后端返回的数据全部传给父组件
+                    this.$emit("get_loadding_state", false); // 关闭 loadding
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
+                    this.$emit("get_loadding_state", false); // 关闭 loadding
                 });
             },
             search_bt:function () { // 搜索-按钮
                 get_article_list(this,{
+                    "state":this.tabpane.article_state,
                     "search":this.input_value, // 搜索输入框内容
                     "createdate_after":this.time.create.time_value[0], // 搜索输入框内容
                     "createdate_before":this.time.create.time_value[1], // 搜索输入框内容
@@ -303,6 +310,7 @@
             create_time_change:function (time_value) { // 文章创建时间-日期选择器
                 this.time.create.time_value = time_value;
                 get_article_list(this,{
+                    "state":this.tabpane.article_state,
                     "search":this.input_value, // 搜索输入框内容
                     "createdate_after":time_value[0], // 起始时间
                     "createdate_before":time_value[1], // 终止时间
@@ -313,6 +321,7 @@
             update_time_change:function (time_value) { // 文章更新时间-日期选择器
                 this.time.update.time_value = time_value;
                 get_article_list(this,{
+                    "state":this.tabpane.article_state,
                     "search":this.input_value, // 搜索输入框内容
                     "updatedate_after":time_value[0], // 起始时间
                     "updatedate_before":time_value[1], // 终止时间
@@ -320,6 +329,7 @@
                     "createdate_before":this.time.create.time_value[1], // 终止时间
                 }); // 获取文章列表 api
             },
+
 	    }
     }
 </script>

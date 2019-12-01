@@ -45,7 +45,7 @@
 							</span>
 							<span>
 								<Icon type="ios-time" />
-								    <Time :time="blog.createdate" :interval="1" />
+								<Time :time="blog.createdate" :interval="1" />
 							</span>
 						</Col>
 					</Row>
@@ -53,7 +53,6 @@
 			</Row>
 		</Col>
 	</Row>
-
 </template>
 
 <script>

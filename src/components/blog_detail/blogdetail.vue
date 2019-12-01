@@ -33,6 +33,7 @@
 		<Col span="24" v-else>
 			<Button type="error" @click="back_list_bt">返回</Button>
 		</Col>
+		<Spin size="large" fix v-if="loadding" style="zIndex:2000"></Spin>
 	</Row>
 </template>
 
@@ -51,6 +52,7 @@
 					},
                     blogid: -1, // 当前文章id
                 },
+                loadding: true, // loadding
             }
         },
         created() { // html加载成功之前调用该函数
@@ -60,13 +62,16 @@
                     this.blog.blogid
                 ).then((response)=>{ // 成功获取博文详细信息
                     this.blog.http_data = response.data.results[0]; // 后端接口博文详细信息
+                    this.loadding= false; // 关闭 loadding
                     this.$store.commit("update_current_blog_detail", this.blog.http_data);
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
+                    this.loadding= false; // 关闭 loadding
                 })
 	        }else { // 异常查看
-                this.blog.http_data = {} // 返回空数据
-	        }
+                this.blog.http_data = {}; // 返回空数据
+                this.loadding= false; // 关闭 loadding
+            }
         },
 	    beforeDestroy(){ // Vue组件销毁前 钩子
             this.$store.commit("clear_current_blog_id", -1); // 清空Vuex中当前文章的id, 将id设为-1

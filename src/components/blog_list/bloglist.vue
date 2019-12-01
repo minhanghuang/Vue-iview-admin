@@ -10,6 +10,7 @@
 			<bloglist-search
 				ref="search"
 				@get_list="update_list"
+				@get_loadding_state="update_child_loadding_state"
 			>
 			</bloglist-search>
 			<Row>
@@ -185,7 +186,10 @@
                 this.page_prop.total = response_data.count; // 总页数
                 this.page_prop.size = response_data.size; // 单页条数
                 this.table_prop.loading = false; // 表格是否加载中
-            }
+            },
+            update_child_loadding_state:function (loadding_state) {
+	            this.table_prop.loading = loadding_state
+            },
 	    }
     }
 </script>

@@ -50,7 +50,7 @@
 			:data="blogid"
 			multiple
 			type="drag"
-			action="http://127.0.0.1:19900/api/article/update-image/"
+			:action="upload_action"
 			:headers="headers_token"
 			style="display: inline-block;width: 100%"
 		>
@@ -65,6 +65,8 @@
 </template>
 
 <script>
+    import {get_upload_image_url} from '@/utils/common'
+
     export default {
         name: "upload",
 	    props:["image_data_child"],
@@ -95,7 +97,10 @@
             },
 		    blogid:function () {
 			    return {"blogid":this.image_data_child}
-            }
+            },
+            upload_action:function () {
+                return get_upload_image_url()
+            },
 	    },
         methods: {
             uploadSuccess (response, file, fileList) { // 文件上传成功时的钩子，返回字段为 response, file, fileList
