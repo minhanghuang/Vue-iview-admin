@@ -14,6 +14,13 @@
 				</span>
 			</Input>
 		</FormItem>
+		<FormItem prop="google_auth">
+			<Input type="text" disabled v-model="form.google_auth" placeholder="Google令牌">
+				<span slot="prepend">
+					<Icon :size="14" type="logo-google"></Icon>
+				</span>
+			</Input>
+		</FormItem>
 		<FormItem>
 			<Button @click="handleSubmit" type="primary" long>登录</Button>
 		</FormItem>
@@ -27,7 +34,8 @@ export default {
 		return {
 			form: {
                 username: 'admin',
-				password: 'cox123456@hw'
+				password: '123456',
+                google_auth: '',
 			},
             ruleslogin:{ // 校验表单规则
                 username: [ // FormItem标签中的 prop 属性预期值

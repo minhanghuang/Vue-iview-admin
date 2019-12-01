@@ -11,7 +11,7 @@
 	          @on-success-valid="handleSubmit"
           >
           </login-form>
-          <p class="login-tip">输入任意用户名和密码即可</p>
+          <p class="login-tip">输入任意用户名和密码即可@Beta</p>
         </div>
       </Card>
     </div>
@@ -22,9 +22,7 @@
 	import LoginForm from '@/components/login_form/loginform' // 驼峰命名法
 	export default {
 	    data(){
-	      return{
-
-	      }
+	      return{}
 	    },
 		components: {
 			LoginForm
@@ -36,7 +34,7 @@
                 ).then((response)=>{
                     this.$Message.success(response.data.msg);
                     localStorage.setItem('TOKEN', JSON.stringify(response.data.results.TOKEN)); // 设置TOKEN
-                    localStorage.setItem('username', JSON.stringify(response.data.results.username)); // 设置TOKEN
+                    localStorage.setItem('username', JSON.stringify(response.data.results.username)); // 设置username
                     this.$router.push("/") // 跳转到首页
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);

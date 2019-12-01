@@ -39,6 +39,7 @@
     import CountTo from '@/components/child/dashboard/count-to'
     import { ChartPie, ChartBar } from '@/components/child/dashboard/charts'
     import Example from '@/components/child/dashboard/example/example.vue'
+	import { check_token_fn } from "../../utils/tools"
 
     export default {
         name: 'mydashboard',
@@ -77,9 +78,19 @@
                 }
             }
         },
-        mounted () {
-            //
-        }
+        created:function(){
+            var token = JSON.parse(localStorage.getItem('TOKEN')); // 从本地获取token
+            if (!token){ // token 为空
+                this.$router.push("/login") // 跳转到login
+            }else { // token 不为空
+                this.$api.api_all.post_user_checktoken_api(token).then((response)=>{
+                }).catch((error)=>{
+                    this.$Message.error("Cookie过期,请重新登录");
+                    localStorage.clear(); // 清空TOKEN
+                    this.$router.push("/login") // 跳转到login
+                })
+            }
+	    },
     }
 </script>
 

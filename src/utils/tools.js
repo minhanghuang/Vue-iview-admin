@@ -1,3 +1,6 @@
+import api_all from "../api/index"
+
+
 export const forEach = (arr, fn) => {
   if (!arr.length || !fn) return
   let i = -1
@@ -294,4 +297,24 @@ export const getBreadcrumbPath = (path_value) => {
 
     }
     return breadcrumb_item
+};
+
+
+export const check_token_fn = () => {
+    var token = JSON.parse(localStorage.getItem('TOKEN')); // 从本地获取token
+    console.log("token1:",token)
+    if (!token){ // token 为空
+        console.log("token 为空");
+        console.log("token:".token);
+        this.$router.push("/login") // 跳转到login
+    }else { // token 不为空
+        console.log("不为空")
+        api_all.post_user_checktoken_api(token).then((response)=>{
+
+        }).catch((error)=>{
+            console.log("catch:",error)
+            this.$Message.error("Cookie过期,请重新登录");
+            this.$router.push("/login") // 跳转到login
+        })
+    }
 };
