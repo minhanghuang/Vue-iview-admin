@@ -22,6 +22,12 @@ Vue.use(ViewUI);
 Vue.use(mavonEditor);
 Vue.config.productionTip = false;
 
+// iView Notice 全局配置
+Vue.prototype.$Notice.config({
+    top: 65, // 消息距离顶部距离 px
+    duration: 30, // 消息显示时间 s
+});
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

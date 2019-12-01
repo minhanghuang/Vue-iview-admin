@@ -2,7 +2,6 @@ import axios from '@/utils/axios'
 
 const api_all = {
     post_user_checktoken_api(token) { // 校验token是否过期
-        console.log("post_user_checktoken_api")
         return axios({
             url: '/api/token-verify/',
             method: 'POST',

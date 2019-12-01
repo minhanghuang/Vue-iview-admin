@@ -166,8 +166,8 @@
 																ref="tag"
 																:tag_data="value.tag"
 																:count="30"
-																closable="true"
-																disable="false"
+																:closable="true"
+																:disable="false"
 																tag_size=""
 																@realtime="real_time_get_tags"
 															>
