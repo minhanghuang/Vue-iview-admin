@@ -1,8 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/home/home'
-import Login from '@/views/login/login'
-import Test from '@/test/test'
 
 Vue.use(Router);
 
@@ -11,56 +8,67 @@ export default new Router({
         {
             path: '/',
             name: 'Home',
-            component: Home,
+            component: (resolve) => require(["@/views/home/home"], resolve),
             redirect:"/dashboard",
             children:[
                 {
                     path: "/listblog",
-                    component: () => import("@/components/blog_list/bloglist")
+                    component: (resolve) => require(["@/components/blog_list/bloglist"], resolve)
+                    // component: () => import("@/components/blog_list/bloglist")
                 },
                 {
                     path: "/createblog",
-                    component: () => import("@/components/blog_create/blogcreate")
+                    component: (resolve) => require(["@/components/blog_create/blogcreate"], resolve)
+                    // component: () => import("@/components/blog_create/blogcreate")
                 },
                 {
                     path: "/detailblog",
-                    component: () => import("@/components/blog_detail/blogdetail")
+                    component: (resolve) => require(["@/components/blog_detail/blogdetail"], resolve)
+                    // component: () => import("@/components/blog_detail/blogdetail")
                 },
                 {
                     path: "/person",
-                    component: () => import("@/views/person/person")
+                    component: (resolve) => require(["@/views/person/person"], resolve)
+                    // component: () => import("@/views/person/person")
                 },
                 {
                     path: "/dashboard",
-                    component: () => import("@/views/dashboard/dashboard")
+                    component: (resolve) => require(["@/views/dashboard/dashboard"], resolve)
+                    // component: () => import("@/views/dashboard/dashboard")
                 },
                 {
                     path: "/logs",
-                    component: () => import("@/views/mylogs/mylogs")
+                    component: (resolve) => require(["@/views/mylogs/mylogs"], resolve)
+                    // component: () => import("@/views/mylogs/mylogs")
                 },
                 {
                     path: "/tools",
-                    component: () => import("@/views/mytools/mytools")
+                    component: (resolve) => require(["@/views/mytools/mytools"], resolve)
+                    // component: () => import("@/views/mytools/mytools")
                 },
                 {
                     path: "/task",
-                    component: () => import("@/views/mytask/mytask")
+                    component: (resolve) => require(["@/views/mytask/mytask"], resolve)
+                    // component: () => import("@/views/mytask/mytask")
                 },
                 {
                     path: "/help",
-                    component: () => import("@/views/myhelp/myhelp")
+                    component: (resolve) => require(["@/views/myhelp/myhelp"], resolve)
+                    // component: () => import("@/views/myhelp/myhelp")
                 },
             ]
         },
         {
             path: '/login',
             name: 'Login',
-            component: Login,
+            component: (resolve) => require(["@/views/login/login"], resolve)
+            // component: () => import("@/views/login/login"),
         },
         {
             path: '/test',
             name: 'Test',
-            component: Test,
+            component: (resolve) => require(["@/test/test"], resolve)
+            // component: () => import("@/test/test"),
         },
     ]
 })
