@@ -34,6 +34,8 @@
 </template>
 
 <script>
+	import {get_upload_avatar_url} from '@/utils/common'
+
     export default {
         name: "avatar", // 头像
 	    props:["is_auto_upload"],
@@ -53,7 +55,7 @@
                 return {"Authorization":token}
             },
             upload_action:function () {
-                return "http://127.0.0.1:19900/api/user/update-avataruser/"
+                return get_upload_avatar_url()
             },
         },
 	    methods:{

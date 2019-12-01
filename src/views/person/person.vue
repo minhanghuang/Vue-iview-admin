@@ -1,5 +1,16 @@
 <style lang="scss" scoped>
+	.my-form >>> .ivu-form-item{
+		height: auto;
+		width: auto;
+		margin: 0;
+		padding-bottom: 26px;
+	}
 
+	.my-form{
+		.my-form-items{
+
+		}
+	}
 </style>
 
 <template>
@@ -66,7 +77,7 @@
 												<child-tag
 													ref="tag"
 													:tag_data="value.tag"
-													:count="20"
+													:count="30"
 													:disable="true"
 													tag_size="small"
 													:closable="false"
@@ -87,7 +98,7 @@
 											<TabPane label="基本设置"></TabPane>
 										</Tabs>
 									</div>
-									<div style="padding-left: 30px">
+									<div style="padding-left: 30px" class="my-form">
 										<div style="margin-bottom: 26px">
 											<child-uploadele
 												:is_auto_upload="auto_upload"
@@ -95,57 +106,77 @@
 											>
 											</child-uploadele>
 										</div>
-										<div style="padding-bottom: 26px">
-											姓名
-											<Input v-model="value.name" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											描述
-											<Input :show-word-limit="true" maxlength="30" v-model="value.description" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											邮箱
-											<Input v-model="value.email" placeholder="job@minhung.me"  style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											微信
-											<Input v-model="value.wechat" placeholder="wechat"  style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											公司
-											<Input v-model="value.company" placeholder="某某公司"  style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											部门
-											<Input v-model="value.department" placeholder="某某部门"  style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											职位
-											<Input v-model="value.position" placeholder="后端开发工程师"  style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											地址
-											<Input v-model="value.city" placeholder="深圳"  style="margin-left: 15px ;width: 372px"></Input>
-										</div>
-										<div style="padding-bottom: 26px">
-											<div style="height: auto;">
-												<div style="display: inline-block;margin-right: 15px;">
-													标签
+										<Form ref="personform" :model="value" :rules="rulesperson">
+											<FormItem prop="name">
+												<div class="my-form-items">
+													姓名
+													<Input v-model="value.name" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
 												</div>
-												<div style="display: inline-block;border:2px solid #eee;padding:2px 2px 1px 2px ;height: auto;width: 372px">
-													<child-tag
-														ref="tag"
-														:tag_data="value.tag"
-														:count="20"
-														:closable="true"
-														:disable="false"
-														tag_size=""
-														@realtime="real_time_get_tags"
-													>
-													</child-tag>
+											</FormItem>
+											<FormItem prop="description">
+												<div class="my-form-items">
+													描述
+													<Input :show-word-limit="true" maxlength="30" v-model="value.description" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 372px"></Input>
 												</div>
-											</div>
-										</div>
+											</FormItem>
+											<FormItem prop="email">
+												<div class="my-form-items">
+													邮箱
+													<Input v-model="value.email" placeholder="job@minhung.me"  style="margin-left: 15px ;width: 372px"></Input>
+												</div>
+											</FormItem>
+											<FormItem prop="wechat">
+												<div class="my-form-items">
+													微信
+													<Input v-model="value.wechat" placeholder="wechat"  style="margin-left: 15px ;width: 372px"></Input>
+												</div>
+											</FormItem>
+											<FormItem prop="company">
+												<div class="my-form-items">
+													公司
+													<Input v-model="value.company" placeholder="某某公司"  style="margin-left: 15px ;width: 372px"></Input>
+												</div>
+											</FormItem>
+											<FormItem prop="department">
+												<div class="my-form-items">
+													部门
+													<Input v-model="value.department" placeholder="某某部门"  style="margin-left: 15px ;width: 372px"></Input>
+												</div>
+											</FormItem>
+											<FormItem prop="position">
+												<div class="my-form-items">
+													职位
+													<Input v-model="value.position" placeholder="后端开发工程师"  style="margin-left: 15px ;width: 372px"></Input>
+												</div>
+											</FormItem>
+											<FormItem prop="city">
+												<div class="my-form-items">
+													地址
+													<Input v-model="value.city" placeholder="深圳"  style="margin-left: 15px ;width: 372px"></Input>
+												</div>
+											</FormItem>
+											<FormItem prop="tag">
+												<div class="my-form-items">
+													<div style="height: auto;">
+														<div style="display: inline-block;margin-right: 15px;">
+															标签
+														</div>
+														<div style="display: inline-block;border:2px solid #eee;padding:2px 2px 1px 2px ;height: auto;width: 372px">
+															<child-tag
+																ref="tag"
+																:tag_data="value.tag"
+																:count="30"
+																:closable="true"
+																:disable="false"
+																tag_size=""
+																@realtime="real_time_get_tags"
+															>
+															</child-tag>
+														</div>
+													</div>
+												</div>
+											</FormItem>
+										</Form>
 										<div style="padding-bottom: 26px">
 											<div style="display: inline-block;margin-right: 15px;color: rgb(245, 247, 249);height: auto">
 												标签
@@ -198,6 +229,36 @@
                 loadding: true,
                 auto_upload: true, // 自动上传
                 upload_success: false,
+                rulesperson:{ // 校验表单规则
+                    name: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '姓名不能为空', trigger: 'change' }
+                    ],
+                    description: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+                    email: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' },
+                        { type: 'email', message: '请填写正确的邮箱', trigger: 'blur' }
+                    ],
+	                wechat: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+	                company: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+                    department: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+	                position: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+	                city: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+                    tag: [ // FormItem标签中的 prop 属性预期值
+                        { required: true, message: '描述不能为空', trigger: 'change' }
+                    ],
+                }
             }
         },
 	    watch:{
@@ -224,6 +285,7 @@
 	            this.value.tag = new_tag_value;
             },
             save_bt:function () { // 点击保存按钮
+                this.loadding= true;
                 var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
                 this.$api.api_all.put_user_detail_api( // 更新用户资料
                     username, this.value
@@ -231,8 +293,10 @@
                     this.$Message.success(response.data.msg);
                     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
                     this.value = response.data.results;
+                    this.loadding= false;
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
+                    this.loadding= false;
                 });
             },
             get_upload_success_file:function (file_value) {

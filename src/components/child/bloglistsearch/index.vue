@@ -251,7 +251,7 @@
             tagpane_delete:function () {
                 let count_delete = 0;
                 try{
-                    count_delete = this.tabpane.label.response_data.results.delete;
+                    count_delete = this.tabpane.label.response_data.results.del;
                 }catch(err){
                     count_delete = 0;
                 }

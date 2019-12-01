@@ -1,11 +1,12 @@
 import axios from 'axios' // 导入node_modules里的axios
 import qs from 'qs'
 import router from '../router/index'
+import {base_url} from './common'
 
 
 
-
-axios.defaults.baseURL = "http://127.0.0.1:19900/"; // 后端接口 ip:port
+axios.defaults.baseURL = base_url; // 后端接口 ip:port
+// axios.defaults.baseURL = "http://127.0.0.1:19900/"; // 后端接口 ip:port
 // axios.defaults.baseURL = process.env.VUE_APP_BASE_API; // 后端接口 ip:port
 
 
