@@ -3,8 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import ViewUI from 'view-design';
-import 'view-design/dist/styles/iview.css';
+// import ViewUI from 'view-design'; // 使用CDN后注释掉
+// import 'view-design/dist/styles/iview.css'; // 使用CDN后注释掉
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import store from './../store/index'
@@ -18,7 +18,7 @@ import element from './other_ui/element/index'
 Vue.use(element);
 
 Vue.prototype.$api = axios;
-Vue.use(ViewUI);
+// Vue.use(ViewUI);
 Vue.use(mavonEditor);
 Vue.config.productionTip = false;
 

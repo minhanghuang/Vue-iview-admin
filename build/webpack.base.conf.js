@@ -12,11 +12,8 @@ function resolve (dir) {
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
+  "entry": {
     app: './src/main.js',
-    // externals:{
-    //     "view-design":"ViewUI",
-    // }
   },
   output: {
     path: config.build.assetsRoot,
@@ -71,6 +68,13 @@ module.exports = {
       }
     ]
   },
+    externals:{
+        "vue": 'Vue',
+        "view-design":"ViewUI",
+        "vuex":"Vuex",
+        "axios":"axios",
+        // "qs":"qs",
+    },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).

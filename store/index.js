@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
-
-// 告诉 vue “使用” vuex
-Vue.use(Vuex);
+// import Vuex from 'vuex' // 使用CDN后注释掉
+//
+// // 告诉 vue “使用” vuex
+// Vue.use(Vuex); // 使用CDN后注释掉
 
 // 创建一个对象来保存应用启动时的初始状态
 // 需要维护的状态

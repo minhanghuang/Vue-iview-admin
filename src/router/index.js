@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+// import Vue from 'vue'
+// import Router from 'vue-router' // 使用CDN后注释掉
 
-Vue.use(Router);
+// Vue.use(Router);
 
 export default new Router({
     routes: [

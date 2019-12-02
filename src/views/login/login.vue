@@ -6,7 +6,7 @@
 		&-con{
 			position: absolute;
 			right: 45%;
-			top: 50%;
+			top: 40%;
 			transform: translateY(-60%);
 			width: 300px;
 			&-header{

@@ -1,4 +1,4 @@
-import axios from 'axios' // 导入node_modules里的axios
+// import axios from 'axios' // 导入node_modules里的axios
 import qs from 'qs'
 import router from '../router/index'
 import {base_url} from './common'
