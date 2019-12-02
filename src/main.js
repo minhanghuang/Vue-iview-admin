@@ -17,9 +17,6 @@ import '../my-theme/index.less'; // 自定义主题
 //
 // Vue.use(element);
 
-import ELEMENT from 'element-ui'
-Vue.use(ELEMENT);
-
 
 Vue.prototype.$api = axios;
 // Vue.use(ViewUI);
