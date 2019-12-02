@@ -12,10 +12,14 @@ import axios from "./api/";
 import '../my-theme/index.less'; // 自定义主题
 
 // 按需加载element组件
-import 'element-ui/lib/theme-chalk/index.css'
-import element from './other_ui/element/index'
+// import 'element-ui/lib/theme-chalk/index.css'
+// import element from './other_ui/element/index'
+//
+// Vue.use(element);
 
-Vue.use(element);
+import ELEMENT from 'element-ui'
+Vue.use(ELEMENT);
+
 
 Vue.prototype.$api = axios;
 // Vue.use(ViewUI);

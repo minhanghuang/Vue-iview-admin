@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 // import Vuex from 'vuex' // 使用CDN后注释掉
 //
 // // 告诉 vue “使用” vuex

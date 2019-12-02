@@ -70,10 +70,14 @@ module.exports = {
   },
     externals:{
         "vue": 'Vue',
-        "view-design":"ViewUI",
         "vuex":"Vuex",
         "axios":"axios",
+        "vue-router":"VueRouter",
+        "view-design":"ViewUI",
         // "qs":"qs",
+        'element-ui': 'ELEMENT',
+        'echarts': 'echarts',
+        'countup': 'countup',
     },
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import CountUp from 'countup'
+// import CountUp from 'countup'
 import './index.less'
 export default {
   name: 'CountTo',
