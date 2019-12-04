@@ -3,6 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+// const FileManagerPlugin = require('filema nager-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -74,7 +75,6 @@ module.exports = {
         "axios":"axios",
         "vue-router":"VueRouter",
         "view-design":"ViewUI",
-        // "qs":"qs",
         'element-ui': 'ELEMENT',
         'echarts': 'echarts',
         'countup': 'countup',
@@ -90,5 +90,17 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+    // plugins:[
+    //     new FileManagerPlugin({
+    //         onEnd: {
+    //             delete: [
+    //                 './dist/blog_admin.zip',
+    //             ],
+    //             archive: [
+    //                 {source: './dist', destination: './dist/blog_admin.zip'},
+    //             ]
+    //         }
+    //     })
+    // ]
 }
