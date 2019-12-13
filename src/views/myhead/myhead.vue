@@ -167,7 +167,7 @@
 					</div>
 				</div>
 				<DropdownMenu slot="list">
-					<DropdownItem name="person">
+					<DropdownItem name="about">
 						<i class="el-icon-user" style="font-size: 18px;margin-right: 10px"></i>
 						个人中心
 					</DropdownItem>
@@ -198,8 +198,8 @@
                     this.$router.replace({ // 跳转到登录页面
                         path: '/login',
                     })
-	            }else if (name == "person"){
-                    this.$router.push("person");
+	            }else if (name == "about"){
+                    this.$router.push("about");
                 } else {
 
 	            }

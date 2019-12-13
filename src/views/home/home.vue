@@ -64,10 +64,26 @@
 							系统更新日志
 						</MenuItem>
 					</Submenu>
-					<MenuItem name="person">
-						<Icon type="ios-contact" :size="icon_size" ></Icon>
-						<span>个人中心</span>
-					</MenuItem>
+
+					<Submenu name="person">
+						<template slot="title">
+							<Icon type="ios-contact" :size="icon_size" ></Icon>
+							个人中心
+						</template>
+						<MenuItem name="about">
+							关于我
+						</MenuItem>
+						<MenuItem name="timeline">
+							时间轴
+						</MenuItem>
+						<MenuItem name="cloudword">
+							云词图
+						</MenuItem>
+					</Submenu>
+<!--					<MenuItem name="person">-->
+<!--						<Icon type="ios-contact" :size="icon_size" ></Icon>-->
+<!--						<span>个人中心</span>-->
+<!--					</MenuItem>-->
 				</Menu>
 			</Sider>
 			<Layout>
@@ -98,7 +114,6 @@
     import mycontent from '@/views/mycontent/mycontent'
     import myhead from '@/views/myhead/myhead'
     import { getBreadcrumbPath } from '@/utils/tools'
-
 
     export default {
         data(){

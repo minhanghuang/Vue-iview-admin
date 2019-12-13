@@ -28,7 +28,7 @@ export default new VueRouter({
                     // component: () => import("@/components/blog_detail/blogdetail")
                 },
                 {
-                    path: "/person",
+                    path: "/about",
                     component: (resolve) => require(["@/views/person/person"], resolve)
                     // component: () => import("@/views/person/person")
                 },
