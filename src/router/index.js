@@ -29,8 +29,16 @@ export default new VueRouter({
                 },
                 {
                     path: "/about",
-                    component: (resolve) => require(["@/views/person/person"], resolve)
+                    component: (resolve) => require(["@/views/myabout/myabout"], resolve)
                     // component: () => import("@/views/person/person")
+                },
+                {
+                    path: "/timeline",
+                    component: (resolve) => require(["@/views/mytimeline/mytimeline"], resolve)
+                },
+                {
+                    path: "/cloudword",
+                    component: (resolve) => require(["@/views/mycloudword/mycloudword"], resolve)
                 },
                 {
                     path: "/dashboard",
