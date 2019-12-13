@@ -8,7 +8,6 @@
 			ssss
 		</Col>
 	</Row>
-
 </template>
 
 <script>
