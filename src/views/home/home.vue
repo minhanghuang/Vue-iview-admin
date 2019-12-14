@@ -73,11 +73,11 @@
 						<MenuItem name="about">
 							关于我
 						</MenuItem>
-						<MenuItem name="timeline">
-							时间轴
-						</MenuItem>
 						<MenuItem name="cloudword">
 							云词图
+						</MenuItem>
+						<MenuItem name="timeline">
+							时间轴
 						</MenuItem>
 					</Submenu>
 <!--					<MenuItem name="person">-->
