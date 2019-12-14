@@ -114,8 +114,10 @@
 											</FormItem>
 											<FormItem prop="full">
 												<div class="my-form-items">
+													<Tooltip content="开启后,标签将充满整个图片" placement="bottom-start">
 														填充
-													<i-switch v-model="value.full" @on-change="change" class="inner-item"></i-switch>
+														<i-switch v-model="value.full" @on-change="change_full(value.full)" class="inner-item"></i-switch>
+													</Tooltip>
 												</div>
 											</FormItem>
 										</Form>
@@ -206,6 +208,14 @@
                 this.value.color = "rgb(255,255,255)";
                 this.value.full = true;
                 this.value.tag = '["Python","Django"]';
+            },
+            change_full:function (value) {
+                if (value){
+                    this.$Message.info("填充功能已开启");
+                }
+                else {
+                    this.$Message.error("填充功能已关闭");
+                }
             }
         }
     }
