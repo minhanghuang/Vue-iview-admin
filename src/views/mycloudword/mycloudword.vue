@@ -48,8 +48,8 @@
 									<Divider />
 									<Row style="height: 40%" >
 										<Col span="24">
-											<div style="height: 100px;width: 100px;background-color: #2b85e4;" class="img-bottom">
-
+											<div :style="{height:value.cloudword_width+'px',width:value.cloudword_width+'px',}" class="img-bottom">
+												<img :src=value.cloudword>
 											</div>
 										</Col>
 									</Row>
@@ -80,7 +80,6 @@
 															标签
 														</div>
 														<div style="display: inline-block;border:2px solid #eee;padding:2px 2px 1px 2px ;height: auto;width: 372px">
-															{{value.tag}}
 															<child-tag
 																ref="tag"
 																:tag_data="value.tag"
@@ -150,6 +149,8 @@
                     width_img: 260,
                     color: "rgba(255,255,255,1)",
                     full: true,
+                    cloudword: "",
+                    cloudword_width: "260",
                 },
                 loadding: false,
                 rulesperson:{ // 校验表单规则
@@ -160,17 +161,14 @@
             }
         },
         created() {
-            // var username = JSON.parse(localStorage.getItem('username'));
-            // var username = JSON.parse(localStorage.getItem('username'));
-            // this.$api.api_all.get_user_detail_api( // 发http请求, 获取用户的详细资料
-            //     username
-            // ).then((response)=>{ // 成功获取博文详细信息
-            //     // this.user.http_data = response.data.results[0]; // 后端接口博文详细信息
-            //     this.value.tag = response.data.results[0].tag;
-            //     console.log(response.data.results[0].tag)
-            // }).catch((error)=>{
-            //     this.$Message.error(error.response.data.msg);
-            // })
+            this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
+            ).then((response)=>{ // 成功获取博文详细信息
+                this.value.cloudword = response.data.results[0].cloudword;
+                this.value.tag = response.data.results[0].tag;
+                this.value.cloudword_width = response.data.results[0].cloudword_width;
+            }).catch((error)=>{
+                this.$Message.error(error.response.data.msg);
+            })
         },
         methods:{
             real_time_get_tags:function (new_tag_value) { // 获取子组件实时的tag数据
@@ -180,7 +178,9 @@
                 this.$api.api_all.post_cloudword_create_api( // 发http请求,
                     this.value
                 ).then((response)=>{ //
-                    console.log("点击刷新按钮")
+                    this.value.cloudword = response.data.results.cloudword;
+                    this.value.tag = response.data.results.tag;
+                    this.value.cloudword_width = response.data.results.cloudword_width;
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                 })

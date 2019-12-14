@@ -73,11 +73,11 @@ export default new VueRouter({
             component: (resolve) => require(["@/views/login/login"], resolve)
             // component: () => import("@/views/login/login"),
         },
-        // {
-        //     path: '/test',
-        //     name: 'Test',
-        //     component: (resolve) => require(["@/test/test"], resolve)
-        //     // component: () => import("@/test/test"),
-        // },
+        {
+            path: '/test',
+            name: 'Test',
+            component: (resolve) => require(["@/test/test"], resolve)
+            // component: () => import("@/test/test"),
+        },
     ]
 })

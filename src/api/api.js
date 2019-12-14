@@ -120,6 +120,12 @@ const api_all = {
             }
         })
     },
+    get_data_detail_api() { // 获取用户data
+        return axios({
+            url: '/api/user/data/detail-data/1/',
+            method: 'GET',
+        })
+    },
 };
 
 export default api_all
