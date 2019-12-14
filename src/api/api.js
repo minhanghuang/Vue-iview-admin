@@ -107,6 +107,19 @@ const api_all = {
             }
         })
     },
+    post_cloudword_create_api(value) { // 更新云词图
+        return axios({
+            url: '/api/user/data/update-cloudword/',
+            method: 'POST',
+            data: {
+                circle: value.circle,
+                width: value.width_img,
+                color: value.color,
+                full: value.full,
+                tag: value.tag,
+            }
+        })
+    },
 };
 
 export default api_all

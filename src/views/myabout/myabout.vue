@@ -217,7 +217,7 @@
                     department: "",
                     position: "",
                     address: "",
-	                tag:"",
+                    tag:"",
                     avatar: "",
                 },
 	            user: {
@@ -227,7 +227,7 @@
 		            // avatar:"../../../src/assets/logo.png"
 	            },
                 loadding: true,
-                auto_upload: true, // 自动上传
+	                auto_upload: true, // 自动上传
                 upload_success: false,
                 rulesperson:{ // 校验表单规则
                     name: [ // FormItem标签中的 prop 属性预期值
@@ -275,7 +275,7 @@
                 username
             ).then((response)=>{ // 成功获取博文详细信息
                 this.user.http_data = response.data.results[0]; // 后端接口博文详细信息
-                this.value = response.data.results[0];
+	            this.value = response.data.results[0];
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
             })

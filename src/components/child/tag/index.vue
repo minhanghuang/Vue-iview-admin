@@ -66,6 +66,7 @@
         },
 	    watch:{
             tag_data(newval,oldval){ // 监听父组件传来的后端拿到的数据 tags
+                console.log("监听父组件传来的后端拿到的数据:",newval)
 	            this.dynamicTags = JSON.parse(newval); //
             },
             dynamicTags(newval, oldval){ // 当前组件标签被修改, 触发, 将修改后的数据传给父组件
