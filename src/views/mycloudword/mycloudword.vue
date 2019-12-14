@@ -103,13 +103,13 @@
 											<FormItem prop="width_img">
 												<div class="my-form-items">
 													图片大小
-													<Slider v-model="value.width_img" show-input :min="100" :max="400"></Slider>
+													<Slider v-model="value.width_img" show-input :min="100" :max="400" :marks="slidermarks"></Slider>
 												</div>
 											</FormItem>
 											<FormItem prop="color">
 												<div class="my-form-items">
 													背景颜色
-													<ColorPicker v-model="value.color" alpha ></ColorPicker>
+													<ColorPicker v-model="value.color" ></ColorPicker>
 												</div>
 											</FormItem>
 											<FormItem prop="full">
@@ -144,15 +144,25 @@
         data() {
             return {
                 value:{
-                    tag: '["Python"]',
+                    tag: '["Python","Django]',
                     circle: true,
                     width_img: 260,
-                    color: "rgba(255,255,255,1)",
+                    color: "rgb(255,255,255)",
                     full: true,
                     cloudword: "",
                     cloudword_width: "260",
                 },
-                loadding: false,
+                loadding: true,
+                slidermarks:{
+					100:"100px",
+					260:"260px",
+					400:{
+                        style: {
+                            color: '#ff0000'
+                        },
+                        label: this.$createElement('strong', '400px')
+                    },
+                },
                 rulesperson:{ // 校验表单规则
                     tag: [ // FormItem标签中的 prop 属性预期值
                         { required: true, message: '不能为空', trigger: 'change' }
@@ -166,34 +176,36 @@
                 this.value.cloudword = response.data.results[0].cloudword;
                 this.value.tag = response.data.results[0].tag;
                 this.value.cloudword_width = response.data.results[0].cloudword_width;
+                this.loadding = false;
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
-            })
+                this.loadding = false;
+            });
         },
         methods:{
             real_time_get_tags:function (new_tag_value) { // 获取子组件实时的tag数据
                 this.value.tag = new_tag_value;
             },
             update_bt:function () { // 点击刷新按钮
+                this.loadding = true;
                 this.$api.api_all.post_cloudword_create_api( // 发http请求,
                     this.value
                 ).then((response)=>{ //
                     this.value.cloudword = response.data.results.cloudword;
                     this.value.tag = response.data.results.tag;
                     this.value.cloudword_width = response.data.results.cloudword_width;
+                    this.loadding = false;
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
-                })
+                    this.loadding = false;
+                });
             },
             clear_bt:function () { // 点击重置按钮
-                console.log("点击重置按钮")
-	            this.value = {
-                    circle: true,
-                    width_img: 260,
-                    color: "rgba(255,255,255,1)",
-                    full: true,
-		            tag:'["Python","a"]',
-                }
+                this.value.circle = true;
+                this.value.width_img = 260;
+                this.value.color = "rgb(255,255,255)";
+                this.value.full = true;
+                this.value.tag = '["Python","Django"]';
             }
         }
     }

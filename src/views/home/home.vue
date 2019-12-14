@@ -77,13 +77,9 @@
 							云词图
 						</MenuItem>
 						<MenuItem name="timeline">
-							时间轴
+							时光轴
 						</MenuItem>
 					</Submenu>
-<!--					<MenuItem name="person">-->
-<!--						<Icon type="ios-contact" :size="icon_size" ></Icon>-->
-<!--						<span>个人中心</span>-->
-<!--					</MenuItem>-->
 				</Menu>
 			</Sider>
 			<Layout>
