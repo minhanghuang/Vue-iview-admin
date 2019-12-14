@@ -69,8 +69,8 @@
 											<div style="display: inline-block;margin-right: 15px;color: rgb(245, 247, 249);height: auto">
 												标签
 											</div>
-											<Button type="success" @click="save_bt" style="float: right;margin-right: 20px" >重置</Button>
-											<Button type="error" @click="save_bt" style="float: right;margin-right: 30px">刷新</Button>
+											<Button type="success" @click="clear_bt" style="float: right;margin-right: 20px" >重置</Button>
+											<Button type="error" @click="update_bt" style="float: right;margin-right: 30px">刷新</Button>
 										</div>
 										<Form ref="personform" :model="value" :rules="rulesperson">
 											<FormItem prop="tag">
@@ -164,9 +164,17 @@
             real_time_get_tags:function (new_tag_value) { // 获取子组件实时的tag数据
                 this.value.tag = new_tag_value;
             },
-            save_bt:function () { // 点击保存按钮
+            update_bt:function () { // 点击刷新按钮
 
             },
+            clear_bt:function () { // 点击重置按钮
+	            this.value = {
+                    circle: true,
+                    width_img: 260,
+                    color: "rgba(255,255,255,1)",
+                    full: true,
+                }
+            }
         }
     }
 </script>

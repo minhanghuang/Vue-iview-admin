@@ -241,22 +241,22 @@
                         { type: 'email', message: '请填写正确的邮箱', trigger: 'blur' }
                     ],
 	                wechat: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '微信不能为空', trigger: 'change' }
                     ],
 	                company: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '公司不能为空', trigger: 'change' }
                     ],
                     department: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '部门不能为空', trigger: 'change' }
                     ],
 	                position: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '岗位不能为空', trigger: 'change' }
                     ],
 	                city: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '城市不能为空', trigger: 'change' }
                     ],
                     tag: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '标签不能为空', trigger: 'change' }
                     ],
                 }
             }
