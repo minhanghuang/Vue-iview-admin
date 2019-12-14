@@ -16,6 +16,12 @@
 			}
 		}
 	}
+	.img-top{
+		margin: 0 auto;
+	}
+	.img-bottom{
+		margin: 0 auto;
+	}
 </style>
 
 <template>
@@ -26,8 +32,27 @@
 					<Row style="padding: 30px;" >
 						<Col span="12" style="height: auto">
 							<Row style="padding: 15px;height: auto;background-color: #f5f7f9;border-radius: 20px" >
-								<Col span="24" style="height: 500px">
-									a
+								<Col span="24" style="height: auto">
+									<Row style="height: 40%;" >
+										<Col span="24" style="text-align: center">
+											<div  class="img-top" :style="{height:value.width_img+'px',width:value.width_img+'px',backgroundColor:value.color}">
+												<div v-if=value.circle :style="{height:value.width_img+'px',width:value.width_img+'px',backgroundColor:'#10E4E2',borderRadius:value.width_img/2+'px'}">
+
+												</div>
+												<div v-else :style="{height:value.width_img+'px',width:value.width_img+'px',backgroundColor:'#10E4E2',}">
+
+												</div>
+											</div>
+										</Col>
+									</Row>
+									<Divider />
+									<Row style="height: 40%" >
+										<Col span="24">
+											<div style="height: 100px;width: 100px;background-color: #2b85e4;" class="img-bottom">
+
+											</div>
+										</Col>
+									</Row>
 								</Col>
 							</Row>
 						</Col>
@@ -48,12 +73,6 @@
 											<Button type="error" @click="save_bt" style="float: right;margin-right: 30px">刷新</Button>
 										</div>
 										<Form ref="personform" :model="value" :rules="rulesperson">
-											<FormItem prop="name">
-												<div class="my-form-items">
-													姓名
-													<Input v-model="value.name" placeholder="Cox" class="inner-item my-input"></Input>
-												</div>
-											</FormItem>
 											<FormItem prop="tag">
 												<div class="my-form-items">
 													<div style="height: auto;">
@@ -84,7 +103,19 @@
 											<FormItem prop="width_img">
 												<div class="my-form-items">
 													图片大小
-													<Slider v-model="value.width_img" show-input></Slider>
+													<Slider v-model="value.width_img" show-input :min="100" :max="400"></Slider>
+												</div>
+											</FormItem>
+											<FormItem prop="color">
+												<div class="my-form-items">
+													背景颜色
+													<ColorPicker v-model="value.color" alpha ></ColorPicker>
+												</div>
+											</FormItem>
+											<FormItem prop="full">
+												<div class="my-form-items">
+														填充
+													<i-switch v-model="value.full" @on-change="change" class="inner-item"></i-switch>
 												</div>
 											</FormItem>
 										</Form>
@@ -103,10 +134,9 @@
 <script>
     import ChildTag from '@/components/child/tag' // tag子组件
     import ChildUploadele from '@/components/child/upload/avatar' // 更新头像子组件
-    import imga from "@/assets/logo.png";
 
     export default {
-        name: "myperson",
+        name: "mycloudword",
         components: {
             ChildTag,
             ChildUploadele,
@@ -114,67 +144,18 @@
         data() {
             return {
                 value:{
-                    name: "",
-                    wechat: "",
-                    description: "",
-                    email: "",
-                    company: "",
-                    department: "",
-                    position: "",
-                    address: "",
-                    tag:"",
-                    avatar: "",
                     circle: true,
-                    width_img: 100,
-                },
-                user: {
-                    http_data: {},
-                    avatar: imga
-                    // avatar:"https://profile.csdnimg.cn/6/2/D/3_qq_25479327"
-                    // avatar:"../../../src/assets/logo.png"
+                    width_img: 260,
+                    color: "rgba(255,255,255,1)",
+                    full: true,
                 },
                 loadding: false,
-                auto_upload: true, // 自动上传
-                upload_success: false,
                 rulesperson:{ // 校验表单规则
-                    name: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '姓名不能为空', trigger: 'change' }
-                    ],
-                    description: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
-                    ],
-                    email: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' },
-                        { type: 'email', message: '请填写正确的邮箱', trigger: 'blur' }
-                    ],
-                    wechat: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
-                    ],
-                    company: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
-                    ],
-                    department: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
-                    ],
-                    position: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
-                    ],
-                    city: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
-                    ],
                     tag: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '描述不能为空', trigger: 'change' }
+                        { required: true, message: '不能为空', trigger: 'change' }
                     ],
                 }
             }
-        },
-        watch:{
-            user:{
-                handler (newval, oldval) {
-                    this.loadding = false;
-                },
-                deep: true,
-            },
         },
         created() {
             // var username = JSON.parse(localStorage.getItem('username'));
@@ -184,19 +165,7 @@
                 this.value.tag = new_tag_value;
             },
             save_bt:function () { // 点击保存按钮
-                // this.loadding= true;
-                // var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
-                // this.$api.api_all.put_user_detail_api( // 更新用户资料
-                //     username, this.value
-                // ).then((response)=>{
-                //     this.$Message.success(response.data.msg);
-                //     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
-                //     this.value = response.data.results;
-                //     this.loadding= false;
-                // }).catch((error)=>{
-                //     this.$Message.error(error.response.data.msg);
-                //     this.loadding= false;
-                // });
+
             },
         }
     }
