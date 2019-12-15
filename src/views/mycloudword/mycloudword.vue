@@ -83,7 +83,7 @@
 															<child-tag
 																ref="tag"
 																:tag_data="value.tag"
-																:count="30"
+																:count="50"
 																:closable="true"
 																:disable="false"
 																tag_size=""
