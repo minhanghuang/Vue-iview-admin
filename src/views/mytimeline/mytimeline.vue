@@ -1,5 +1,35 @@
 <style lang="scss" scoped>
+	.top-pane{
+		overflow: scroll
+	}
+	.bottom-pane{
+		border: 1px solid #dcdee2;
+		overflow: scroll
+	}
+	.bottom-split-pane{
+		padding: 10px;
+		.inner-item{
+			margin-left: 15px ;
+		}
+	}
 
+	.my-form >>> .ivu-form-item{
+		height: auto;
+		width: auto;
+		margin: 0;
+		padding-bottom: 26px;
+	}
+
+	.my-form{
+		.my-form-items{
+			.inner-item{
+				margin-left: 15px ;
+			}
+			.my-input{
+				width: 372px;
+			}
+		}
+	}
 </style>
 
 <template>
@@ -7,17 +37,17 @@
 		<Col style="">
 			<Row style="min-height: 350px;background-color: yellow">
 				<Col style="height: 100%;width: 100%">
-					<div style="height: 500px">
+					<div style="height: 500px" class="top-pane">
 
 					</div>
 				</Col>
 			</Row>
 			<Divider />
-			<Row style="min-height: 350px;background-color: #2d8cf0">
+			<Row style="min-height: 350px;">
 				<Col style="height: 100%;width: 100%">
-					<div style="height: 400px">
+					<div style="height: 500px" class="bottom-pane">
 						<Split v-model="splitvalue">
-							<div slot="left" class="demo-split-pane">
+							<div slot="left" class="bottom-split-pane">
 								<Collapse v-model="value1">
 									<Panel name="1">
 										史蒂夫·乔布斯
@@ -33,8 +63,25 @@
 									</Panel>
 								</Collapse>
 							</div>
-							<div slot="right" class="demo-split-pane">
-								
+							<div slot="right" class="bottom-split-pane">
+								<div style="margin: 15px;height: 100%" class="my-form">
+									<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
+										<FormItem prop="pending">
+											<div class="my-form-items">
+												添加节点
+												<Button type="error" class="inner-item">+</Button>
+											</div>
+										</FormItem>
+										<FormItem prop="pending">
+											<Tooltip content="开启后,标记最后一个为幽灵节点" placement="bottom-start">
+												<div class="my-form-items">
+													幽灵模式
+													<i-switch v-model="bottom.right.pending" @on-change="change" class="inner-item"></i-switch>
+												</div>
+											</Tooltip>
+										</FormItem>
+									</Form>
+								</div>
 							</div>
 						</Split>
 					</div>
@@ -51,6 +98,11 @@
         data() {
             return {
                 splitvalue: 0.7,
+	            bottom:{
+                    right:{
+                        pending:true
+                    }
+	            }
             }
         },
     }
