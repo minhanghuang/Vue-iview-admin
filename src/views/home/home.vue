@@ -70,14 +70,14 @@
 							<Icon type="ios-contact" :size="icon_size" ></Icon>
 							个人中心
 						</template>
-						<MenuItem name="about">
-							关于我
-						</MenuItem>
 						<MenuItem name="cloudword">
 							云词图
 						</MenuItem>
 						<MenuItem name="timeline">
 							时光轴
+						</MenuItem>
+						<MenuItem name="about">
+							关于
 						</MenuItem>
 					</Submenu>
 				</Menu>
