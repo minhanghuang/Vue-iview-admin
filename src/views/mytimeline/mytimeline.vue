@@ -105,6 +105,16 @@
 	            }
             }
         },
+	    watch:{
+            splitvalue:function (newval,oldval) {
+	            if (newval > 0.7){
+	                this.splitvalue = 0.7; // 面板分割不能太右
+	            }
+                if (newval < 0.5){
+                    this.splitvalue = 0.5 // 面板分割不能太左
+                }
+            }
+	    }
     }
 </script>
 
