@@ -11,6 +11,16 @@
 		.inner-item{
 			margin-left: 15px ;
 		}
+		.del-bt-box{
+			display: inline-block;
+			height: 38px;
+			width:auto;
+			float: right;
+			margin-right: 1px;
+			.del-bt{
+				margin: auto 0
+			}
+		}
 	}
 
 	.my-form >>> .ivu-form-item{
@@ -42,27 +52,32 @@
 					</div>
 				</Col>
 			</Row>
+
 			<Divider />
+			
 			<Row style="min-height: 350px;">
 				<Col style="height: 100%;width: 100%">
 					<div style="height: 500px" class="bottom-pane">
 						<Split v-model="splitvalue">
 							<div slot="left" class="bottom-split-pane">
-								<Collapse v-model="bottom.left">
-									<Panel v-if="bottom.left.value!==undefined" :name="index" v-for="(item,index) in bottom.left.value" :key="index">
+								<Collapse>
+									<Panel v-for="item in bottom.left.value" :key="item.id">
 										{{item.title}}
+										<div class="del-bt-box">
+											<Button type="error" class="del-bt">删除</Button>
+										</div>
 										<p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
 									</Panel>
 								</Collapse>
+								<Button type="dashed" long @click="add_bt">+添加节点{{bottom.right.count}}</Button>
 							</div>
 							<div slot="right" class="bottom-split-pane">
 								<div style="margin: 15px;height: 100%" class="my-form">
 									<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
-										<FormItem prop="pending">
+										<FormItem prop="sort">
 											<div class="my-form-items">
-												添加节点
-												<Button type="error" class="inner-item" @click="add_bt">+</Button>
-												{{bottom.right.count}}
+												升序模式
+												<i-switch v-model="bottom.right.sort" class="inner-item"></i-switch>
 											</div>
 										</FormItem>
 										<FormItem prop="pending">
@@ -94,14 +109,21 @@
 	            bottom:{
                     right:{
                         pending: true, // 幽灵模式
+                        sort: true, // 升序模式
                         count: 1, // 节点个数
                     },
                     left:{
 						value:[
 							{
+							    id: 0,
 							    title:"节点1",
-                                content:"content",
-							}
+                                content:"content1",
+							},
+                            {
+                                id: 1,
+                                title:"节点2",
+                                content:"content2",
+                            }
 						]
                     }
 	            }
