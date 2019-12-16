@@ -185,7 +185,7 @@
                 this.bottom.left.openpanellist.push((this.bottom.right.count)+"")
             },
             change_collapse:function (key) {
-                key.pop()
+                // key.pop()
 	            this.bottom.left.openpanellist = key;
             }
 	    }
