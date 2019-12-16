@@ -65,9 +65,11 @@
 							<Split v-model="splitvalue">
 								<div slot="left" class="bottom-split-pane">
 									<Form ref="rulesleft" :model="bottom.left" :rules="rulesleft">
-										<Collapse>
+
+										<Collapse  v-model="bottom.left.openpanellist" @on-change="change_collapse">
 											<Panel v-for="item in bottom.left.value" :key="item.id">
-												{{item.node_name}}
+
+												{{item.node_name}}-{{item.id}}
 												<div class="del-bt-box">
 													<Button type="error" class="del-bt">删除</Button>
 												</div>
@@ -105,6 +107,14 @@
 													</div>
 												</Tooltip>
 											</FormItem>
+											<FormItem prop="accordion">
+												<Tooltip content="开启风琴模式，每次只能打开一个面板。" placement="bottom-start">
+													<div class="my-form-items">
+														风琴模式
+														<i-switch v-model="bottom.accordion" class="inner-item"></i-switch>
+													</div>
+												</Tooltip>
+											</FormItem>
 										</Form>
 									</div>
 								</div>
@@ -125,25 +135,21 @@
             return {
                 splitvalue: 0.7,
 	            bottom:{
+                    accordion: false, // 开启手风琴模式，每次只能打开一个面板。
                     right:{
                         pending: true, // 幽灵模式
                         sort: true, // 升序模式
-                        count: 1, // 节点个数
+                        count: 0, // 节点个数
                     },
                     left:{
-						value:[
+                        openpanellist: [], // 打开的面板
+                        value:[
 							{
 							    id: 0,
-							    title:"节点1",
+							    title:"节点",
                                 content:"content1",
-								node_name: "节点1",
+								node_name: "节点",
 							},
-                            {
-                                id: 1,
-                                title:"节点2",
-                                content:"content2",
-                                node_name: "节点2",
-                            }
 						]
                     }
 	            },
@@ -169,7 +175,18 @@
 	    },
 	    methods:{
             add_bt:function () { // 添加节点触发
-	            this.bottom.right.count ++; // 自增
+                this.bottom.right.count ++; // 自增
+                this.bottom.left.value.push({
+                    id: this.bottom.right.count,
+                    title:"节点"+this.bottom.right.count,
+                    content:"content1",
+                    node_name: "节点"+this.bottom.right.count,
+                },);
+                this.bottom.left.openpanellist.push((this.bottom.right.count)+"")
+            },
+            change_collapse:function (key) {
+                key.pop()
+	            this.bottom.left.openpanellist = key;
             }
 	    }
     }
