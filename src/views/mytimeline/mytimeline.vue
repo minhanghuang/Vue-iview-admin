@@ -66,10 +66,10 @@
 								<div slot="left" class="bottom-split-pane">
 									<Form ref="rulesleft" :model="bottom.left" :rules="rulesleft">
 
-										<Collapse  v-model="bottom.left.openpanellist" @on-change="change_collapse">
+										<Collapse  v-model="bottom.left.openpanellist" @on-change="change_collapse" :accordion="bottom.accordion">
 											<Panel v-for="item in bottom.left.value" :key="item.id" :name="item.id">
 
-												{{item.node_name}}-{{item.id}}
+												{{item.node_name}}
 												<div class="del-bt-box">
 													<Button type="error" class="del-bt">删除</Button>
 												</div>
@@ -175,9 +175,9 @@
 	    },
 	    methods:{
             add_bt:function () { // 添加节点触发
-                this.bottom.right.count ++; // 自增, 字符串自增会变成int类型 
-                this.bottom.left.value.push({
-                    id: this.bottom.right.count+"", // 需要将id转成字符串
+                this.bottom.right.count ++; // 自增, 字符串自增会变成int类型
+                this.bottom.left.value.push({ // 将节点加到列表中
+                    id: this.bottom.right.count + "", // 需要将id转成字符串
                     title:"节点"+this.bottom.right.count,
                     content:"content1",
                     node_name: "节点"+this.bottom.right.count,
