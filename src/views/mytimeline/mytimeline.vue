@@ -71,7 +71,7 @@
 
 												{{item.node_name}}
 												<div class="del-bt-box">
-													<Button type="error" class="del-bt">删除</Button>
+													<Button type="error" class="del-bt" @click="del_panel_bt(item.id)">删除</Button>
 												</div>
 												<div slot="content" class="content-box">
 													<Button type="text">节点: </Button>
@@ -183,8 +183,11 @@
                     node_name: "节点"+this.bottom.right.count,
                 },);
             },
-            change_collapse:function (key) {
+            change_collapse:function (key) { // 切换面板时触发，返回当前已展开的面板的 key，格式为数组
 	            this.bottom.left.openpanellist = key;
+            },
+            del_panel_bt:function (index) { // 删除节点触发
+                this.bottom.left.value.splice(this.bottom.left.value.findIndex(e => e.id == index), 1);
             }
 	    }
     }
