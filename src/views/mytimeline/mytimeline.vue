@@ -212,7 +212,16 @@
                 this.bottom.left.value.push({ // 将节点加到列表中
                     id: this.bottom.right.count + "", // 需要将id转成字符串
                     title:"节点"+this.bottom.right.count,
-                    content:"content1",
+                    content:[
+                        {
+                            id_inner: "0",
+                            col:"内容1"
+                        },
+                        {
+                            id_inner: "1",
+                            col:"内容2"
+                        }
+                    ],
                     node_name: "节点"+this.bottom.right.count,
                 },);
             },
