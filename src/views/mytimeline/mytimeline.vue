@@ -67,7 +67,7 @@
 									<Form ref="rulesleft" :model="bottom.left" :rules="rulesleft">
 
 										<Collapse  v-model="bottom.left.openpanellist" @on-change="change_collapse">
-											<Panel v-for="item in bottom.left.value" :key="item.id">
+											<Panel v-for="item in bottom.left.value" :key="item.id" :name="item.id">
 
 												{{item.node_name}}-{{item.id}}
 												<div class="del-bt-box">
@@ -145,7 +145,7 @@
                         openpanellist: [], // 打开的面板
                         value:[
 							{
-							    id: 0,
+							    id: "0", // id只能是字符串
 							    title:"节点",
                                 content:"content1",
 								node_name: "节点",
@@ -175,17 +175,15 @@
 	    },
 	    methods:{
             add_bt:function () { // 添加节点触发
-                this.bottom.right.count ++; // 自增
+                this.bottom.right.count ++; // 自增, 字符串自增会变成int类型 
                 this.bottom.left.value.push({
-                    id: this.bottom.right.count,
+                    id: this.bottom.right.count+"", // 需要将id转成字符串
                     title:"节点"+this.bottom.right.count,
                     content:"content1",
                     node_name: "节点"+this.bottom.right.count,
                 },);
-                this.bottom.left.openpanellist.push((this.bottom.right.count)+"")
             },
             change_collapse:function (key) {
-                // key.pop()
 	            this.bottom.left.openpanellist = key;
             }
 	    }
