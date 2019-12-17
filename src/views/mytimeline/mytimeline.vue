@@ -74,16 +74,40 @@
 													<Button type="error" class="del-bt" @click="del_panel_bt(item.id)">删除</Button>
 												</div>
 												<div slot="content" class="content-box">
-													<Button type="text">节点: </Button>
-													<FormItem prop="nodename" style="display: inline-block;margin: 0">
-														<Input maxlength="30" v-model="item.node_name" placeholder="节点名" style="width: 300px" />
-													</FormItem>
+													<Row>
+														<Col span="2">
+															<Button type="text">节点: </Button>
+														</Col>
+														<Col span="10">
+															<FormItem prop="" >
+																<Input maxlength="30" v-model="item.node_name" placeholder="节点名" style="width: auto;display: block" />
+															</FormItem>
+														</Col>
+													</Row>
 												</div>
 												<div slot="content" class="content-box">
-													<Button type="text">内容: </Button>
-													<FormItem prop="content" style="display: inline-block;margin: 0">
-														<Input maxlength="300" type="textarea" v-model="item.content" placeholder="内容" style="width: 300px" />
-													</FormItem>
+													<Row>
+														<Col span="2">
+															<Button type="text" style="">内容: </Button>
+														</Col>
+														<Col span="16">
+															<FormItem prop="a" >
+																<div v-for="item_inner in item.content" >
+																	<Row>
+																		<Col span="20">
+																			<Input :key="item_inner.id_inner"  maxlength="300" type="textarea" v-model="item_inner.col" placeholder="内容" style="width: auto;display: block;margin-bottom: 26px" >
+
+																			</Input>
+																		</Col>
+																		<Col span="2" offset="1">
+																			<Button icon="ios-trash" type="error"></Button>
+																		</Col>
+																	</Row>
+																</div>
+																<Button type="dashed" long @click="add_inner_bt">+添加内容</Button>
+															</FormItem>
+														</Col>
+													</Row>
 												</div>
 											</Panel>
 										</Collapse>
@@ -147,7 +171,16 @@
 							{
 							    id: "0", // id只能是字符串
 							    title:"节点",
-                                content:"content1",
+                                content:[
+	                                {
+	                                    id_inner: "0",
+		                                col:"内容1"
+	                                },
+                                    {
+                                        id_inner: "1",
+                                        col:"内容2"
+                                    }
+                                ],
 								node_name: "节点",
 							},
 						]
