@@ -1,6 +1,13 @@
 <style lang="scss" scoped>
 	.top-pane{
-		overflow: scroll
+		overflow: scroll;
+		.time{
+			font-size: 14px;
+			font-weight: bold;
+		}
+		.content{
+			padding-left: 5px;
+		}
 	}
 	.bottom-pane{
 		border: 1px solid #dcdee2;
@@ -49,10 +56,31 @@
 	<div>
 		<Row style="height: 100%;width: 100%;">
 			<Col style="">
-				<Row style="min-height: 350px;background-color: yellow">
+				<Row style="min-height: 350px;">
 					<Col style="height: 100%;width: 100%">
 						<div style="height: 500px" class="top-pane">
-
+							<Timeline>
+								<TimelineItem>
+									<p class="time">1976年</p>
+									<p class="content">Apple I 问世</p>
+								</TimelineItem>
+								<TimelineItem>
+									<p class="time">1984年</p>
+									<p class="content">发布 Macintosh</p>
+								</TimelineItem>
+								<TimelineItem>
+									<p class="time">2007年</p>
+									<p class="content">发布 iPhone</p>
+								</TimelineItem>
+								<TimelineItem>
+									<p class="time">2010年</p>
+									<p class="content">发布 iPad</p>
+								</TimelineItem>
+								<TimelineItem>
+									<p class="time">2011年10月5日</p>
+									<p class="content">史蒂夫·乔布斯去世</p>
+								</TimelineItem>
+							</Timeline>
 						</div>
 					</Col>
 				</Row>
@@ -79,7 +107,7 @@
 															<Button type="text">节点: </Button>
 														</Col>
 														<Col span="10">
-															<FormItem prop="" >
+															<FormItem prop="node" >
 																<Input maxlength="30" v-model="item.node_name" placeholder="节点名" style="width: auto;display: block" />
 															</FormItem>
 														</Col>
@@ -91,7 +119,7 @@
 															<Button type="text">颜色: </Button>
 														</Col>
 														<Col span="10">
-															<FormItem prop="">
+															<FormItem prop="color">
 																<Select v-model="item.color" style="width:100%">
 																	<Option v-for="item_color in bottom.right.colorlist" :value="item_color.value" :key="item_color.value">{{item_color.label}}</Option>
 																</Select>
@@ -105,7 +133,7 @@
 															<Button type="text">Icon: </Button>
 														</Col>
 														<Col span="10">
-															<FormItem prop="" >
+															<FormItem prop="icon" >
 																<Input maxlength="30" v-model="item.icon" placeholder="icon" style="width: auto;display: block" />
 															</FormItem>
 														</Col>
@@ -117,7 +145,7 @@
 															<Button type="text" style="">内容: </Button>
 														</Col>
 														<Col span="16">
-															<FormItem prop="a" >
+															<FormItem prop="content" >
 																<div v-for="item_inner in item.content" >
 																	<Row>
 																		<Col span="20">
