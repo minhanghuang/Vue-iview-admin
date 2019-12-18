@@ -176,7 +176,7 @@
 													<Button type="text" style="">节点上限: </Button>
 													<InputNumber class="inner-item" :max="limit.node.value" :min="1" v-model="limit.node.count" :disabled="limit.node.disabled"></InputNumber>
 													<Button type="warning" @click="limit.node.disabled = !limit.node.disabled" v-if="limit.node.disabled">解锁</Button>
-													<Button type="warning" @click="limit.node.disabled = !limit.node.disabled" v-else >锁定</Button>
+													<Button type="warning" ghost @click="limit.node.disabled = !limit.node.disabled" v-else >锁定</Button>
 												</div>
 											</FormItem>
 											<FormItem prop="limit_count_inner">
@@ -184,7 +184,7 @@
 													<Button type="text" style="">内容上限: </Button>
 													<InputNumber class="inner-item" :max="limit.inner.value" :min="1" v-model="limit.inner.count" :disabled="limit.inner.disabled"></InputNumber>
 													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-if="limit.inner.disabled">解锁</Button>
-													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-else >锁定</Button>
+													<Button type="warning" ghost @click="limit.inner.disabled = !limit.inner.disabled" v-else >锁定</Button>
 												</div>
 											</FormItem>
 											<FormItem prop="sort">
