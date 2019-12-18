@@ -117,6 +117,28 @@
 								<div slot="right" class="bottom-split-pane">
 									<div style="margin: 15px;height: 100%" class="my-form">
 										<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
+											<FormItem prop="limit_count">
+												<div class="my-form-items">
+													节点上限
+													<InputNumber :max="limit.node.value" :min="1" v-model="limit.node.count" :disabled="limit.node.disabled"></InputNumber>
+													<Button type="warning" @click="limit.node.disabled = !limit.node.disabled" v-if="limit.node.disabled">解锁</Button>
+													<Button type="warning" @click="limit.node.disabled = !limit.node.disabled" v-else >锁定</Button>
+												</div>
+											</FormItem>
+											<FormItem prop="limit_count_inner">
+												<div class="my-form-items">
+													内容上限
+													<InputNumber :max="limit.inner.value" :min="1" v-model="limit.inner.count" :disabled="limit.inner.disabled"></InputNumber>
+													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-if="limit.inner.disabled">解锁</Button>
+													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-else >锁定</Button>
+												</div>
+											</FormItem>
+											<FormItem prop="limit_count_inner">
+												<div class="my-form-items">
+													内容上限
+													<i-switch v-model="bottom.right.sort" class="inner-item"></i-switch>
+												</div>
+											</FormItem>
 											<FormItem prop="sort">
 												<div class="my-form-items">
 													升序模式
@@ -158,6 +180,18 @@
         data() {
             return {
                 splitvalue: 0.7,
+	            limit:{
+                    node:{
+                        count: 20, // 数据
+                        value: 100, // 上限
+                        disabled: true, // 锁定/解锁
+                    },
+		            inner:{
+                        count: 5,
+                        value: 30,
+                        disabled: true,
+		            }
+	            },
 	            bottom:{
                     accordion: false, // 开启手风琴模式，每次只能打开一个面板。
                     right:{
@@ -205,20 +239,28 @@
                 this.bottom.left.openpanellist = key;
             },
             add_bt:function () { // 添加节点触发
-                this.bottom.right.count ++; // 自增, 字符串自增会变成int类型
-                this.bottom.left.value.push({ // 将节点加到列表中
-                    id: this.bottom.right.count + "", // 需要将id转成字符串
-                    title:"节点"+this.bottom.right.count,
-	                count_inner: 0,
-                    content:[
-                        {id_inner: "0", col:"内容0"},
-                    ],
-                    node_name: "节点"+this.bottom.right.count,
-                },);
+
+                let count = this.bottom.right.count;
+                let data = this.bottom.left.value;
+
+                if (data.length >= this.limit.node.count){
+                    this.$Message.error('禁止添加节点,已达上限');
+                } else {
+                    count ++; // 自增, 字符串自增会变成int类型
+                    data.push({ // 将节点加到列表中
+                        id: count + "", // 需要将id转成字符串
+                        title:"节点"+count,
+                        count_inner: 0,
+                        content:[
+                            {id_inner: "0", col:"内容0"},
+                        ],
+                        node_name: "节点"+count,
+                    },);
+                }
             },
             del_panel_bt:function (index) { // 删除节点触发
                 let data = this.bottom.left.value;
-                if (data.length === 1){
+                if (data.length === 1){ // 当只有一个节点时, 禁止删除
                     this.$Message.error('禁止删除');
                 }
                 else {
@@ -228,10 +270,15 @@
             add_inner_bt:function (id) { // 添加内容
                 this.bottom.left.value.filter((item)=>{
                     if (item.id == id) { // 在整个数据中找到外层的数据
-                        item.count_inner ++; // 内层id自增
-                        item.content.push( // 添加内层数据
-                            {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
-                        )
+
+                        if (item.content.length >= this.limit.inner.count){
+                            this.$Message.error('禁止添加内容,已达上限');
+                        } else {
+                            item.count_inner ++; // 内层id自增
+                            item.content.push( // 添加内层数据
+                                {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
+                            )
+                        }
                     }
                 })
             },
