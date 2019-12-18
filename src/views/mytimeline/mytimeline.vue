@@ -173,30 +173,30 @@
 										<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
 											<FormItem prop="limit_count">
 												<div class="my-form-items">
-													节点上限
-													<InputNumber :max="limit.node.value" :min="1" v-model="limit.node.count" :disabled="limit.node.disabled"></InputNumber>
+													<Button type="text" style="">节点上限: </Button>
+													<InputNumber class="inner-item" :max="limit.node.value" :min="1" v-model="limit.node.count" :disabled="limit.node.disabled"></InputNumber>
 													<Button type="warning" @click="limit.node.disabled = !limit.node.disabled" v-if="limit.node.disabled">解锁</Button>
 													<Button type="warning" @click="limit.node.disabled = !limit.node.disabled" v-else >锁定</Button>
 												</div>
 											</FormItem>
 											<FormItem prop="limit_count_inner">
 												<div class="my-form-items">
-													内容上限
-													<InputNumber :max="limit.inner.value" :min="1" v-model="limit.inner.count" :disabled="limit.inner.disabled"></InputNumber>
+													<Button type="text" style="">内容上限: </Button>
+													<InputNumber class="inner-item" :max="limit.inner.value" :min="1" v-model="limit.inner.count" :disabled="limit.inner.disabled"></InputNumber>
 													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-if="limit.inner.disabled">解锁</Button>
 													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-else >锁定</Button>
 												</div>
 											</FormItem>
 											<FormItem prop="sort">
 												<div class="my-form-items">
-													升序模式
+													<Button type="text" style="">升序模式: </Button>
 													<i-switch v-model="bottom.right.sort" class="inner-item"></i-switch>
 												</div>
 											</FormItem>
 											<FormItem prop="pending">
 												<Tooltip content="开启后,标记最后一个为幽灵节点" placement="bottom-start">
 													<div class="my-form-items">
-														幽灵模式
+														<Button type="text" style="">幽灵模式: </Button>
 														<i-switch v-model="bottom.right.pending" class="inner-item"></i-switch>
 													</div>
 												</Tooltip>
@@ -204,7 +204,7 @@
 											<FormItem prop="accordion">
 												<Tooltip content="开启风琴模式，每次只能打开一个面板。" placement="bottom-start">
 													<div class="my-form-items">
-														风琴模式
+														<Button type="text" style="">风琴模式: </Button>
 														<i-switch v-model="bottom.accordion" class="inner-item"></i-switch>
 													</div>
 												</Tooltip>
