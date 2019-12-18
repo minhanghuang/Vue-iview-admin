@@ -8,7 +8,9 @@
 
 	.my-form{
 		.my-form-items{
-
+			.my-form-items-bt:hover{
+				background-color: rgb(245, 247, 249);
+			}
 		}
 	}
 </style>
@@ -109,49 +111,49 @@
 										<Form ref="personform" :model="value" :rules="rulesperson">
 											<FormItem prop="name">
 												<div class="my-form-items">
-													姓名
+													<Button type="text" class="my-form-items-bt">姓名: </Button>
 													<Input v-model="value.name" placeholder="Cox" style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="description">
 												<div class="my-form-items">
-													描述
+													<Button type="text" class="my-form-items-bt">描述: </Button>
 													<Input :show-word-limit="true" maxlength="30" v-model="value.description" placeholder="到了最后,我们都活成曾经最讨厌的样子" type="textarea" :autosize="true" style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="email">
 												<div class="my-form-items">
-													邮箱
+													<Button type="text" class="my-form-items-bt">邮箱: </Button>
 													<Input v-model="value.email" placeholder="job@minhung.me"  style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="wechat">
 												<div class="my-form-items">
-													微信
+													<Button type="text" class="my-form-items-bt">微信: </Button>
 													<Input v-model="value.wechat" placeholder="wechat"  style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="company">
 												<div class="my-form-items">
-													公司
+													<Button type="text" class="my-form-items-bt">公司: </Button>
 													<Input v-model="value.company" placeholder="某某公司"  style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="department">
 												<div class="my-form-items">
-													部门
+													<Button type="text" class="my-form-items-bt">部门: </Button>
 													<Input v-model="value.department" placeholder="某某部门"  style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="position">
 												<div class="my-form-items">
-													职位
+													<Button type="text" class="my-form-items-bt">职位: </Button>
 													<Input v-model="value.position" placeholder="后端开发工程师"  style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
 											<FormItem prop="city">
 												<div class="my-form-items">
-													地址
+													<Button type="text" class="my-form-items-bt">地址: </Button>
 													<Input v-model="value.city" placeholder="深圳"  style="margin-left: 15px ;width: 372px"></Input>
 												</div>
 											</FormItem>
@@ -159,7 +161,7 @@
 												<div class="my-form-items">
 													<div style="height: auto;">
 														<div style="display: inline-block;margin-right: 15px;">
-															标签
+															<Button type="text" class="my-form-items-bt">标签: </Button>
 														</div>
 														<div style="display: inline-block;border:2px solid #eee;padding:2px 2px 1px 2px ;height: auto;width: 372px">
 															<child-tag
