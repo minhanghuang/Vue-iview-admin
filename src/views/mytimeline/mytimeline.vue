@@ -100,7 +100,7 @@
 																			</Input>
 																		</Col>
 																		<Col span="2" offset="1">
-																			<Button icon="ios-trash" type="error"></Button>
+																			<Button icon="ios-trash" type="error" @click="del_content_bt(item.id, item_inner.id_inner)"></Button>
 																		</Col>
 																	</Row>
 																</div>
@@ -171,7 +171,7 @@
 							{
 							    id: "0", // id只能是字符串
 							    title:"节点",
-                                count_inner: 0,
+                                count_inner: 0, // content列表的长度
                                 content:[
 	                                {id_inner: "0", col:"内容0"},
                                 ],
@@ -219,14 +219,25 @@
             del_panel_bt:function (index) { // 删除节点触发
                 this.bottom.left.value.splice(this.bottom.left.value.findIndex(e => e.id == index), 1);
             },
-            add_inner_bt:function (id) {
-	            console.log(id)
+            add_inner_bt:function (id) { // 添加内容
                 this.bottom.left.value.filter((item)=>{
                     if (item.id == id) {
                         item.count_inner ++;
                         item.content.push(
                             {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
                         )
+                    }
+                })
+            },
+            del_content_bt:function (id, id_inner) { // 删除内容
+                this.bottom.left.value.filter((item)=>{
+                    if (item.id == id) {
+                        if (item.content.length === 1){
+                            this.$Message.error('禁止删除');
+                        }
+                        else {
+                            item.content.splice(item.content.findIndex(e => e.id_inner == id_inner), 1);
+                        }
                     }
                 })
             }
