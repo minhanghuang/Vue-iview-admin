@@ -625,33 +625,52 @@
 <!--</script>-->
 
 
+<!--<template>-->
+<!--	<div class="demo-split">-->
+<!--		<Split v-model="split2" mode="vertical">-->
+<!--			<div slot="top" class="demo-split-pane">-->
+<!--				Top Pane-->
+<!--			</div>-->
+<!--			<div slot="bottom" class="demo-split-pane">-->
+<!--				Bottom Pane-->
+<!--			</div>-->
+<!--		</Split>-->
+<!--	</div>-->
+<!--</template>-->
+<!--<script>-->
+<!--    export default {-->
+<!--        data () {-->
+<!--            return {-->
+<!--                split2: 0.5-->
+<!--            }-->
+<!--        },-->
+<!--    }-->
+<!--</script>-->
+<!--<style>-->
+<!--	.demo-split{-->
+<!--		height: 200px;-->
+<!--		border: 1px solid #dcdee2;-->
+<!--	}-->
+<!--	.demo-split-pane{-->
+<!--		padding: 10px;-->
+<!--	}-->
+<!--</style>-->
 <template>
-	<div class="demo-split">
-		<Split v-model="split2" mode="vertical">
-			<div slot="top" class="demo-split-pane">
-				Top Pane
-			</div>
-			<div slot="bottom" class="demo-split-pane">
-				Bottom Pane
-			</div>
-		</Split>
-	</div>
+	<Timeline>
+		<TimelineItem color="">
+			<Icon type="ios-trophy" slot="dot"></Icon>
+			<span>发布里程碑版本</span>
+		</TimelineItem>
+		<TimelineItem color="blue">
+			<Icon type="md-ionic" slot="dot"></Icon>
+<!--			<Icon type="md-ionic" />-->
+			发布1.0版本</TimelineItem>
+		<TimelineItem>发布2.0版本</TimelineItem>
+		<TimelineItem>发布3.0版本</TimelineItem>
+	</Timeline>
 </template>
 <script>
     export default {
-        data () {
-            return {
-                split2: 0.5
-            }
-        },
+
     }
 </script>
-<style>
-	.demo-split{
-		height: 200px;
-		border: 1px solid #dcdee2;
-	}
-	.demo-split-pane{
-		padding: 10px;
-	}
-</style>

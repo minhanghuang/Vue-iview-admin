@@ -88,6 +88,32 @@
 												<div slot="content" class="content-box">
 													<Row>
 														<Col span="2">
+															<Button type="text">颜色: </Button>
+														</Col>
+														<Col span="10">
+															<FormItem prop="">
+																<Select v-model="item.color" style="width:100%">
+																	<Option v-for="item_color in bottom.right.colorlist" :value="item_color.value" :key="item_color.value">{{item_color.label}}</Option>
+																</Select>
+															</FormItem>
+														</Col>
+													</Row>
+												</div>
+												<div slot="content" class="content-box">
+													<Row>
+														<Col span="2">
+															<Button type="text">Icon: </Button>
+														</Col>
+														<Col span="10">
+															<FormItem prop="" >
+																<Input maxlength="30" v-model="item.icon" placeholder="icon" style="width: auto;display: block" />
+															</FormItem>
+														</Col>
+													</Row>
+												</div>
+												<div slot="content" class="content-box">
+													<Row>
+														<Col span="2">
 															<Button type="text" style="">内容: </Button>
 														</Col>
 														<Col span="16">
@@ -131,12 +157,6 @@
 													<InputNumber :max="limit.inner.value" :min="1" v-model="limit.inner.count" :disabled="limit.inner.disabled"></InputNumber>
 													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-if="limit.inner.disabled">解锁</Button>
 													<Button type="warning" @click="limit.inner.disabled = !limit.inner.disabled" v-else >锁定</Button>
-												</div>
-											</FormItem>
-											<FormItem prop="limit_count_inner">
-												<div class="my-form-items">
-													内容上限
-													<i-switch v-model="bottom.right.sort" class="inner-item"></i-switch>
 												</div>
 											</FormItem>
 											<FormItem prop="sort">
@@ -198,13 +218,20 @@
                         pending: true, // 幽灵模式
                         sort: true, // 升序模式
                         count: 0, // 节点个数
+	                    colorlist: [ // 颜色选择列表
+                            {value: 'blue', label: 'blue'},
+                            {value: 'red', label: 'red'},
+                            {value: 'green', label: 'green'},
+	                    ]
                     },
                     left:{
-                        openpanellist: [], // 打开的面板
+                        openpanellist: ["0"], // 打开的面板
                         value:[
 							{
 							    id: "0", // id只能是字符串
 							    title:"节点",
+                                color:"blue",
+                                icon:"md-ionic",
                                 count_inner: 0, // content列表的长度
                                 content:[
 	                                {id_inner: "0", col:"内容0"},
@@ -250,6 +277,8 @@
                     data.push({ // 将节点加到列表中
                         id: count + "", // 需要将id转成字符串
                         title:"节点"+count,
+                        color:"blue",
+                        icon:"md-ionic",
                         count_inner: 0,
                         content:[
                             {id_inner: "0", col:"内容0"},
