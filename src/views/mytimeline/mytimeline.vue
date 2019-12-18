@@ -104,7 +104,7 @@
 																		</Col>
 																	</Row>
 																</div>
-																<Button type="dashed" long @click="add_inner_bt">+添加内容</Button>
+																<Button type="dashed" long @click="add_inner_bt(item.id)">+添加内容</Button>
 															</FormItem>
 														</Col>
 													</Row>
@@ -171,15 +171,9 @@
 							{
 							    id: "0", // id只能是字符串
 							    title:"节点",
+                                count_inner: 0,
                                 content:[
-	                                {
-	                                    id_inner: "0",
-		                                col:"内容1"
-	                                },
-                                    {
-                                        id_inner: "1",
-                                        col:"内容2"
-                                    }
+	                                {id_inner: "0", col:"内容0"},
                                 ],
 								node_name: "节点",
 							},
@@ -212,15 +206,9 @@
                 this.bottom.left.value.push({ // 将节点加到列表中
                     id: this.bottom.right.count + "", // 需要将id转成字符串
                     title:"节点"+this.bottom.right.count,
+	                count_inner: 0,
                     content:[
-                        {
-                            id_inner: "0",
-                            col:"内容1"
-                        },
-                        {
-                            id_inner: "1",
-                            col:"内容2"
-                        }
+                        {id_inner: "0", col:"内容0"},
                     ],
                     node_name: "节点"+this.bottom.right.count,
                 },);
@@ -230,6 +218,17 @@
             },
             del_panel_bt:function (index) { // 删除节点触发
                 this.bottom.left.value.splice(this.bottom.left.value.findIndex(e => e.id == index), 1);
+            },
+            add_inner_bt:function (id) {
+	            console.log(id)
+                this.bottom.left.value.filter((item)=>{
+                    if (item.id == id) {
+                        item.count_inner ++;
+                        item.content.push(
+                            {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
+                        )
+                    }
+                })
             }
 	    }
     }
