@@ -201,6 +201,9 @@
             }
 	    },
 	    methods:{
+            change_collapse:function (key) { // 切换面板时触发，返回当前已展开的面板的 key，格式为数组
+                this.bottom.left.openpanellist = key;
+            },
             add_bt:function () { // 添加节点触发
                 this.bottom.right.count ++; // 自增, 字符串自增会变成int类型
                 this.bottom.left.value.push({ // 将节点加到列表中
@@ -213,11 +216,14 @@
                     node_name: "节点"+this.bottom.right.count,
                 },);
             },
-            change_collapse:function (key) { // 切换面板时触发，返回当前已展开的面板的 key，格式为数组
-	            this.bottom.left.openpanellist = key;
-            },
             del_panel_bt:function (index) { // 删除节点触发
-                this.bottom.left.value.splice(this.bottom.left.value.findIndex(e => e.id == index), 1);
+                let data = this.bottom.left.value;
+                if (data.length === 1){
+                    this.$Message.error('禁止删除');
+                }
+                else {
+                    data.splice(data.findIndex(e => e.id == index), 1);
+                }
             },
             add_inner_bt:function (id) { // 添加内容
                 this.bottom.left.value.filter((item)=>{
