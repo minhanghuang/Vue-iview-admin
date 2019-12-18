@@ -221,9 +221,9 @@
             },
             add_inner_bt:function (id) { // 添加内容
                 this.bottom.left.value.filter((item)=>{
-                    if (item.id == id) {
-                        item.count_inner ++;
-                        item.content.push(
+                    if (item.id == id) { // 在整个数据中找到外层的数据
+                        item.count_inner ++; // 内层id自增
+                        item.content.push( // 添加内层数据
                             {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
                         )
                     }
@@ -231,13 +231,15 @@
             },
             del_content_bt:function (id, id_inner) { // 删除内容
                 this.bottom.left.value.filter((item)=>{
-                    if (item.id == id) {
-                        if (item.content.length === 1){
+                    if (item.id == id) { // 在整个数据中找到外层的数据
+                        if (item.content.length === 1){ // 当内层只有一个数据时,禁止删除
                             this.$Message.error('禁止删除');
                         }
-                        else {
+                        else { // 内层数据删除对应的id_inner
                             item.content.splice(item.content.findIndex(e => e.id_inner == id_inner), 1);
                         }
+                    }else {
+                        this.$Message.error('该内容不存在');
                     }
                 })
             }
