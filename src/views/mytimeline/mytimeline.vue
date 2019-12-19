@@ -56,10 +56,11 @@
 	<div>
 		<Row style="height: 100%;width: 100%;">
 			<Col style="">
+
 				<Row style="min-height: 350px;">
 					<Col style="height: 100%;width: 100%">
 						<div style="height: 500px" class="top-pane">
-							<Timeline>
+							<Timeline :pending="bottom.right.pending">
 								<TimelineItem :color="bottom.left.value[index].color" v-for="(item, index) in bottom.left.value" :key="item.id">
 									<Icon :type="bottom.left.value[index].icon" slot="dot"></Icon>
 									<p class="title">{{bottom.left.value[index].node_name}}</p>
@@ -77,7 +78,7 @@
 				<Row style="min-height: 350px;">
 					<Col style="height: 100%;width: 100%">
 						<div style="height: 500px" class="bottom-pane">
-							<Split v-model="splitvalue">
+							<Split v-model="splitvalue_bottom">
 								<div slot="left" class="bottom-split-pane">
 									<Form ref="rulesleft" :model="bottom.left" :rules="rulesleft">
 
@@ -180,6 +181,17 @@
 								<div slot="right" class="bottom-split-pane">
 									<div style="margin: 15px;height: 100%" class="my-form">
 										<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
+											<FormItem prop="pending" style="padding-bottom: 0">
+												<Tooltip content="开启后,标记最后一个为幽灵节点" placement="bottom-start">
+													<div class="my-form-items">
+														<Button type="text" style="">幽灵模式: </Button>
+														<i-switch v-model="bottom.right.pending" class="inner-item"></i-switch>
+													</div>
+												</Tooltip>
+											</FormItem>
+
+											<Divider />
+
 											<FormItem prop="limit_count">
 												<div class="my-form-items">
 													<Button type="text" style="">节点上限: </Button>
@@ -201,14 +213,6 @@
 													<Button type="text" style="">升序模式: </Button>
 													<i-switch v-model="bottom.right.sort" class="inner-item"></i-switch>
 												</div>
-											</FormItem>
-											<FormItem prop="pending">
-												<Tooltip content="开启后,标记最后一个为幽灵节点" placement="bottom-start">
-													<div class="my-form-items">
-														<Button type="text" style="">幽灵模式: </Button>
-														<i-switch v-model="bottom.right.pending" class="inner-item"></i-switch>
-													</div>
-												</Tooltip>
 											</FormItem>
 											<FormItem prop="accordion">
 												<Tooltip content="开启风琴模式，每次只能打开一个面板。" placement="bottom-start">
@@ -236,7 +240,7 @@
         components: {},
         data() {
             return {
-                splitvalue: 0.7,
+                splitvalue_bottom: 0.7,
 	            limit:{
                     node:{
                         count: 20, // 数据
@@ -312,12 +316,12 @@
             }
         },
 	    watch:{
-            splitvalue:function (newval, oldval) {
+            splitvalue_bottom:function (newval, oldval) {
 	            if (newval > 0.7){
-	                this.splitvalue = 0.7; // 面板分割不能太右
+	                this.splitvalue_bottom = 0.7; // 面板分割不能太右
 	            }
                 if (newval < 0.5){
-                    this.splitvalue = 0.5 // 面板分割不能太左
+                    this.splitvalue_bottom = 0.5 // 面板分割不能太左
                 }
             }
 	    },
