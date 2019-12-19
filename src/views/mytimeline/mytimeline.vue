@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
 	.top-pane{
 		overflow: scroll;
-		.time{
+		.title{
 			font-size: 14px;
 			font-weight: bold;
 		}
@@ -60,25 +60,11 @@
 					<Col style="height: 100%;width: 100%">
 						<div style="height: 500px" class="top-pane">
 							<Timeline>
-								<TimelineItem>
-									<p class="time">1976年</p>
-									<p class="content">Apple I 问世</p>
-								</TimelineItem>
-								<TimelineItem>
-									<p class="time">1984年</p>
-									<p class="content">发布 Macintosh</p>
-								</TimelineItem>
-								<TimelineItem>
-									<p class="time">2007年</p>
-									<p class="content">发布 iPhone</p>
-								</TimelineItem>
-								<TimelineItem>
-									<p class="time">2010年</p>
-									<p class="content">发布 iPad</p>
-								</TimelineItem>
-								<TimelineItem>
-									<p class="time">2011年10月5日</p>
-									<p class="content">史蒂夫·乔布斯去世</p>
+								<TimelineItem v-for="(item, index) in bottom.left.value" :key="item.id">
+									<p class="title">{{bottom.left.value[index].node_name}}</p>
+									<p class="content" v-for="(item_inner, index_inner) in bottom.left.value[index].content">
+										{{bottom.left.value[index].content[index_inner].col}}
+									</p>
 								</TimelineItem>
 							</Timeline>
 						</div>
@@ -95,9 +81,9 @@
 									<Form ref="rulesleft" :model="bottom.left" :rules="rulesleft">
 
 										<Collapse  v-model="bottom.left.openpanellist" @on-change="change_collapse" :accordion="bottom.accordion">
-											<Panel v-for="item in bottom.left.value" :key="item.id" :name="item.id">
+											<Panel v-for="(item, index) in bottom.left.value" :key="item.id" :name="item.id">
 
-												{{item.node_name}}
+												{{bottom.left.value[index].node_name}}
 												<div class="del-bt-box">
 													<Button type="error" class="del-bt" @click="del_panel_bt(item.id)">删除</Button>
 												</div>
@@ -108,7 +94,7 @@
 														</Col>
 														<Col span="10">
 															<FormItem prop="node" >
-																<Input maxlength="30" v-model="item.node_name" placeholder="节点名" style="width: auto;display: block" />
+																<Input maxlength="30" v-model="bottom.left.value[index].node_name" placeholder="节点名" style="width: auto;display: block" />
 															</FormItem>
 														</Col>
 													</Row>
@@ -146,10 +132,10 @@
 														</Col>
 														<Col span="16">
 															<FormItem prop="content" >
-																<div v-for="item_inner in item.content" >
+																<div v-for="(item_inner, index_inner) in bottom.left.value[index].content" >
 																	<Row>
 																		<Col span="20">
-																			<Input :key="item_inner.id_inner"  maxlength="300" type="textarea" v-model="item_inner.col" placeholder="内容" style="width: auto;display: block;margin-bottom: 26px" >
+																			<Input :key="item_inner.id_inner"  maxlength="300" type="textarea" v-model="bottom.left.value[index].content[index_inner].col" placeholder="内容" style="width: auto;display: block;margin-bottom: 26px" >
 
 																			</Input>
 																		</Col>
@@ -294,24 +280,22 @@
                 this.bottom.left.openpanellist = key;
             },
             add_bt:function () { // 添加节点触发
-
-                let count = this.bottom.right.count;
-                let data = this.bottom.left.value;
+	            let data = this.bottom.left.value;
 
                 if (data.length >= this.limit.node.count){
                     this.$Message.error('禁止添加节点,已达上限');
                 } else {
-                    count ++; // 自增, 字符串自增会变成int类型
-                    data.push({ // 将节点加到列表中
-                        id: count + "", // 需要将id转成字符串
-                        title:"节点"+count,
+                    this.bottom.right.count ++; // 自增, 字符串自增会变成int类型
+                    this.bottom.left.value.push({ // 将节点加到列表中
+                        id: this.bottom.right.count + "", // 需要将id转成字符串
+                        title:"节点"+this.bottom.right.count,
                         color:"blue",
                         icon:"md-ionic",
                         count_inner: 0,
                         content:[
                             {id_inner: "0", col:"内容0"},
                         ],
-                        node_name: "节点"+count,
+                        node_name: "节点"+this.bottom.right.count,
                     },);
                 }
             },
@@ -321,7 +305,7 @@
                     this.$Message.error('禁止删除');
                 }
                 else {
-                    data.splice(data.findIndex(e => e.id == index), 1);
+                    this.bottom.left.value.splice(data.findIndex(e => e.id == index), 1);
                 }
             },
             add_inner_bt:function (id) { // 添加内容
