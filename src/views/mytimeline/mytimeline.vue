@@ -60,7 +60,8 @@
 					<Col style="height: 100%;width: 100%">
 						<div style="height: 500px" class="top-pane">
 							<Timeline>
-								<TimelineItem v-for="(item, index) in bottom.left.value" :key="item.id">
+								<TimelineItem :color="bottom.left.value[index].color" v-for="(item, index) in bottom.left.value" :key="item.id">
+									<Icon :type="bottom.left.value[index].icon" slot="dot"></Icon>
 									<p class="title">{{bottom.left.value[index].node_name}}</p>
 									<p class="content" v-for="(item_inner, index_inner) in bottom.left.value[index].content">
 										{{bottom.left.value[index].content[index_inner].col}}
@@ -106,8 +107,14 @@
 														</Col>
 														<Col span="10">
 															<FormItem prop="color">
-																<Select v-model="item.color" style="width:100%">
-																	<Option v-for="item_color in bottom.right.colorlist" :value="item_color.value" :key="item_color.value">{{item_color.label}}</Option>
+																<Select v-model="bottom.left.value[index].color" style="width:100%">
+																	<Option
+																		v-for="(item_color, index_color) in bottom.right.colorlist"
+																        :value="bottom.right.colorlist[index_color].value"
+																        :key="item_color.value"
+																	>
+																		{{item_color.label}}
+																	</Option>
 																</Select>
 															</FormItem>
 														</Col>
@@ -120,7 +127,17 @@
 														</Col>
 														<Col span="10">
 															<FormItem prop="icon" >
-																<Input maxlength="30" v-model="item.icon" placeholder="icon" style="width: auto;display: block" />
+<!--																TODO-->
+																<Select v-model="bottom.left.value[index].icon" style="width:100%">
+																	<Option
+																		v-for="(item_icon, index_icon) in bottom.right.iconlist"
+																		:value="bottom.right.iconlist[index_icon].value"
+																		:key="item_icon.value"
+																	>
+																		{{item_icon.label}}
+																		<Icon :type="item_icon.value"></Icon>
+																	</Option>
+																</Select>
 															</FormItem>
 														</Col>
 													</Row>
@@ -236,6 +253,31 @@
                             {value: 'blue', label: 'blue'},
                             {value: 'red', label: 'red'},
                             {value: 'green', label: 'green'},
+	                    ],
+	                    iconlist: [ // icon选择列表
+                            {value: 'md-cloud-upload', label: '更新'},
+                            {value: 'md-cog', label: '工具'},
+                            {value: 'ios-navigate', label: '导航'},
+                            {value: 'md-pin', label: '定位'},
+                            {value: 'md-pricetags', label: '标签'},
+                            {value: 'md-refresh-circle', label: '刷新'},
+                            {value: 'md-snow', label: '雪花'},
+                            {value: 'md-time', label: '时间'},
+                            {value: 'md-trophy', label: '里程碑'},
+                            {value: 'md-warning', label: '警告'},
+                            {value: 'md-ionic', label: '涡卷饰'},
+                            {value: 'ios-analytics', label: '逻辑分析'},
+                            {value: 'ios-baseball', label: '棒球'},
+                            {value: 'md-basketball', label: '篮球'},
+                            {value: 'md-battery-charging', label: '满电'},
+                            {value: 'md-battery-dead', label: '没电'},
+                            {value: 'md-beer', label: '啤酒'},
+                            {value: 'md-bicycle', label: '自行车'},
+                            {value: 'md-boat', label: '游艇'},
+                            {value: 'md-bookmark', label: '书签'},
+                            {value: 'md-brush', label: '毛笔'},
+                            {value: 'md-bulb', label: '灯泡'},
+                            {value: 'md-bus', label: '巴士'},
 	                    ]
                     },
                     left:{
@@ -245,7 +287,7 @@
 							    id: "0", // id只能是字符串
 							    title:"节点",
                                 color:"blue",
-                                icon:"md-ionic",
+                                icon:"md-cloud-upload",
                                 count_inner: 0, // content列表的长度
                                 content:[
 	                                {id_inner: "0", col:"内容0"},
@@ -290,7 +332,7 @@
                         id: this.bottom.right.count + "", // 需要将id转成字符串
                         title:"节点"+this.bottom.right.count,
                         color:"blue",
-                        icon:"md-ionic",
+                        icon:"md-cloud-upload",
                         count_inner: 0,
                         content:[
                             {id_inner: "0", col:"内容0"},
