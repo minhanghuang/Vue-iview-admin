@@ -112,6 +112,7 @@
 																		v-for="(item_color, index_color) in bottom.right.colorlist"
 																        :value="bottom.right.colorlist[index_color].value"
 																        :key="item_color.value"
+																		:style={color:item_color.value,fontSize:14,fontWeight:bold}
 																	>
 																		{{item_color.label}}
 																	</Option>
@@ -127,7 +128,6 @@
 														</Col>
 														<Col span="10">
 															<FormItem prop="icon" >
-<!--																TODO-->
 																<Select v-model="bottom.left.value[index].icon" style="width:100%">
 																	<Option
 																		v-for="(item_icon, index_icon) in bottom.right.iconlist"
@@ -253,8 +253,11 @@
                             {value: 'blue', label: 'blue'},
                             {value: 'red', label: 'red'},
                             {value: 'green', label: 'green'},
+                            {value: 'yellow', label: 'yellow'},
+                            {value: 'black', label: 'black'},
 	                    ],
 	                    iconlist: [ // icon选择列表
+                            {value: 'md-ionic', label: '涡卷饰'},
                             {value: 'md-cloud-upload', label: '更新'},
                             {value: 'md-cog', label: '工具'},
                             {value: 'ios-navigate', label: '导航'},
@@ -265,7 +268,6 @@
                             {value: 'md-time', label: '时间'},
                             {value: 'md-trophy', label: '里程碑'},
                             {value: 'md-warning', label: '警告'},
-                            {value: 'md-ionic', label: '涡卷饰'},
                             {value: 'ios-analytics', label: '逻辑分析'},
                             {value: 'ios-baseball', label: '棒球'},
                             {value: 'md-basketball', label: '篮球'},
@@ -287,7 +289,7 @@
 							    id: "0", // id只能是字符串
 							    title:"节点",
                                 color:"blue",
-                                icon:"md-cloud-upload",
+                                icon:"md-ionic",
                                 count_inner: 0, // content列表的长度
                                 content:[
 	                                {id_inner: "0", col:"内容0"},
@@ -332,7 +334,7 @@
                         id: this.bottom.right.count + "", // 需要将id转成字符串
                         title:"节点"+this.bottom.right.count,
                         color:"blue",
-                        icon:"md-cloud-upload",
+                        icon:"md-ionic",
                         count_inner: 0,
                         content:[
                             {id_inner: "0", col:"内容0"},
