@@ -152,8 +152,14 @@
 																<div v-for="(item_inner, index_inner) in bottom.left.value[index].content" >
 																	<Row>
 																		<Col span="20">
-																			<Input :key="item_inner.id_inner"  maxlength="300" type="textarea" v-model="bottom.left.value[index].content[index_inner].col" placeholder="内容" style="width: auto;display: block;margin-bottom: 26px" >
-
+																			<Input
+																				:key="item_inner.id_inner"
+																				maxlength="300"
+																				type="textarea"
+																				v-model="bottom.left.value[index].content[index_inner].col"
+																				placeholder="内容"
+																				style="width: auto;display: block;margin-bottom: 26px"
+																			>
 																			</Input>
 																		</Col>
 																		<Col span="2" offset="1">
@@ -287,7 +293,6 @@
                         value:[
 							{
 							    id: "0", // id只能是字符串
-							    title:"节点",
                                 color:"blue",
                                 icon:"md-ionic",
                                 count_inner: 0, // content列表的长度
@@ -300,11 +305,8 @@
                     }
 	            },
                 rulesleft:{ // 校验表单规则
-                    nodename: [ // FormItem标签中的 prop 属性预期值
+                    node: [ // 节点名 FormItem标签中的 prop 属性预期值
                         { required: true, message: '节点名不能为空', trigger: 'blur' }, // trigger: blur,change
-                    ],
-	                content: [ // FormItem标签中的 prop 属性预期值
-                        { required: true, message: '内容不能为空', trigger: 'blur' }, // trigger: blur,change
                     ],
                 }
             }
@@ -325,22 +327,26 @@
             },
             add_bt:function () { // 添加节点触发
 	            let data = this.bottom.left.value;
-
-                if (data.length >= this.limit.node.count){
+				let data_length = data.length;
+                if (data_length >= this.limit.node.count){
                     this.$Message.error('禁止添加节点,已达上限');
                 } else {
-                    this.bottom.right.count ++; // 自增, 字符串自增会变成int类型
-                    this.bottom.left.value.push({ // 将节点加到列表中
-                        id: this.bottom.right.count + "", // 需要将id转成字符串
-                        title:"节点"+this.bottom.right.count,
-                        color:"blue",
-                        icon:"md-ionic",
-                        count_inner: 0,
-                        content:[
-                            {id_inner: "0", col:"内容0"},
-                        ],
-                        node_name: "节点"+this.bottom.right.count,
-                    },);
+	                if (this.bottom.left.value[data_length-1].node_name === ""){
+                        this.$Message.error('上一个节点为空,禁止添加');
+	                }
+	                else {
+                        this.bottom.right.count ++; // 自增, 字符串自增会变成int类型
+                        this.bottom.left.value.push({ // 将节点加到列表中
+                            id: this.bottom.right.count + "", // 需要将id转成字符串
+                            color:"blue",
+                            icon:"md-ionic",
+                            count_inner: 0,
+                            content:[
+                                {id_inner: "0", col:"内容0"},
+                            ],
+                            node_name: "节点"+this.bottom.right.count,
+                        },);
+	                }
                 }
             },
             del_panel_bt:function (index) { // 删除节点触发
@@ -355,14 +361,19 @@
             add_inner_bt:function (id) { // 添加内容
                 this.bottom.left.value.filter((item)=>{
                     if (item.id == id) { // 在整个数据中找到外层的数据
-
-                        if (item.content.length >= this.limit.inner.count){
+                        let content_length = item.content.length;
+                        if (content_length >= this.limit.inner.count){
                             this.$Message.error('禁止添加内容,已达上限');
                         } else {
-                            item.count_inner ++; // 内层id自增
-                            item.content.push( // 添加内层数据
-                                {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
-                            )
+                            if (item.content[content_length-1].col === ""){
+                                this.$Message.error('上一个内容为空,禁止添加');
+                            }
+                            else {
+                                item.count_inner ++; // 内层id自增
+                                item.content.push( // 添加内层数据
+                                    {id_inner: item.count_inner+"", col:"内容"+item.count_inner}
+                                )
+                            }
                         }
                     }
                 })
