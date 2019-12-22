@@ -107,10 +107,10 @@ const api_all = {
             }
         })
     },
-    post_cloudword_create_api(value) { // 更新云词图
+    put_cloudword_update_api(username, value) { // 更新云词图
         return axios({
-            url: '/api/user/data/update-cloudword/',
-            method: 'POST',
+            url: '/api/user/data/update-cloudword/'+username+'/',
+            method: 'PUT',
             data: {
                 circle: value.circle,
                 width: value.width_img,
@@ -120,12 +120,35 @@ const api_all = {
             }
         })
     },
-    get_data_detail_api() { // 获取用户data
+    get_data_detail_api(username) { // 获取用户data
         return axios({
-            url: '/api/user/data/detail-data/1/',
+            url: '/api/user/data/detail-data/'+username+'/',
             method: 'GET',
         })
     },
+    post_timeline_create_api(username, value) { // 更新时光轴
+        return axios({
+            url: '/api/user/data/update-timeline/'+username+'/',
+            method: 'PUT',
+            data: {
+                timeline: value.timeline,
+            }
+        })
+    },
+    put_cloudword_reset_api(username) { // 重置云词图
+        return axios({
+            url: '/api/user/data/reset-cloudword/'+username+'/',
+            method: 'PUT',
+        })
+    },
+    put_data_reset_api(username) { // 重置个人中心
+        return axios({
+            url: '/api/user/data/reset-data/'+username+'/',
+            method: 'PUT',
+        })
+    },
 };
+// let username = JSON.parse(localStorage.getItem('username'));
+// let token = JSON.parse(localStorage.getItem('TOKEN'));
 
 export default api_all

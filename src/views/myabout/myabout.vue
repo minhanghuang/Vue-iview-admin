@@ -181,9 +181,10 @@
 										</Form>
 										<div style="padding-bottom: 26px">
 											<div style="display: inline-block;margin-right: 15px;color: rgb(245, 247, 249);height: auto">
-												标签
+												<Button type="text" class="my-form-items-bt" style="color: rgb(245, 247, 249)">地址: </Button>
 											</div>
 											<Button type="error" @click="save_bt">保存</Button>
+											<Button type="success" @click="reset_bt" style="margin-left: 30px">重置</Button>
 										</div>
 									</div>
 								</div>
@@ -291,6 +292,21 @@
                 var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
                 this.$api.api_all.put_user_detail_api( // 更新用户资料
                     username, this.value
+                ).then((response)=>{
+                    this.$Message.success(response.data.msg);
+                    this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
+                    this.value = response.data.results;
+                    this.loadding= false;
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                    this.loadding= false;
+                });
+            },
+            reset_bt:function () { // 点击重置按钮
+                this.loadding= true;
+                var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
+                this.$api.api_all.put_data_reset_api( // 更新用户资料
+                    username
                 ).then((response)=>{
                     this.$Message.success(response.data.msg);
                     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中

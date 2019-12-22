@@ -173,7 +173,9 @@
             }
         },
         created() {
+            let username = JSON.parse(localStorage.getItem('username')); // 获取用户名
             this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
+                username
             ).then((response)=>{ // 成功获取博文详细信息
                 this.value.cloudword = response.data.results[0].cloudword;
                 this.value.tag = response.data.results[0].tag;
@@ -190,8 +192,9 @@
             },
             update_bt:function () { // 点击刷新按钮
                 this.loadding = true;
-                this.$api.api_all.post_cloudword_create_api( // 发http请求,
-                    this.value
+                let username = JSON.parse(localStorage.getItem('username'));
+                this.$api.api_all.put_cloudword_update_api( // 发http请求,
+                    username,this.value
                 ).then((response)=>{ //
                     this.value.cloudword = response.data.results.cloudword;
                     this.value.tag = response.data.results.tag;
@@ -203,11 +206,19 @@
                 });
             },
             clear_bt:function () { // 点击重置按钮
-                this.value.circle = true;
-                this.value.width_img = 260;
-                this.value.color = "rgb(255,255,255)";
-                this.value.full = true;
-                this.value.tag = '["Python","Django"]';
+                this.loadding = true;
+                let username = JSON.parse(localStorage.getItem('username'));
+                this.$api.api_all.put_cloudword_reset_api( // 发http请求-重置云词图,
+                    username
+                ).then((response)=>{ //
+                    this.value.cloudword = response.data.results.cloudword;
+                    this.value.tag = response.data.results.tag;
+                    this.value.cloudword_width = response.data.results.cloudword_width;
+                    this.loadding = false;
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                    this.loadding = false;
+                });
             },
             change_full:function (value) {
                 if (value){

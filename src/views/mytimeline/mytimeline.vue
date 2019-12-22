@@ -179,8 +179,11 @@
 									</Form>
 								</div>
 								<div slot="right" class="bottom-split-pane">
-									<div style="margin: 15px;height: 100%" class="my-form">
+									<div style="margin: 0 15px 15px 15px;height: 100%" class="my-form">
 										<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
+											<FormItem prop="pending" style="padding-bottom: 0">
+												<Button type="success" long ghost style="margin-bottom: 25px">更新时光轴</Button>
+											</FormItem>
 											<FormItem prop="pending" style="padding-bottom: 0">
 												<Tooltip content="开启后,标记最后一个为幽灵节点" placement="bottom-start">
 													<div class="my-form-items">
