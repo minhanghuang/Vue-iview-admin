@@ -126,12 +126,13 @@ const api_all = {
             method: 'GET',
         })
     },
-    post_timeline_create_api(username, value) { // 更新时光轴
+    put_timeline_update_api(username, value) { // 更新时光轴
+        let value_data = JSON.stringify(value);
         return axios({
             url: '/api/user/data/update-timeline/'+username+'/',
             method: 'PUT',
             data: {
-                timeline: value.timeline,
+                timeline: value_data,
             }
         })
     },

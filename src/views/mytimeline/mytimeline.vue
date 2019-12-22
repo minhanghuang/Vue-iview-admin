@@ -181,8 +181,11 @@
 								<div slot="right" class="bottom-split-pane">
 									<div style="margin: 0 15px 15px 15px;height: 100%" class="my-form">
 										<Form ref="rulesright" :model="bottom.right" :rules="rulesright">
-											<FormItem prop="pending" style="padding-bottom: 0">
-												<Button type="success" long ghost style="margin-bottom: 25px">更新时光轴</Button>
+											<FormItem prop="update" style="padding-bottom: 0">
+												<Button @click="update_timeline_bt" type="success" long ghost style="margin-bottom: 25px">更新时光轴</Button>
+											</FormItem>
+											<FormItem prop="reset" style="padding-bottom: 0">
+												<Button @click="reset_timeline_bt" type="warning" long ghost style="margin-bottom: 25px">重置时光轴</Button>
 											</FormItem>
 											<FormItem prop="pending" style="padding-bottom: 0">
 												<Tooltip content="开启后,标记最后一个为幽灵节点" placement="bottom-start">
@@ -232,6 +235,7 @@
 						</div>
 					</Col>
 				</Row>
+				<Spin size="large" fix v-if="loadding"></Spin>
 			</Col>
 		</Row>
 	</div>
@@ -244,6 +248,7 @@
         data() {
             return {
                 splitvalue_bottom: 0.7,
+                loadding: true,
 	            limit:{
                     node:{
                         count: 20, // 数据
@@ -311,11 +316,11 @@
 						]
                     }
 	            },
-                rulesleft:{ // 校验表单规则
-                    node: [ // 节点名 FormItem标签中的 prop 属性预期值
-                        { required: true, message: '节点名不能为空', trigger: 'blur' }, // trigger: blur,change
-                    ],
-                }
+                // rulesleft:{ // 校验表单规则
+                //     node: [ // 节点名 FormItem标签中的 prop 属性预期值
+                //         { required: true, message: '节点名不能为空', trigger: 'blur' }, // trigger: blur,change
+                //     ],
+                // }
             }
         },
 	    watch:{
@@ -328,13 +333,25 @@
                 }
             }
 	    },
+	    created(){
+            let username = JSON.parse(localStorage.getItem('username')); // 获取用户名
+            this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
+                username
+            ).then((response)=>{ // 成功获取博文详细信息
+                this.$Message.success(response.data.msg);
+                this.bottom.left.value = JSON.parse(response.data.results[0].timeline); // 更新用户资料, 更新后的数据, 同步到data中
+                this.loadding = false;
+            }).catch((error)=>{
+                this.$Message.error(error.response.data.msg);
+                this.loadding = false;
+            });
+	    },
 	    methods:{
             change_collapse:function (key) { // 切换面板时触发，返回当前已展开的面板的 key，格式为数组
                 this.bottom.left.openpanellist = key;
             },
             add_bt:function () { // 添加节点触发
-	            let data = this.bottom.left.value;
-				let data_length = data.length;
+				let data_length = this.bottom.left.value.length;
                 if (data_length >= this.limit.node.count){
                     this.$Message.error('禁止添加节点,已达上限');
                 } else {
@@ -398,6 +415,20 @@
                         this.$Message.error('该内容不存在');
                     }
                 })
+            },
+            update_timeline_bt:function () {
+                // this.loadding= true;
+                var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
+                this.$api.api_all.put_timeline_update_api( // 更新用户时光轴
+                    username, this.bottom.left.value
+                ).then((response)=>{
+                    this.$Message.success(response.data.msg);
+                    this.bottom.left.value = JSON.parse(response.data.results.timeline); // 更新用户资料, 更新后的数据, 同步到data中
+                    this.loadding= false;
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                    this.loadding= false;
+                });
             }
 	    }
     }
