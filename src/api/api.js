@@ -120,10 +120,11 @@ const api_all = {
             }
         })
     },
-    get_data_detail_api(username) { // 获取用户data
+    get_data_detail_api(username,value) { // 获取用户data
         return axios({
             url: '/api/user/data/detail-data/'+username+'/',
             method: 'GET',
+            params: {"reverse":value}, // {"page":callback_page}
         })
     },
     put_timeline_update_api(username, value) { // 更新时光轴
@@ -145,6 +146,12 @@ const api_all = {
     put_data_reset_api(username) { // 重置个人中心
         return axios({
             url: '/api/user/data/reset-data/'+username+'/',
+            method: 'PUT',
+        })
+    },
+    put_timeline_reset_api(username) { // 重置时光轴
+        return axios({
+            url: '/api/user/data/reset-timeline/'+username+'/',
             method: 'PUT',
         })
     },

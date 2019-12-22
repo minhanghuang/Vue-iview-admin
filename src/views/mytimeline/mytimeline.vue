@@ -217,7 +217,7 @@
 											<FormItem prop="sort">
 												<div class="my-form-items">
 													<Button type="text" style="">升序模式: </Button>
-													<i-switch v-model="bottom.right.sort" class="inner-item"></i-switch>
+													<i-switch v-model="bottom.right.sort" @on-change="sort_bt" class="inner-item"></i-switch>
 												</div>
 											</FormItem>
 											<FormItem prop="accordion">
@@ -248,7 +248,7 @@
         data() {
             return {
                 splitvalue_bottom: 0.7,
-                loadding: false,
+                loadding: true,
 	            limit:{
                     node:{
                         count: 20, // 数据
@@ -265,7 +265,7 @@
                     accordion: false, // 开启手风琴模式，每次只能打开一个面板。
                     right:{
                         pending: true, // 幽灵模式
-                        sort: true, // 升序模式
+                        sort: false, // 升序模式
                         count: 0, // 节点个数
 	                    colorlist: [ // 颜色选择列表
                             {value: 'blue', label: 'blue'},
@@ -336,10 +336,10 @@
 	    created(){
             let username = JSON.parse(localStorage.getItem('username')); // 获取用户名
             this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
-                username
+                username,this.bottom.right.sort
             ).then((response)=>{ // 获取用户data
-                var value_timeline = response.data.results[0].timeline;
-                this.bottom.left.value = JSON.parse(value_timeline); // 更新用户资料, 更新后的数据, 同步到data中
+                var value_timeline = JSON.parse(response.data.results[0].timeline);
+                this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
 	            this.bottom.right.count = value_timeline.length;
                 this.loadding = false;
                 this.$Message.success(response.data.msg);
@@ -414,7 +414,7 @@
                             item.content.splice(item.content.findIndex(e => e.id_inner == id_inner), 1);
                         }
                     }else {
-                        this.$Message.error('该内容不存在');
+                        // this.$Message.error('该内容不存在');
                     }
                 })
             },
@@ -432,6 +432,38 @@
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                     this.loadding= false;
+                });
+            },
+            reset_timeline_bt:function () {
+                this.loadding= true;
+                var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
+                this.$api.api_all.put_timeline_reset_api( // 更新用户时光轴
+                    username
+                ).then((response)=>{
+                    this.$Message.success(response.data.msg);
+                    let value_timeline = JSON.parse(response.data.results.timeline);
+                    this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
+                    this.bottom.right.count = value_timeline.length;
+                    this.loadding= false;
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                    this.loadding= false;
+                });
+            },
+            sort_bt:function () {
+                this.loadding = true;
+                let username = JSON.parse(localStorage.getItem('username')); // 获取用户名
+                this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
+                    username,this.bottom.right.sort
+                ).then((response)=>{ // 获取用户data
+                    var value_timeline = JSON.parse(response.data.results[0].timeline);
+                    this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
+                    this.bottom.right.count = value_timeline.length;
+                    this.loadding = false;
+                    this.$Message.success(response.data.msg);
+                }).catch((error)=>{
+                    this.$Message.error(error.response.data.msg);
+                    this.loadding = false;
                 });
             }
 	    }
