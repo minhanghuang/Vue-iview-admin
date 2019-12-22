@@ -279,6 +279,7 @@
             ).then((response)=>{ // 成功获取博文详细信息
                 this.user.http_data = response.data.results[0]; // 后端接口博文详细信息
 	            this.value = response.data.results[0];
+                this.$Message.success(response.data.msg);
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
             })
@@ -297,6 +298,7 @@
                     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
                     this.value = response.data.results;
                     this.loadding= false;
+                    this.$Message.success(response.data.msg);
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                     this.loadding= false;
@@ -308,10 +310,10 @@
                 this.$api.api_all.put_data_reset_api( // 更新用户资料
                     username
                 ).then((response)=>{
-                    this.$Message.success(response.data.msg);
                     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
                     this.value = response.data.results;
                     this.loadding= false;
+                    this.$Message.success(response.data.msg);
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                     this.loadding= false;

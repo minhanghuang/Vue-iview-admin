@@ -176,11 +176,12 @@
             let username = JSON.parse(localStorage.getItem('username')); // 获取用户名
             this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
                 username
-            ).then((response)=>{ // 成功获取博文详细信息
+            ).then((response)=>{ // 获取用户data
                 this.value.cloudword = response.data.results[0].cloudword;
                 this.value.tag = response.data.results[0].tag;
                 this.value.cloudword_width = response.data.results[0].cloudword_width;
                 this.loadding = false;
+                this.$Message.success(response.data.msg);
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
                 this.loadding = false;
@@ -200,6 +201,7 @@
                     this.value.tag = response.data.results.tag;
                     this.value.cloudword_width = response.data.results.cloudword_width;
                     this.loadding = false;
+                    this.$Message.success(response.data.msg);
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                     this.loadding = false;
@@ -215,6 +217,7 @@
                     this.value.tag = response.data.results.tag;
                     this.value.cloudword_width = response.data.results.cloudword_width;
                     this.loadding = false;
+                    this.$Message.success(response.data.msg);
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
                     this.loadding = false;

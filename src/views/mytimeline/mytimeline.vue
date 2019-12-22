@@ -248,7 +248,7 @@
         data() {
             return {
                 splitvalue_bottom: 0.7,
-                loadding: true,
+                loadding: false,
 	            limit:{
                     node:{
                         count: 20, // 数据
@@ -337,12 +337,12 @@
             let username = JSON.parse(localStorage.getItem('username')); // 获取用户名
             this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
                 username
-            ).then((response)=>{ // 成功获取博文详细信息
-                this.$Message.success(response.data.msg);
-                let value_timeline = JSON.parse(response.data.results[0].timeline);
-                this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
+            ).then((response)=>{ // 获取用户data
+                var value_timeline = response.data.results[0].timeline;
+                this.bottom.left.value = JSON.parse(value_timeline); // 更新用户资料, 更新后的数据, 同步到data中
 	            this.bottom.right.count = value_timeline.length;
                 this.loadding = false;
+                this.$Message.success(response.data.msg);
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
                 this.loadding = false;

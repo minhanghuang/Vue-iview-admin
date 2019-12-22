@@ -1,31 +1,6 @@
-let arr = [
-    {
-        id:0,
-        a:"a"
-    },
-    {
-        id:1,
-        a:"b"
-    },
-    {
-        id:2,
-        a:"c"
-    },
-    {
-        id:3,
-        a:"d"
-    }
-];
-arr.splice(arr.findIndex(e => e.id === 2), 1)
-console.log(arr)
+var timeline =  '[{"id": "0", "color": "blue", "icon": "md-snow", "count_inner": 1, "content": [{"id_inner": "0", "col": "第一次接触编程"}, {"id_inner": "1", "col": "C语言 Hello World !"}], "node_name": "2014/09"}, {"id": "1", "color": "blue", "icon": "md-ionic", "count_inner": 1, "content": [{"id_inner": "0", "col": "暑假"}, {"id_inner": "1", "col": "自学单片机"}], "node_name": "2015/07"}]'
 
-// let ret = arr.filter((item, index)=>{
-//
-//     if (item.id == 2) {
-//         console.log("index:",index)
-//
-//         return item.id == 2
-//     }
-// })
-//
-// console.log(ret)
+
+console.log(timeline)
+console.log(typeof timeline)
+console.log(JSON.parse(timeline))
