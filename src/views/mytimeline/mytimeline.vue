@@ -339,7 +339,9 @@
                 username
             ).then((response)=>{ // 成功获取博文详细信息
                 this.$Message.success(response.data.msg);
-                this.bottom.left.value = JSON.parse(response.data.results[0].timeline); // 更新用户资料, 更新后的数据, 同步到data中
+                let value_timeline = JSON.parse(response.data.results[0].timeline);
+                this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
+	            this.bottom.right.count = value_timeline.length;
                 this.loadding = false;
             }).catch((error)=>{
                 this.$Message.error(error.response.data.msg);
@@ -417,13 +419,15 @@
                 })
             },
             update_timeline_bt:function () {
-                // this.loadding= true;
+                this.loadding= true;
                 var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
                 this.$api.api_all.put_timeline_update_api( // 更新用户时光轴
                     username, this.bottom.left.value
                 ).then((response)=>{
                     this.$Message.success(response.data.msg);
-                    this.bottom.left.value = JSON.parse(response.data.results.timeline); // 更新用户资料, 更新后的数据, 同步到data中
+                    let value_timeline = JSON.parse(response.data.results.timeline);
+                    this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
+	                this.bottom.right.count = value_timeline.length;
                     this.loadding= false;
                 }).catch((error)=>{
                     this.$Message.error(error.response.data.msg);
