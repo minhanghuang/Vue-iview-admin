@@ -437,12 +437,12 @@
             reset_timeline_bt:function () {
                 this.loadding= true;
                 var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
-                this.$api.api_all.put_timeline_reset_api( // 更新用户时光轴
+                this.$api.api_all.put_timeline_reset_api( // 重置用户时光轴
                     username
                 ).then((response)=>{
                     this.$Message.success(response.data.msg);
                     let value_timeline = JSON.parse(response.data.results.timeline);
-                    this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
+                    this.bottom.left.value = value_timeline; // 重置用户时光轴
                     this.bottom.right.count = value_timeline.length;
                     this.loadding= false;
                 }).catch((error)=>{

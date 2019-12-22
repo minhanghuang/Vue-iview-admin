@@ -46,6 +46,33 @@
 
 <script>
 	import LoginForm from '@/components/login_form/loginform' // 驼峰命名法
+
+    function reset_user_data(self) { // 重新登录后 重置用户数据
+
+        var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
+
+        self.$api.api_all.put_cloudword_reset_api( // 发http请求-重置云词图
+            username
+        ).then((response)=>{
+        }).catch((error)=>{
+            self.$Message.error(error.response.data.msg);
+        });
+
+        self.$api.api_all.put_timeline_reset_api( // 重置用户时光轴
+            username
+        ).then((response)=>{
+        }).catch((error)=>{
+            self.$Message.error(error.response.data.msg);
+        });
+
+        self.$api.api_all.put_data_reset_api( // 重置用户资料
+            username
+        ).then((response)=>{
+        }).catch((error)=>{
+            self.$Message.error(error.response.data.msg);
+        });
+    }
+
 	export default {
 	    data(){
 	      return{
@@ -66,6 +93,7 @@
                     localStorage.setItem('username', JSON.stringify(response.data.results.username)); // 设置username
                     this.loadding = false; // 打开 loadding
                     this.$router.push("/"); // 跳转到首页
+                    reset_user_data(this); // 重置 时光轴 / 关于 / 云词图
                     setTimeout(() =>{
                         this.$Notice.info({
                             duration: 5, // 消息显示时间 s

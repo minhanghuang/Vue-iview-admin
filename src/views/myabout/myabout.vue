@@ -294,7 +294,6 @@
                 this.$api.api_all.put_user_detail_api( // 更新用户资料
                     username, this.value
                 ).then((response)=>{
-                    this.$Message.success(response.data.msg);
                     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
                     this.value = response.data.results;
                     this.loadding= false;
@@ -307,7 +306,7 @@
             reset_bt:function () { // 点击重置按钮
                 this.loadding= true;
                 var username = JSON.parse(localStorage.getItem('username')); // 获取用户名
-                this.$api.api_all.put_data_reset_api( // 更新用户资料
+                this.$api.api_all.put_data_reset_api( // 重置用户资料
                     username
                 ).then((response)=>{
                     this.user.http_data = response.data.results; // 更新用户资料, 更新后的数据, 同步到data中
