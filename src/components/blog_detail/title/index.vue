@@ -26,14 +26,14 @@
 							</h4>
 						</Col>
 					</Row>
-					<Row style="width: 100%;">
-						<Col span="24" style="height: 22px;margin: 13px 0 18px 0;">
+					<Row style="width: 100%;height: auto">
+						<Col span="24" style="min-height: 22px;margin: 13px 0 18px 0;">
 							<h4 class="subtitle">
 								{{this.blog.blog_detail.subtitle}}
 							</h4>
 						</Col>
 					</Row>
-					<Row style="width: 100%;">
+					<Row style="width: 100%;margin-bottom: 10px">
 						<Col span="24" style="height: 27px;margin: 5px 0;">
 							<span>
 								<Icon type="md-person" />

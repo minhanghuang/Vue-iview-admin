@@ -5,7 +5,7 @@
 <template>
 	<Row style="height: 100%;width: 100%;">
 		<Col span="24" v-if="blog.blogid>0">
-			<Row style="padding-bottom: 30px;height:192px; width: 100%;">
+			<Row style="padding-bottom: 10px;height:auto; width: 100%;">
 				<Col span="2" style="" >
 					<Button type="error" @click="back_list_bt">返回</Button>
 				</Col>
