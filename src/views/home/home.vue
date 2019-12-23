@@ -51,6 +51,9 @@
 							<Icon type="ios-cog" :size="icon_size" ></Icon>
 							系统
 						</template>
+						<MenuItem name="visitors">
+							访客
+						</MenuItem>
 						<MenuItem name="tools">
 							工具
 						</MenuItem>

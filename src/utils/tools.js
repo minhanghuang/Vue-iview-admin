@@ -269,6 +269,14 @@ export const getBreadcrumbPath = (path_value) => {
         breadcrumb_item.data[2].name = "更新日志";
         breadcrumb_item.data[2].path = "/logs";
         breadcrumb_item.data[2].icon = "ios-trending-up";
+    }else if (path_value === "/visitors"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "系统";
+        breadcrumb_item.data[1].path = "/logs";
+        breadcrumb_item.data[1].icon = "ios-cog-outline";
+        breadcrumb_item.data[2].name = "访客";
+        breadcrumb_item.data[2].path = "/visitors";
+        breadcrumb_item.data[2].icon = "md-person-add";
     }else if (path_value === "/tools"){
         breadcrumb_item.count = 3;
         breadcrumb_item.data[1].name = "系统";

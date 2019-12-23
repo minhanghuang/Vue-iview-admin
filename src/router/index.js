@@ -45,6 +45,10 @@ export default new VueRouter({
                     component: (resolve) => require(["@/views/mylogs/mylogs"], resolve)
                 },
                 {
+                    path: "/visitors",
+                    component: (resolve) => require(["@/views/myvisitors/myvisitors"], resolve)
+                },
+                {
                     path: "/tools",
                     component: (resolve) => require(["@/views/mytools/mytools"], resolve)
                 },
