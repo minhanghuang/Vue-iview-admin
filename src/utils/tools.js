@@ -293,6 +293,30 @@ export const getBreadcrumbPath = (path_value) => {
         breadcrumb_item.data[2].name = "帮助文档";
         breadcrumb_item.data[2].path = "/help";
         breadcrumb_item.data[2].icon = "ios-help-circle-outline";
+    }else if (path_value === "/cloudword"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "个人中心";
+        breadcrumb_item.data[1].path = "/about";
+        breadcrumb_item.data[1].icon = "ios-contact";
+        breadcrumb_item.data[2].name = "云词图";
+        breadcrumb_item.data[2].path = "/cloudword";
+        breadcrumb_item.data[2].icon = "ios-analytics";
+    }else if (path_value === "/timeline"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "个人中心";
+        breadcrumb_item.data[1].path = "/about";
+        breadcrumb_item.data[1].icon = "ios-contact";
+        breadcrumb_item.data[2].name = "时光轴";
+        breadcrumb_item.data[2].path = "/timeline";
+        breadcrumb_item.data[2].icon = "md-timer";
+    }else if (path_value === "/about"){
+        breadcrumb_item.count = 3;
+        breadcrumb_item.data[1].name = "个人中心";
+        breadcrumb_item.data[1].path = "/about";
+        breadcrumb_item.data[1].icon = "ios-contact";
+        breadcrumb_item.data[2].name = "关于";
+        breadcrumb_item.data[2].path = "/about";
+        breadcrumb_item.data[2].icon = "logo-snapchat";
     }else {
 
     }

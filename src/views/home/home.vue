@@ -109,7 +109,7 @@
 <script>
     import mycontent from '@/views/mycontent/mycontent'
     import myhead from '@/views/myhead/myhead'
-    import { getBreadcrumbPath } from '@/utils/tools'
+    import { getBreadcrumbPath } from '@/utils/tools' // 配置面包屑 函数
 
     export default {
         data(){
