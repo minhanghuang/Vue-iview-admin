@@ -3,6 +3,23 @@
 		height: 401px;
 		background-size: cover;
 	}
+	.img-article{
+		border-bottom-left-radius: 10px;
+		border-top-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 10px;
+		width: 440px;
+		height: 300px;
+		background-color: #9caebf;
+		img{
+			height: 100%;
+			width: 100%;
+			border-bottom-left-radius: 10px;
+			border-top-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			border-top-right-radius: 10px;
+		}
+	}
 </style>
 
 <template>
@@ -41,15 +58,17 @@
 		</Col>
 		<Spin size="large" fix v-if="loadding" style="zIndex:2000"></Spin>
 		<Modal v-model="open_img" fullscreen title="Fullscreen Modal" style="zIndex:2000">
-			<Row>
+			<Row style="margin-bottom: 30px">
 				<Col span="24" class="top-img" :style="{backgroundImage: 'url(' + this.blog.http_data.image + ')'}">
 				</Col>
 			</Row>
-			<Row style="height: 300px;width: 100%;margin-top: 20px">
+			<Row>
 				<Col span="8" offset="8">
-					<Row style="height: 300px;width: 100%;background-color: #61aeee">
+					<Row>
 						<Col>
-
+							<div class="img-article">
+								<img :src=this.blog.http_data.image>
+							</div>
 						</Col>
 					</Row>
 				</Col>
