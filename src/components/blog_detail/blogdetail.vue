@@ -9,10 +9,13 @@
 				<Col span="2" style="" >
 					<Button type="error" @click="back_list_bt">返回</Button>
 				</Col>
-				<Col span="22" style="height: 100%;" >
+				<Col span="20" style="height: 100%;" >
 					<detail-title
 						:blog_detail="this.blog.http_data"
 					></detail-title>
+				</Col>
+				<Col span="2" style="" >
+					<Button type="info" ghost @click="open_img = true">查看图片</Button>
 				</Col>
 			</Row>
 			<Row style="height: 700px;width: 100%" >
@@ -24,7 +27,7 @@
 						:subfield="false"
 						:boxShadow="false"
 						defaultOpen="preview"
-						style="height: 100%"
+						style="height: 100%;zIndex:1000"
 					>
 					</mavon-editor>
 				</Col>
@@ -34,6 +37,9 @@
 			<Button type="error" @click="back_list_bt">返回</Button>
 		</Col>
 		<Spin size="large" fix v-if="loadding" style="zIndex:2000"></Spin>
+		<Modal v-model="open_img" fullscreen title="Fullscreen Modal" style="zIndex:2000">
+			<div>This is a fullscreen modal</div>
+		</Modal>
 	</Row>
 </template>
 
@@ -53,6 +59,7 @@
                     blogid: -1, // 当前文章id
                 },
                 loadding: true, // loadding
+	            open_img: false, // 打开图片弹框
             }
         },
         created() { // html加载成功之前调用该函数
@@ -79,6 +86,10 @@
 	    methods:{
             back_list_bt:function () { // 点击返回按钮, 返回文章列表
                 this.$router.push("listblog");
+            },
+            read_image_bt:function () {
+                // this.blog.blogid = this.$store.getters.get_current_blog_id; // 获取当前文章id
+
             }
 	    }
     }
