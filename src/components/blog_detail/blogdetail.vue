@@ -1,5 +1,8 @@
 <style lang="scss" scoped>
-
+	.top-img{
+		height: 401px;
+		background-size: cover;
+	}
 </style>
 
 <template>
@@ -38,7 +41,19 @@
 		</Col>
 		<Spin size="large" fix v-if="loadding" style="zIndex:2000"></Spin>
 		<Modal v-model="open_img" fullscreen title="Fullscreen Modal" style="zIndex:2000">
-			<div>This is a fullscreen modal</div>
+			<Row>
+				<Col span="24" class="top-img" :style="{backgroundImage: 'url(' + this.blog.http_data.image + ')'}">
+				</Col>
+			</Row>
+			<Row style="height: 300px;width: 100%;margin-top: 20px">
+				<Col span="8" offset="8">
+					<Row style="height: 300px;width: 100%;background-color: #61aeee">
+						<Col>
+
+						</Col>
+					</Row>
+				</Col>
+			</Row>
 		</Modal>
 	</Row>
 </template>
