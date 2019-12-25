@@ -57,7 +57,7 @@
 			<Button type="error" @click="back_list_bt">返回</Button>
 		</Col>
 		<Spin size="large" fix v-if="loadding" style="zIndex:2000"></Spin>
-		<Modal v-model="open_img" fullscreen title="Fullscreen Modal" style="zIndex:2000">
+		<Modal v-model="open_img" fullscreen title="预览" style="zIndex:2000">
 			<Row style="margin-bottom: 30px">
 				<Col span="24" class="top-img" :style="{backgroundImage: 'url(' + this.blog.http_data.image + ')'}">
 				</Col>
