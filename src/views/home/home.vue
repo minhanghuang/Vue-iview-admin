@@ -54,9 +54,9 @@
 						<MenuItem name="visitors">
 							访客
 						</MenuItem>
-						<MenuItem name="tools">
-							工具
-						</MenuItem>
+<!--						<MenuItem name="tools">-->
+<!--							工具-->
+<!--						</MenuItem>-->
 						<MenuItem name="task">
 							代办任务
 						</MenuItem>

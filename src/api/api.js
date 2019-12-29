@@ -124,7 +124,7 @@ const api_all = {
         return axios({
             url: '/api/user/data/detail-data/'+username+'/',
             method: 'GET',
-            params: {"reverse":value}, // {"page":callback_page}
+            params: {"reverse":value},
         })
     },
     put_timeline_update_api(username, value) { // 更新时光轴
