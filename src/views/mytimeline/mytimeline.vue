@@ -338,7 +338,7 @@
             this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
                 username,this.bottom.right.sort
             ).then((response)=>{ // 获取用户data
-                var value_timeline = JSON.parse(response.data.results[0].timeline);
+                var value_timeline = JSON.parse(JSON.stringify(response.data.results[0].timeline));
                 this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
 	            this.bottom.right.count = value_timeline.length;
                 this.loadding = false;
@@ -456,7 +456,7 @@
                 this.$api.api_all.get_data_detail_api( // 发http请求, 获取用户data
                     username,this.bottom.right.sort
                 ).then((response)=>{ // 获取用户data
-                    var value_timeline = JSON.parse(response.data.results[0].timeline);
+                    var value_timeline = JSON.parse(JSON.stringify(response.data.results[0].timeline));
                     this.bottom.left.value = value_timeline; // 更新用户资料, 更新后的数据, 同步到data中
                     this.bottom.right.count = value_timeline.length;
                     this.loadding = false;
